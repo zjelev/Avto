@@ -43,9 +43,9 @@ public partial class ApplicationDbContext : IdentityDbContext
 
         modelBuilder.Entity<Kilometri>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("Kilometri");
+            entity.HasKey(e => e.Kmid);
+
+            entity.ToTable("Kilometri");
 
             entity.Property(e => e.Kmid).HasColumnName("KMID");
             entity.Property(e => e.Kmname)
