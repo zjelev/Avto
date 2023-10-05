@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿//dotnet ef dbcontext scaffold 'Server=.;Database=Avto;User Id=AspNet;Password=123456;Encrypt=False;MultipleActiveResultSets=true' Microsoft.EntityFrameworkCore.SqlServer --context ApplicationDbContext --context-dir Data --output-dir Data --force
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Avto.Data;
@@ -38,7 +39,7 @@ public partial class ApplicationDbContext : IdentityDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
+        base.OnModelCreating(modelBuilder); //fixes Error "The entity type 'IdentityUserLogin<string>' requires a primary key to be defined..."
 
         modelBuilder.Entity<Kilometri>(entity =>
         {
