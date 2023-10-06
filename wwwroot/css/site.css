@@ -20,3 +20,25 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+table, th, td {
+    border: 1px solid black;
+}
+
+img:hover {
+    opacity: 0.5;
+}
+
+.fail {
+    color: red;
+}
+
+.success {
+    color: forestgreen;
+}
+
+.navbar-dark h1 {
+    color: white;
+    display: inline;
+    padding-left: 15px
+}
