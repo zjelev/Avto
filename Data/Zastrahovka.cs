@@ -15,6 +15,8 @@ public partial class Zastrahovka
 
     public int? TipZastrahovkaId { get; set; }
 
+    public TipZastrahovka TipZastrahovka { get; set; }
+
     public DateTime? TekushtaData { get; set; }
 
     public string? UserList { get; set; }

@@ -9,4 +9,6 @@ public partial class TipZastrahovka
     public DateTime? TekushtaData { get; set; }
 
     public string? UserList { get; set; }
+
+    public ICollection<Zastrahovka> Zastrahovki { get; }
 }
