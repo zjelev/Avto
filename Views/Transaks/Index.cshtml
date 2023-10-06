@@ -1,0 +1,167 @@
+﻿@model IEnumerable<Avto.Data.Transak>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MotoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OtdelId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SlujitelId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kmid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ListId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateTrans)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KmKm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OsnovnaTrans)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RudnikTrans)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OkragTrans)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StolicaTrans)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GradskaTrans)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MqstoTrans)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KlimaTrans)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgregatTrans)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Zarabotka)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Izvan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KlimatikTrans)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PechkaTrans)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserList)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TekushtaData)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MotoId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OtdelId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SlujitelId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kmid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ListId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTrans)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KmKm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OsnovnaTrans)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RudnikTrans)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OkragTrans)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StolicaTrans)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GradskaTrans)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MqstoTrans)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KlimaTrans)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgregatTrans)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zarabotka)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Izvan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doma)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KlimatikTrans)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PechkaTrans)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserList)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TekushtaData)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TransId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TransId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TransId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

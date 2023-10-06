@@ -1,0 +1,143 @@
+﻿@model Avto.Data.Transak
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Transak</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MotoId" class="control-label"></label>
+                <input asp-for="MotoId" class="form-control" />
+                <span asp-validation-for="MotoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OtdelId" class="control-label"></label>
+                <input asp-for="OtdelId" class="form-control" />
+                <span asp-validation-for="OtdelId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SlujitelId" class="control-label"></label>
+                <input asp-for="SlujitelId" class="form-control" />
+                <span asp-validation-for="SlujitelId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kmid" class="control-label"></label>
+                <input asp-for="Kmid" class="form-control" />
+                <span asp-validation-for="Kmid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ListId" class="control-label"></label>
+                <input asp-for="ListId" class="form-control" />
+                <span asp-validation-for="ListId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateTrans" class="control-label"></label>
+                <input asp-for="DateTrans" class="form-control" />
+                <span asp-validation-for="DateTrans" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TransNumber" class="control-label"></label>
+                <input asp-for="TransNumber" class="form-control" />
+                <span asp-validation-for="TransNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KmKm" class="control-label"></label>
+                <input asp-for="KmKm" class="form-control" />
+                <span asp-validation-for="KmKm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OsnovnaTrans" class="control-label"></label>
+                <input asp-for="OsnovnaTrans" class="form-control" />
+                <span asp-validation-for="OsnovnaTrans" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RudnikTrans" class="control-label"></label>
+                <input asp-for="RudnikTrans" class="form-control" />
+                <span asp-validation-for="RudnikTrans" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OkragTrans" class="control-label"></label>
+                <input asp-for="OkragTrans" class="form-control" />
+                <span asp-validation-for="OkragTrans" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StolicaTrans" class="control-label"></label>
+                <input asp-for="StolicaTrans" class="form-control" />
+                <span asp-validation-for="StolicaTrans" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GradskaTrans" class="control-label"></label>
+                <input asp-for="GradskaTrans" class="form-control" />
+                <span asp-validation-for="GradskaTrans" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MqstoTrans" class="control-label"></label>
+                <input asp-for="MqstoTrans" class="form-control" />
+                <span asp-validation-for="MqstoTrans" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KlimaTrans" class="control-label"></label>
+                <input asp-for="KlimaTrans" class="form-control" />
+                <span asp-validation-for="KlimaTrans" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgregatTrans" class="control-label"></label>
+                <input asp-for="AgregatTrans" class="form-control" />
+                <span asp-validation-for="AgregatTrans" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Zarabotka" class="control-label"></label>
+                <input asp-for="Zarabotka" class="form-control" />
+                <span asp-validation-for="Zarabotka" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Izvan" class="control-label"></label>
+                <input asp-for="Izvan" class="form-control" />
+                <span asp-validation-for="Izvan" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Doma" class="control-label"></label>
+                <input asp-for="Doma" class="form-control" />
+                <span asp-validation-for="Doma" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KlimatikTrans" class="control-label"></label>
+                <input asp-for="KlimatikTrans" class="form-control" />
+                <span asp-validation-for="KlimatikTrans" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PechkaTrans" class="control-label"></label>
+                <input asp-for="PechkaTrans" class="form-control" />
+                <span asp-validation-for="PechkaTrans" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserList" class="control-label"></label>
+                <input asp-for="UserList" class="form-control" />
+                <span asp-validation-for="UserList" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TekushtaData" class="control-label"></label>
+                <input asp-for="TekushtaData" class="form-control" />
+                <span asp-validation-for="TekushtaData" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

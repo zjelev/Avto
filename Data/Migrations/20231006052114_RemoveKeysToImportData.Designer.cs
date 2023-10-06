@@ -4,6 +4,7 @@ using Avto.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Avto.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231006052114_RemoveKeysToImportData")]
+    partial class RemoveKeysToImportData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,11 +28,8 @@ namespace Avto.Data.Migrations
             modelBuilder.Entity("Avto.Data.Kilometri", b =>
                 {
                     b.Property<int>("Kmid")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("KMID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Kmid"));
 
                     b.Property<string>("Kmname")
                         .HasMaxLength(50)
@@ -42,24 +42,20 @@ namespace Avto.Data.Migrations
                     b.Property<string>("UserList")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Kmid");
-
                     b.ToTable("Kilometris");
                 });
 
             modelBuilder.Entity("Avto.Data.List", b =>
                 {
-                    b.Property<int>("ListId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ListId"));
-
                     b.Property<DateTime?>("ListData")
                         .HasColumnType("datetime");
 
                     b.Property<double?>("ListDoma")
                         .HasColumnType("float");
+
+                    b.Property<int>("ListId")
+                        .HasColumnType("int")
+                        .HasColumnName("ListID");
 
                     b.Property<double?>("ListIzvan")
                         .HasColumnType("float");
@@ -83,19 +79,11 @@ namespace Avto.Data.Migrations
                     b.Property<string>("UserList")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ListId");
-
-                    b.ToTable("Lists");
+                    b.ToTable("List", (string)null);
                 });
 
             modelBuilder.Entity("Avto.Data.Moto", b =>
                 {
-                    b.Property<int>("MotoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MotoId"));
-
                     b.Property<double?>("AgregatNorma")
                         .HasColumnType("float");
 
@@ -110,6 +98,10 @@ namespace Avto.Data.Migrations
 
                     b.Property<double?>("KlimatikNorma")
                         .HasColumnType("float");
+
+                    b.Property<int>("MotoId")
+                        .HasColumnType("int")
+                        .HasColumnName("MotoID");
 
                     b.Property<string>("MotoName")
                         .HasMaxLength(50)
@@ -143,29 +135,24 @@ namespace Avto.Data.Migrations
                     b.Property<string>("UserList")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("MotoId");
-
                     b.ToTable("Motos");
                 });
 
             modelBuilder.Entity("Avto.Data.Norma", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("int")
+                        .HasColumnName("ID");
 
                     b.Property<double?>("NormaKlimatronik")
                         .HasColumnType("float");
 
                     b.Property<DateTime?>("TekushtaData")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("UserList")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.ToTable("Normas");
                 });
@@ -173,10 +160,8 @@ namespace Avto.Data.Migrations
             modelBuilder.Entity("Avto.Data.Otdel", b =>
                 {
                     b.Property<int>("OtdelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OtdelId"));
+                        .HasColumnType("int")
+                        .HasColumnName("OtdelID");
 
                     b.Property<string>("OtdelName")
                         .HasMaxLength(50)
@@ -188,18 +173,14 @@ namespace Avto.Data.Migrations
                     b.Property<string>("UserList")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("OtdelId");
-
                     b.ToTable("Otdels");
                 });
 
             modelBuilder.Entity("Avto.Data.Slujitel", b =>
                 {
                     b.Property<int>("SlujitelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SlujitelId"));
+                        .HasColumnType("int")
+                        .HasColumnName("SlujitelID");
 
                     b.Property<string>("SlujitelName")
                         .HasMaxLength(80)
@@ -214,20 +195,11 @@ namespace Avto.Data.Migrations
                     b.Property<string>("UserList")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SlujitelId");
-
                     b.ToTable("Slujiteli");
                 });
 
             modelBuilder.Entity("Avto.Data.TipZastrahovka", b =>
                 {
-                    b.Property<int>("TipZastrahovkiId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("TipZastrahovkiID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TipZastrahovkiId"));
-
                     b.Property<DateTime?>("TekushtaData")
                         .HasColumnType("datetime");
 
@@ -236,23 +208,18 @@ namespace Avto.Data.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("TipZastrahovki");
 
+                    b.Property<int>("TipZastrahovkiId")
+                        .HasColumnType("int")
+                        .HasColumnName("TipZastrahovkiID");
+
                     b.Property<string>("UserList")
                         .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TipZastrahovkiId");
 
                     b.ToTable("TipZastrahovki");
                 });
 
             modelBuilder.Entity("Avto.Data.Transak", b =>
                 {
-                    b.Property<int>("TransId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("TransID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TransId"));
-
                     b.Property<double?>("AgregatTrans")
                         .HasColumnType("float");
 
@@ -318,6 +285,10 @@ namespace Avto.Data.Migrations
                     b.Property<DateTime?>("TekushtaData")
                         .HasColumnType("datetime");
 
+                    b.Property<int>("TransId")
+                        .HasColumnType("int")
+                        .HasColumnName("TransID");
+
                     b.Property<string>("TransNumber")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -328,20 +299,11 @@ namespace Avto.Data.Migrations
                     b.Property<double?>("Zarabotka")
                         .HasColumnType("float");
 
-                    b.HasKey("TransId");
-
                     b.ToTable("Transaks");
                 });
 
             modelBuilder.Entity("Avto.Data.Zastrahovka", b =>
                 {
-                    b.Property<int>("ZastrahovkiId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ZastrahovkiID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ZastrahovkiId"));
-
                     b.Property<DateTime?>("DataEnd")
                         .HasColumnType("datetime");
 
@@ -362,7 +324,9 @@ namespace Avto.Data.Migrations
                     b.Property<string>("UserList")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ZastrahovkiId");
+                    b.Property<int>("ZastrahovkiId")
+                        .HasColumnType("int")
+                        .HasColumnName("ZastrahovkiID");
 
                     b.ToTable("Zastrahovki");
                 });

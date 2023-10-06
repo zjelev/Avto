@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Avto.Data;
 
-public partial class Zastrahovki
+public partial class Zastrahovka
 {
     public int ZastrahovkiId { get; set; }
 

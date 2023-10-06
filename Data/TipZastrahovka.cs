@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace Avto.Data;
 
-namespace Avto.Data;
-
-public partial class TipZastrahovki
+public partial class TipZastrahovka
 {
     public int TipZastrahovkiId { get; set; }
 
