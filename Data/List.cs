@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Avto.Data;
+﻿namespace Avto.Data;
 
 public partial class List
 {
@@ -24,4 +21,6 @@ public partial class List
     public DateTime? TekushtaData { get; set; }
 
     public string? UserList { get; set; }
+
+    public ICollection<Transak> Transaks { get; }
 }

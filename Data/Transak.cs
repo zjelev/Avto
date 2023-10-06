@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Avto.Data;
+﻿namespace Avto.Data;
 
 public partial class Transak
 {
@@ -16,6 +13,8 @@ public partial class Transak
     public int? Kmid { get; set; }
 
     public int? ListId { get; set; }
+
+    public List List { get; set; }
 
     public DateTime? DateTrans { get; set; }
 

@@ -16,8 +16,10 @@ public class TransaksController : Controller
     // GET: Transaks
     public async Task<IActionResult> Index()
     {
-          return _context.Transaks != null ? 
-                      View(await _context.Transaks.Take(100).ToListAsync()) :
+        var transaks = await _context.Transaks.Take(100).ToListAsync();
+
+        return transaks != null ?
+                      View(transaks) :
                       Problem("Entity set 'ApplicationDbContext.Transaks'  is null.");
     }
 
