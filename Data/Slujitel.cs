@@ -5,7 +5,6 @@ namespace Avto.Data;
 
 public partial class Slujitel
 {
-    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public int Id { get; set; }
 
     [MaxLength(80)]

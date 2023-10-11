@@ -4,89 +4,92 @@ using Avto.Data;
 
 namespace Avto.Controllers;
 
-public class TransaksController : Controller
+public class PListsController : Controller
 {
     private readonly ApplicationDbContext _context;
 
-    public TransaksController(ApplicationDbContext context)
+    public PListsController(ApplicationDbContext context)
     {
         _context = context;
     }
 
-    // GET: Transaks
+    // GET: PLists
     public async Task<IActionResult> Index()
     {
-        var transaks = await _context.Transaks.Take(100).ToListAsync();
+         var lists = await _context.Lists
+            .Where(pl => pl.Data > DateTime.Today.AddDays(-15))
+            .Include(pl => pl.Transaks)
+            .OrderByDescending(pl => pl.Id)
+            .Take(10)
+            .ToListAsync();
 
-        return transaks != null ?
-                      View(transaks) :
-                      Problem("Entity set 'ApplicationDbContext.Transaks'  is null.");
+        return lists != null ? View(lists) :  Problem("Entity set 'ApplicationDbContext.Lists'  is null.");
     }
 
-    // GET: Transaks/Details/5
+    // GET: PLists/Details/5
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null || _context.Transaks == null)
+        if (id == null || _context.Lists == null)
         {
             return NotFound();
         }
 
-        var transak = await _context.Transaks
+        var pList = await _context.Lists
             .FirstOrDefaultAsync(m => m.Id == id);
-        if (transak == null)
+        if (pList == null)
         {
             return NotFound();
         }
 
-        return View(transak);
+        return View(pList);
     }
 
-    // GET: Transaks/Create
+    // GET: PLists/Create
     public IActionResult Create()
     {
         return View();
     }
 
-    // POST: Transaks/Create
+    // POST: PLists/Create
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("TransId,MotoId,OtdelId,SlujitelId,Kmid,ListId,DateTrans,TransNumber,KmKm,OsnovnaTrans,RudnikTrans,OkragTrans,StolicaTrans,GradskaTrans,MqstoTrans,KlimaTrans,AgregatTrans,Zarabotka,Izvan,Doma,KlimatikTrans,PechkaTrans,UserList,TekushtaData")] Transak transak)
+    public async Task<IActionResult> Create([Bind("Id,Number,Data,Moto,Slujitel,Zarabotka,Izvan,Doma,TekushtaData,User")] PList pList)
     {
         if (ModelState.IsValid)
         {
-            _context.Add(transak);
+            _context.Add(pList);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        return View(transak);
+        return View(pList);
     }
 
-    // GET: Transaks/Edit/5
+    // GET: PLists/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null || _context.Transaks == null)
+        if (id == null || _context.Lists == null)
         {
             return NotFound();
         }
 
-        var transak = await _context.Transaks.FindAsync(id);
-        if (transak == null)
+        var pList = await _context.Lists.FindAsync(id);
+        if (pList == null)
         {
             return NotFound();
         }
-        return View(transak);
+        return View(pList);
     }
 
-    // POST: Transaks/Edit/5
+    // POST: PLists/Edit/5
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,MotoId,OtdelId,SlujitelId,Kmid,ListId,DateTrans,TransNumber,KmKm,OsnovnaTrans,RudnikTrans,OkragTrans,StolicaTrans,GradskaTrans,MqstoTrans,KlimaTrans,AgregatTrans,Zarabotka,Izvan,Doma,KlimatikTrans,PechkaTrans,UserList,TekushtaData")] Transak transak)
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Number,Data,Moto,Slujitel,Zarabotka,Izvan,Doma,TekushtaData,User")] PList pList)
     {
-        if (id != transak.Id)
+        if (id != pList.Id)
         {
             return NotFound();
         }
@@ -95,12 +98,12 @@ public class TransaksController : Controller
         {
             try
             {
-                _context.Update(transak);
+                _context.Update(pList);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TransakExists(transak.Id))
+                if (!PListExists(pList.Id))
                 {
                     return NotFound();
                 }
@@ -111,48 +114,48 @@ public class TransaksController : Controller
             }
             return RedirectToAction(nameof(Index));
         }
-        return View(transak);
+        return View(pList);
     }
 
-    // GET: Transaks/Delete/5
+    // GET: PLists/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null || _context.Transaks == null)
+        if (id == null || _context.Lists == null)
         {
             return NotFound();
         }
 
-        var transak = await _context.Transaks
+        var pList = await _context.Lists
             .FirstOrDefaultAsync(m => m.Id == id);
-        if (transak == null)
+        if (pList == null)
         {
             return NotFound();
         }
 
-        return View(transak);
+        return View(pList);
     }
 
-    // POST: Transaks/Delete/5
+    // POST: PLists/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        if (_context.Transaks == null)
+        if (_context.Lists == null)
         {
-            return Problem("Entity set 'ApplicationDbContext.Transaks'  is null.");
+            return Problem("Entity set 'ApplicationDbContext.Lists'  is null.");
         }
-        var transak = await _context.Transaks.FindAsync(id);
-        if (transak != null)
+        var pList = await _context.Lists.FindAsync(id);
+        if (pList != null)
         {
-            _context.Transaks.Remove(transak);
+            _context.Lists.Remove(pList);
         }
         
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
-    private bool TransakExists(int id)
+    private bool PListExists(int id)
     {
-      return (_context.Transaks?.Any(e => e.Id == id)).GetValueOrDefault();
+      return (_context.Lists?.Any(e => e.Id == id)).GetValueOrDefault();
     }
 }
