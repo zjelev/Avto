@@ -1,6 +1,8 @@
-﻿namespace Avto.Data;
+﻿using Avto.Data;
 
-public class Transak
+namespace Avto.Model;
+
+public class TransakModel
 {
     public int Id { get; set; }
 

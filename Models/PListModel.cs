@@ -1,4 +1,5 @@
 ﻿using Avto.Data;
+using Avto.Model;
 using System.ComponentModel;
 
 namespace Avto.Models;
@@ -25,4 +26,7 @@ public class PListModel
 
     [DisplayName("От")]
     public string? User { get; set; }
+
+    [DisplayName("Маршрут")]
+    public ICollection<Transak> Transaks { get; set; }
 }

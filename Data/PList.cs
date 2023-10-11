@@ -2,7 +2,7 @@
 
 namespace Avto.Data;
 
-public partial class PList
+public class PList
 {
     public int Id { get; set; }
 
@@ -14,12 +14,6 @@ public partial class PList
     public int? Moto { get; set; }
 
     public int? Slujitel { get; set; }
-
-    //public int? Zarabotka { get; set; }
-
-    //public int? Izvan { get; set; }
-
-    //public int? Doma { get; set; }
 
     public DateTime? TekushtaData { get; set; }
 

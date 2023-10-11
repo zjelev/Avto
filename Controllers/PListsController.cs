@@ -21,7 +21,6 @@ public class PListsController : Controller
     public async Task<IActionResult> Index()
     {
          var lists = await _context.Lists
-            .Where(pl => pl.Data > DateTime.Today.AddDays(-15))
             .Include(pl => pl.Transaks)
             .OrderByDescending(pl => pl.Id)
             .Take(10)
