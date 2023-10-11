@@ -1,16 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Avto.Data;
+using AutoMapper;
+using Avto.Models;
 
 namespace Avto.Controllers;
 
 public class PListsController : Controller
 {
     private readonly ApplicationDbContext _context;
+    private readonly IMapper _mapper;
 
-    public PListsController(ApplicationDbContext context)
+    public PListsController(ApplicationDbContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
     // GET: PLists
@@ -23,7 +27,13 @@ public class PListsController : Controller
             .Take(10)
             .ToListAsync();
 
-        return lists != null ? View(lists) :  Problem("Entity set 'ApplicationDbContext.Lists'  is null.");
+        if (lists != null)
+        {
+            var listsM = _mapper.Map<List<PListModel>>(lists);
+            return View(listsM);
+        }
+
+        return Problem("Entity set 'ApplicationDbContext.Lists'  is null.");
     }
 
     // GET: PLists/Details/5

@@ -7,6 +7,6 @@ public class Mapping : Profile
 {
     public Mapping()
     {
-        CreateMap<PList, ListInputModel>();
+        CreateMap<PList, PListModel>();
     }
 }
