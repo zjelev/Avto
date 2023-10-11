@@ -19,22 +19,25 @@
             <th asp-display-name-for="@Model.First().Slujitel"></th>
             <th asp-display-name-for="@Model.First().TekushtaData"></th>
             <th asp-display-name-for="@Model.First().User"></th>
-            <th></th>
+            <th asp-display-name-for="@Model.First().Transaks"></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>@item.Number</td>
+            <td><a asp-action="Details" asp-route-id="@item.Id">@item.Number</a></td>
             <td>@item.Data</td>
-            <td>@item.Moto</td>
-            <td>@item.Slujitel</td>
+            <td>@item.Transaks.FirstOrDefault().Moto.Name</td>
+            <td>@item.Transaks.FirstOrDefault().Slujitel.Name</td>
             <td>@item.TekushtaData</td>
             <td>@item.User</td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <ol>
+                    @foreach (var transak in item.Transaks)
+                    {
+                        <li>@transak.Id | @transak.KmKm</li>
+                    }
+                </ol>
             </td>
         </tr>
 }

@@ -22,6 +22,9 @@ public class PListsController : Controller
     {
          var lists = await _context.Lists
             .Include(pl => pl.Transaks)
+                .ThenInclude(t => t.Moto)
+            .Include(pl => pl.Transaks)
+                .ThenInclude(t => t.Slujitel)
             .OrderByDescending(pl => pl.Id)
             .Take(10)
             .ToListAsync();
@@ -32,7 +35,7 @@ public class PListsController : Controller
             return View(listsM);
         }
 
-        return Problem("Entity set 'ApplicationDbContext.Lists'  is null.");
+        return Problem("Entity set 'Lists'  is null.");
     }
 
     // GET: PLists/Details/5
