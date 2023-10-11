@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Avto.Data;
 
 public partial class Zastrahovka
 {
-    public int ZastrahovkiId { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    public int Id { get; set; }
 
-    public int? MotoId { get; set; }
+    public int MotoId { get; set; }
+    public Moto Moto { get; set; }
 
     public DateTime? DataStart { get; set; }
 
     public DateTime? DataEnd { get; set; }
 
-    public int? TipZastrahovkaId { get; set; }
+    public int TipZastrahovkaId { get; set; }
 
     public TipZastrahovka TipZastrahovka { get; set; }
 

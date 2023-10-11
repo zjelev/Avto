@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Avto.Data;
 
 public partial class Moto
 {
-    public int MotoId { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    public int Id { get; set; }
 
-    public string? MotoName { get; set; }
+    [MaxLength(50)]
+    public string? Name { get; set; }
 
-    public string? MotoNumber { get; set; }
+    [MaxLength(8)]
+    public string? Number { get; set; }
 
     public double OsnovnaNorma { get; set; }
 
@@ -33,7 +36,11 @@ public partial class Moto
 
     public DateTime? TekushtaData { get; set; }
 
-    public string? UserList { get; set; }
+    public string? User { get; set; }
 
     public bool Brak { get; set; }
+
+    public ICollection<Transak> Transaks { get; }
+
+    public ICollection<Zastrahovka> Zastrahovki { get; }
 }

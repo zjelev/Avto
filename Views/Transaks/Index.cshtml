@@ -15,8 +15,8 @@
             <th asp-display-name-for="@Model.First().MotoId"></th>
             <th asp-display-name-for="@Model.First().OtdelId"></th>
             <th asp-display-name-for="@Model.First().SlujitelId"></th>
-            <th asp-display-name-for="@Model.First().Kmid"></th>
-            <th asp-display-name-for="@Model.First().ListId"></th>
+            <th asp-display-name-for="@Model.First().KmId"></th>
+            <th asp-display-name-for="@Model.First().PListId"></th>
             <th asp-display-name-for="@Model.First().DateTrans"></th>
             <th asp-display-name-for="@Model.First().TransNumber"></th>
             <th asp-display-name-for="@Model.First().KmKm"></th>
@@ -24,7 +24,6 @@
             <th asp-display-name-for="@Model.First().OkragTrans"></th>
             <th asp-display-name-for="@Model.First().StolicaTrans"></th>
             <th asp-display-name-for="@Model.First().GradskaTrans"></th>
-            <th asp-display-name-for="@Model.First().ListId"></th>
             <th asp-display-name-for="@Model.First().KlimaTrans"></th>
             <th asp-display-name-for="@Model.First().AgregatTrans"></th>
             <th asp-display-name-for="@Model.First().Zarabotka"></th>
@@ -32,7 +31,7 @@
             <th asp-display-name-for="@Model.First().Doma"></th>
             <th asp-display-name-for="@Model.First().KlimatikTrans"></th>
             <th asp-display-name-for="@Model.First().PechkaTrans"></th>
-            <th asp-display-name-for="@Model.First().UserList"></th>
+            <th asp-display-name-for="@Model.First().User"></th>
             <th asp-display-name-for="@Model.First().TekushtaData"></th>
             <th></th>
         </tr>
@@ -44,8 +43,8 @@
                 <td>@item.MotoId</td>
                 <td>@item.OtdelId</td>
                 <td>@item.SlujitelId</td>
-                <td>@item.Kmid</td>
-                <td>@item.ListId</td>
+                <td>@item.KmId</td>
+                <td>@item.PListId</td>
                 <td>@item.DateTrans</td>
                 <td>@item.TransNumber</td>
                 <td>@item.KmKm</td>
@@ -53,7 +52,6 @@
                 <td>@item.OkragTrans</td>
                 <td>@item.StolicaTrans</td>
                 <td>@item.GradskaTrans</td>
-                <td>@item.ListId</td>
                 <td>@item.KlimaTrans</td>
                 <td>@item.AgregatTrans</td>
                 <td>@item.Zarabotka</td>
@@ -61,12 +59,12 @@
                 <td>@item.Doma</td>
                 <td>@item.KlimatikTrans</td>
                 <td>@item.PechkaTrans</td>
-                <td>@item.UserList</td>
+                <td>@item.User</td>
                 <td>@item.TekushtaData</td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.TransId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TransId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TransId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

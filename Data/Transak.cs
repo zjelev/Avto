@@ -1,20 +1,27 @@
-﻿namespace Avto.Data;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Avto.Data;
 
 public partial class Transak
 {
-    public int TransId { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    public int Id { get; set; }
 
-    public int? MotoId { get; set; }
+    public int MotoId { get; set; }
+    public Moto Moto { get; set; }
 
-    public int? OtdelId { get; set; }
+    public int OtdelId { get; set; }
+    public Otdel Otdel { get; set; }
 
-    public int? SlujitelId { get; set; }
+    public int SlujitelId { get; set; }
+    public Slujitel Slujitel { get; set; }
 
-    public int? Kmid { get; set; }
+    public int KmId { get; set; }
+    public Kilometri Km { get; set; }
 
-    public int? ListId { get; set; }
-
-    public List List { get; set; }
+    public int PListId { get; set; }
+    public PList PList { get; set; }
 
     public DateTime? DateTrans { get; set; }
 
@@ -48,7 +55,7 @@ public partial class Transak
 
     public double? PechkaTrans { get; set; }
 
-    public string? UserList { get; set; }
+    public string? User { get; set; }
 
     public DateTime? TekushtaData { get; set; }
 }

@@ -32,7 +32,7 @@ public class TransaksController : Controller
         }
 
         var transak = await _context.Transaks
-            .FirstOrDefaultAsync(m => m.TransId == id);
+            .FirstOrDefaultAsync(m => m.Id == id);
         if (transak == null)
         {
             return NotFound();
@@ -84,9 +84,9 @@ public class TransaksController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("TransId,MotoId,OtdelId,SlujitelId,Kmid,ListId,DateTrans,TransNumber,KmKm,OsnovnaTrans,RudnikTrans,OkragTrans,StolicaTrans,GradskaTrans,MqstoTrans,KlimaTrans,AgregatTrans,Zarabotka,Izvan,Doma,KlimatikTrans,PechkaTrans,UserList,TekushtaData")] Transak transak)
+    public async Task<IActionResult> Edit(int id, [Bind("Id,MotoId,OtdelId,SlujitelId,Kmid,ListId,DateTrans,TransNumber,KmKm,OsnovnaTrans,RudnikTrans,OkragTrans,StolicaTrans,GradskaTrans,MqstoTrans,KlimaTrans,AgregatTrans,Zarabotka,Izvan,Doma,KlimatikTrans,PechkaTrans,UserList,TekushtaData")] Transak transak)
     {
-        if (id != transak.TransId)
+        if (id != transak.Id)
         {
             return NotFound();
         }
@@ -100,7 +100,7 @@ public class TransaksController : Controller
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TransakExists(transak.TransId))
+                if (!TransakExists(transak.Id))
                 {
                     return NotFound();
                 }
@@ -123,7 +123,7 @@ public class TransaksController : Controller
         }
 
         var transak = await _context.Transaks
-            .FirstOrDefaultAsync(m => m.TransId == id);
+            .FirstOrDefaultAsync(m => m.Id == id);
         if (transak == null)
         {
             return NotFound();
@@ -153,6 +153,6 @@ public class TransaksController : Controller
 
     private bool TransakExists(int id)
     {
-      return (_context.Transaks?.Any(e => e.TransId == id)).GetValueOrDefault();
+      return (_context.Transaks?.Any(e => e.Id == id)).GetValueOrDefault();
     }
 }
