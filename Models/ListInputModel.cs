@@ -6,7 +6,7 @@ namespace Avto.Models;
 public class ListInputModel
 {
     [DisplayName("ID №")]
-    public int? ListId { get; set; }
+    public int? Id { get; set; }
 
     [DisplayName("Автомобил")]
     public int? MotoId { get; set; }

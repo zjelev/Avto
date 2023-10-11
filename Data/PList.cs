@@ -11,15 +11,15 @@ public partial class PList
 
     public DateTime? Data { get; set; }
 
-    public double? Moto { get; set; }
+    public int? Moto { get; set; }
 
-    public double? Slujitel { get; set; }
+    public int? Slujitel { get; set; }
 
-    public double? Zarabotka { get; set; }
+    //public int? Zarabotka { get; set; }
 
-    public double? Izvan { get; set; }
+    //public int? Izvan { get; set; }
 
-    public double? Doma { get; set; }
+    //public int? Doma { get; set; }
 
     public DateTime? TekushtaData { get; set; }
 
