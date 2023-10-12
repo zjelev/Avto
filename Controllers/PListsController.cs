@@ -26,7 +26,7 @@ public class PListsController : Controller
             .Include(pl => pl.Transaks)
                 .ThenInclude(t => t.Slujitel)
             .OrderByDescending(pl => pl.Id)
-            .Take(10)
+            .Take(100)
             .ToListAsync();
 
         if (lists != null)
