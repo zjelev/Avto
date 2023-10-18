@@ -1,6 +1,6 @@
 ﻿using Avto.Data;
-using Avto.Model;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Avto.Models;
 
@@ -12,8 +12,9 @@ public class PListModel
     [DisplayName("Пътен лист №")]
     public string? Number { get; set; }
 
-    [DisplayName("Дата")]
-    public DateTime? Data { get; set; }
+    [Required, DisplayName("Дата"), DataType(DataType.Date)]
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+    public DateOnly? Data { get; set; }
 
     [DisplayName("Автомобил")]
     public Moto? Moto { get; set; }

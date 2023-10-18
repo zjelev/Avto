@@ -12,6 +12,9 @@ public partial class Moto
     [MaxLength(8)]
     public string? Number { get; set; }
 
+    public string NumberAndName => $"{Number} - {Name}";
+
+
     public double OsnovnaNorma { get; set; }
 
     public double? GradskaNorma { get; set; }

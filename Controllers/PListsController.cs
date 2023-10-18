@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Avto.Data;
 using AutoMapper;
 using Avto.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Avto.Controllers;
 
@@ -35,7 +36,7 @@ public class PListsController : Controller
             return View(listsM);
         }
 
-        return Problem("Entity set 'Lists'  is null.");
+        return Problem("Entity set 'Lists' is null.");
     }
 
     // GET: PLists/Details/5
@@ -59,6 +60,7 @@ public class PListsController : Controller
     // GET: PLists/Create
     public IActionResult Create()
     {
+        ViewData["Motos"] = new SelectList(_context.Motos, "Id", "NumberAndName");
         return View();
     }
 
