@@ -27,15 +27,15 @@
         <tr>
             <td><a asp-action="Details" asp-route-id="@item.Id">@item.Number</a></td>
             <td>@item.Data</td>
-            <td>@item.Transaks.FirstOrDefault().Moto.Name</td>
-            <td>@item.Transaks.FirstOrDefault().Slujitel.Name</td>
+            <td>@item.Moto.Name</td>
+            <td>@item.Slujitel.Name</td>
             <td>@item.TekushtaData</td>
             <td>@item.User</td>
             <td>
                 <ol>
                     @foreach (var transak in item.Transaks)
                     {
-                        <li>@transak.Id | @transak.KmKm</li>
+                        <li>@transak.Otdel.Name | @transak.Km.Name | @transak.KmKm</li>
                     }
                 </ol>
             </td>

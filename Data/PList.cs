@@ -11,9 +11,12 @@ public class PList
 
     public DateTime? Data { get; set; }
 
-    public int? Moto { get; set; }
+    public int MotoId { get; set; }
+    public Moto Moto { get; set; }
 
-    public int? Slujitel { get; set; }
+
+    public int SlujitelId { get; set; }
+    public Slujitel Slujitel { get; set; }
 
     public DateTime? TekushtaData { get; set; }
 

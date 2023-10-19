@@ -6,6 +6,11 @@ namespace Avto.Models;
 
 public class PListModel
 {
+    public PListModel()
+    {
+        TransaksModel = new List<TransakModel> { new TransakModel() };
+    }
+
     [DisplayName("ID №")]
     public int Id { get; set; }
 
@@ -16,7 +21,13 @@ public class PListModel
     public DateOnly? Data { get; set; }
 
     [DisplayName("Автомобил")]
+    public int MotoId { get; set; }
+
+    [DisplayName("Автомобил")]
     public Moto? Moto { get; set; }
+
+    [DisplayName("Служител")]
+    public int SlujitelId { get; set; }
 
     [DisplayName("Служител")]
     public Slujitel? Slujitel { get; set; }
@@ -28,8 +39,9 @@ public class PListModel
     public string? User { get; set; }
 
     [DisplayName("Маршрут")]
-    public ICollection<Transak> Transaks { get; set; }
+    public IList<TransakModel> TransaksModel { get; set; }
 
-    [DisplayName("Въведи маршрут")]
-    public TransakModel Transak { get; set; }
+    [DisplayName("Маршрут")]
+
+    public ICollection<Transak> Transaks { get; set; }
 }

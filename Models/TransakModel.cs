@@ -9,7 +9,13 @@ public class TransakModel
     public int Id { get; set; }
 
     [DisplayName("Отдел")]
+    public int OtdelId { get; set; }
+
+    [DisplayName("Отдел")]
     public Otdel Otdel { get; set; }
+
+    [DisplayName("Описание км")]
+    public int KmId { get; set; }
 
     [DisplayName("Описание км")]
     public Kilometri Km { get; set; }

@@ -22,10 +22,12 @@ public class PListsController : Controller
     public async Task<IActionResult> Index()
     {
          var lists = await _context.Lists
+            .Include(pl => pl.Moto)
+            .Include(pl => pl.Slujitel)
             .Include(pl => pl.Transaks)
-                .ThenInclude(t => t.Moto)
+                .ThenInclude(t => t.Otdel)
             .Include(pl => pl.Transaks)
-                .ThenInclude(t => t.Slujitel)
+                .ThenInclude(t => t.Km)
             .OrderByDescending(pl => pl.Id)
             .Take(100)
             .ToListAsync();
@@ -43,57 +45,52 @@ public class PListsController : Controller
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null || _context.Lists == null)
-        {
             return NotFound();
-        }
 
         var pList = await _context.Lists
             .FirstOrDefaultAsync(m => m.Id == id);
         if (pList == null)
-        {
             return NotFound();
-        }
 
         return View(pList);
     }
 
-    // GET: PLists/Create
     public IActionResult Create()
     {
         ViewData["Motos"] = new SelectList(_context.Motos, "Id", "NumberAndName");
         ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
-        return View();
+        var pListModel = new PListModel();
+        return View(pListModel);
     }
 
-    // POST: PLists/Create
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Number,Data,Moto,Slujitel,Zarabotka,Izvan,Doma,TekushtaData,User")] PList pList)
+    public async Task<IActionResult> Create(PListModel pListModel)
     {
+        ModelState.Remove("TransaksModel");
+        ModelState.Remove("Transaks");
+        ModelState.Remove("Km");
+        ModelState.Remove("Otdel");
+
         if (ModelState.IsValid)
         {
+            var pList = _mapper.Map<PList>(pListModel);
             _context.Add(pList);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        return View(pList);
+        return View(pListModel);
     }
 
     // GET: PLists/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null || _context.Lists == null)
-        {
             return NotFound();
-        }
 
         var pList = await _context.Lists.FindAsync(id);
         if (pList == null)
-        {
             return NotFound();
-        }
         return View(pList);
     }
 
@@ -105,9 +102,7 @@ public class PListsController : Controller
     public async Task<IActionResult> Edit(int id, [Bind("Id,Number,Data,Moto,Slujitel,Zarabotka,Izvan,Doma,TekushtaData,User")] PList pList)
     {
         if (id != pList.Id)
-        {
             return NotFound();
-        }
 
         if (ModelState.IsValid)
         {
@@ -119,13 +114,9 @@ public class PListsController : Controller
             catch (DbUpdateConcurrencyException)
             {
                 if (!PListExists(pList.Id))
-                {
                     return NotFound();
-                }
                 else
-                {
                     throw;
-                }
             }
             return RedirectToAction(nameof(Index));
         }
@@ -136,16 +127,12 @@ public class PListsController : Controller
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null || _context.Lists == null)
-        {
             return NotFound();
-        }
 
         var pList = await _context.Lists
             .FirstOrDefaultAsync(m => m.Id == id);
         if (pList == null)
-        {
             return NotFound();
-        }
 
         return View(pList);
     }
@@ -156,21 +143,16 @@ public class PListsController : Controller
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         if (_context.Lists == null)
-        {
             return Problem("Entity set 'ApplicationDbContext.Lists'  is null.");
-        }
+
         var pList = await _context.Lists.FindAsync(id);
         if (pList != null)
-        {
             _context.Lists.Remove(pList);
-        }
         
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
     private bool PListExists(int id)
-    {
-      return (_context.Lists?.Any(e => e.Id == id)).GetValueOrDefault();
-    }
+        => (_context.Lists?.Any(e => e.Id == id)).GetValueOrDefault();
 }
