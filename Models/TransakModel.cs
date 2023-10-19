@@ -1,23 +1,22 @@
 ﻿using Avto.Data;
+using System.ComponentModel;
 
-namespace Avto.Model;
+namespace Avto.Models;
 
 public class TransakModel
 {
     public int Id { get; set; }
 
-    public int OtdelId { get; set; }
+    [DisplayName("Отдел")]
     public Otdel Otdel { get; set; }
 
-    public int KmId { get; set; }
+    [DisplayName("Описание км")]
     public Kilometri Km { get; set; }
 
     public int PListId { get; set; }
-    public PList PList { get; set; }
 
+    [DisplayName("Дата")]
     public DateTime? DateTrans { get; set; }
-
-    public string? TransNumber { get; set; }
 
     public double? KmKm { get; set; }
 

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Avto.Data;
-using Avto.Model;
 
 namespace Avto.Models;
 

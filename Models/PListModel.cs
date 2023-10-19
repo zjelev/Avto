@@ -30,4 +30,7 @@ public class PListModel
 
     [DisplayName("Маршрут")]
     public ICollection<Transak> Transaks { get; set; }
+
+    [DisplayName("Въведи маршрут")]
+    public TransakModel Transak { get; set; }
 }

@@ -31,6 +31,25 @@
             </div>
 
             <div class="form-group m-3">
+                <table>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Описание км</th>
+                        <th>Отдел</th>
+                        <th>км</th>
+                    </tr>
+                    <tr>
+                        <td><input asp-for="Transak.DateTrans" /></td>
+                        <td><input asp-for="Transak.Km" /></td>
+                        <td><input asp-for="Transak.Otdel" /></td>
+                        <td><input asp-for="Transak.KmKm" /></td>
+                    </tr>
+                    <!-- Add rows dynamically using JavaScript -->
+                </table>
+                <button type="button" id="addRow" onclick="newRow(4)">Добави</button>
+            </div>
+
+            <div class="form-group m-3">
                 <input type="submit" value="Запис" class="btn btn-primary" />
             </div>
         </form>
