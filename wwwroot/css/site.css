@@ -42,3 +42,11 @@ img:hover {
     display: inline;
     padding-left: 15px
 }
+
+.transaks-table {
+    width: 100%;
+}
+
+.transaks-table input {
+    width: 100%;
+}

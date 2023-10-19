@@ -7,7 +7,6 @@
 <h1 class="m-3">@ViewData["Title"]</h1>
 
 <div class="row m-3">
-    <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group m-3">
@@ -30,8 +29,8 @@
                 <span asp-validation-for="Data" class="text-danger"></span>
             </div>
 
-            <div class="form-group m-3">
-                <table>
+            <div>
+            <table class="transaks-table">
                     <tr>
                         <th>Дата</th>
                         <th>Описание км</th>
@@ -44,16 +43,15 @@
                         <td><input asp-for="Transak.Otdel" /></td>
                         <td><input asp-for="Transak.KmKm" /></td>
                     </tr>
-                    <!-- Add rows dynamically using JavaScript -->
+                    <!-- Add rows dynamically with JS -->
                 </table>
-                <button type="button" id="addRow" onclick="newRow(4)">Добави</button>
+                <button type="button" id="addRow" class="float-end" onclick="newRow()">Добави ред</button>
             </div>
 
             <div class="form-group m-3">
                 <input type="submit" value="Запис" class="btn btn-primary" />
             </div>
         </form>
-    </div>
 </div>
 
 <div class="m-3">
@@ -62,4 +60,8 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+
+    </script>
 }

@@ -1,12 +1,16 @@
-﻿function newRow(columns) {
+﻿function newRow() {
     var table = document.querySelector("table");
-    var newRow = table.insertRow(-1); // Insert a new row at the end of the table
+    var firstRow = table.querySelector("tr:nth-of-type(2)"); // Get the first data row as a template
 
-    for (var i = 0; i < columns; i++) {
-        var cell = newRow.insertCell(i);
-        var input = document.createElement("input");
-        input.type = "text";
-        input.name = "new_row_col" + (i + 1); // Assign a unique name to each input
-        cell.appendChild(input);
-    }
+    // Clone the first row
+    var newRow = firstRow.cloneNode(true);
+
+    // Clear the input values in the cloned row
+    var inputs = newRow.querySelectorAll("input");
+    inputs.forEach(function (input) {
+        input.value = '';
+    });
+
+    // Append the cloned row to the table
+    table.appendChild(newRow);
 }
