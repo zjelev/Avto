@@ -59,6 +59,8 @@ public class PListsController : Controller
     {
         ViewData["Motos"] = new SelectList(_context.Motos, "Id", "NumberAndName");
         ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
+        ViewData["Km"] = new SelectList(_context.Kilometris, "Id", "Name");
+        ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
         var pListModel = new PListModel();
         return View(pListModel);
     }

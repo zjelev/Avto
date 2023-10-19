@@ -45,8 +45,16 @@
                     </tr>
                     <tr>
                         <td><input asp-for="TransaksModel[0].DateTrans" /></td>
-                        <td><input asp-for="TransaksModel[0].KmId" /></td>
-                        <td><input asp-for="TransaksModel[0].OtdelId" /></td>
+                        <td>
+                            <select asp-for="MotoId" class="form-control" asp-items="ViewBag.Km">
+                                <option value="0">Вид движение</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select asp-for="MotoId" class="form-control" asp-items="ViewBag.Otdeli">
+                                <option value="0">Отдел</option>
+                            </select>
+                        </td>
                         <td><input asp-for="TransaksModel[0].KmKm" /></td>
                     </tr>
                     <!-- Add rows dynamically with JS -->
