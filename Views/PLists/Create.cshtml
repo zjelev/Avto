@@ -4,34 +4,32 @@
     ViewData["Title"] = "Нов пътен лист";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 class="m-3">@ViewData["Title"]</h1>
 
-<hr />
-<div class="row">
+<div class="row m-3">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group m-3">
                 <select asp-for="Moto" class="form-control" asp-items="ViewBag.Motos">
                     <option value="0">Автомобил</option>
                 </select>
                 <span asp-validation-for="Moto" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Slujitel" class="control-label"></label>
-                <input asp-for="Slujitel" class="form-control" />
+            <div class="form-group m-3">
+                <select asp-for="Slujitel" class="form-control" asp-items="ViewBag.Slujiteli">
+                    <option value="0">Шофьор</option>
+                </select>
                 <span asp-validation-for="Slujitel" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Number" class="control-label"></label>
-                <input asp-for="Number" class="form-control" />
-                <span asp-validation-for="Number" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            <div class="form-group m-3">
+                <input asp-for="Number" class="form-control" onfocus="this.value=''" value="Пътен лист №" />
+                <span asp-validation-for="Number" class="text-danger"></span>            
                 <label asp-for="Data" class="control-label"></label>
                 <input asp-for="Data" class="form-control date-input" />
                 <span asp-validation-for="Data" class="text-danger"></span>
             </div>
+
             <div class="form-group m-3">
                 <input type="submit" value="Запис" class="btn btn-primary" />
             </div>

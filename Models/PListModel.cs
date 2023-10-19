@@ -12,7 +12,7 @@ public class PListModel
     [DisplayName("Пътен лист №")]
     public string? Number { get; set; }
 
-    [Required, DisplayName("Дата"), DataType(DataType.Date)]
+    [Required, DisplayName("От"), DataType(DataType.Date)]
     [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
     public DateOnly? Data { get; set; }
 

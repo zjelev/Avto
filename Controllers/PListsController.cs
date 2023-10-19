@@ -61,6 +61,7 @@ public class PListsController : Controller
     public IActionResult Create()
     {
         ViewData["Motos"] = new SelectList(_context.Motos, "Id", "NumberAndName");
+        ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
         return View();
     }
 
