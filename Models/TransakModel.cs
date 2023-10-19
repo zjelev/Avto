@@ -1,5 +1,6 @@
 ﻿using Avto.Data;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Avto.Models;
 
@@ -15,8 +16,8 @@ public class TransakModel
 
     public int PListId { get; set; }
 
-    [DisplayName("Дата")]
-    public DateTime? DateTrans { get; set; }
+    [Required, DisplayName("Дата"), DataType(DataType.Date)]
+    public DateOnly DateTrans { get; set; }
 
     public double? KmKm { get; set; }
 
