@@ -6,13 +6,19 @@
     var newRow = lastRow.cloneNode(true);
 
     // Clear the input values in the cloned row
-    var inputs = newRow.querySelectorAll("input");
-    inputs.forEach(function (input) {
-        input.value = '';
-        // Update the input name attribute to include Transaks[rowIndex]
-        input.name = input.name.replace(/\[\d+\]/, '[' + rowIndex++ + ']');
-    });
+    var input = newRow.querySelector("input");
+    input.value = '';
+    // Update the input name attribute to include Transaks[rowIndex]
+    input.name = input.name.replace(/\[\d+\]/, '[' + rowIndex + ']');
+
+    // Update the name attribute for the select elements
+    var selects = newRow.querySelectorAll("select");
+    selects[0].name = selects[0].name.replace(/\[\d+\]/, '[' + rowIndex + ']');
+    selects[1].name = selects[1].name.replace(/\[\d+\]/, '[' + rowIndex + ']');
 
     // Append the cloned row to the table
     table.appendChild(newRow);
+
+    // Increment the transaksCount for the next row
+    rowIndex++;
 }
