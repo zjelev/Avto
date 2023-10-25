@@ -10,12 +10,9 @@
     inputs.forEach(function (input) {
         input.value = '';
         // Update the input name attribute to include Transaks[rowIndex]
-        input.name = input.name.replace(/\[\d+\]/, '[' + rowIndex + ']');
+        input.name = input.name.replace(/\[\d+\]/, '[' + rowIndex++ + ']');
     });
 
     // Append the cloned row to the table
     table.appendChild(newRow);
-
-    // Increment the rowIndex for the next row
-    rowIndex++;
 }

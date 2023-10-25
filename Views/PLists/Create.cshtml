@@ -38,21 +38,19 @@
             <div>
             <table class="transaks-table">
                     <tr>
-                        <th>Дата</th>
                         <th>Описание км</th>
                         <th>Отдел</th>
                         <th>км</th>
                     </tr>
                     <tr>
-                        <td><input asp-for="TransaksModel[0].DateTrans" /></td>
                         <td>
-                            <select asp-for="MotoId" class="form-control" asp-items="ViewBag.Km">
-                                <option value="0">Вид движение</option>
+                            <select asp-for="TransaksModel[0].KmId" class="form-control" asp-items="ViewBag.Km">
+                                <option>Вид движение</option>
                             </select>
                         </td>
                         <td>
-                            <select asp-for="MotoId" class="form-control" asp-items="ViewBag.Otdeli">
-                                <option value="0">Отдел</option>
+                            <select asp-for="TransaksModel[0].OtdelId" class="form-control" asp-items="ViewBag.Otdeli">
+                                <option>Отдел</option>
                             </select>
                         </td>
                         <td><input asp-for="TransaksModel[0].KmKm" /></td>

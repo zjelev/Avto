@@ -22,9 +22,6 @@ public class TransakModel
 
     public int PListId { get; set; }
 
-    [Required, DisplayName("Дата"), DataType(DataType.Date)]
-    public DateOnly DateTrans { get; set; }
-
     public double? KmKm { get; set; }
 
     public string? User { get; set; }
