@@ -69,15 +69,12 @@ public class PListsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(PListModel pListModel)
     {
-        ModelState.Remove("TransaksModel");
         ModelState.Remove("Transaks");
-        ModelState.Remove("Km");
-        ModelState.Remove("Otdel");
 
         if (ModelState.IsValid)
         {
-            var pList = _mapper.Map<PList>(pListModel);
-            _context.Add(pList);
+            PList pList = _mapper.Map<PList>(pListModel);
+            _context.Add(pList);  // In SSMS delete FK_Transaks_Motos_MotoId & FK_Transaks_Slujiteli_SlujitelId
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

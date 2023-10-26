@@ -1,6 +1,4 @@
-﻿using Avto.Data;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
 
 namespace Avto.Models;
 
@@ -11,14 +9,14 @@ public class TransakModel
     [DisplayName("Отдел")]
     public int OtdelId { get; set; }
 
-    [DisplayName("Отдел")]
-    public Otdel Otdel { get; set; }
+    //[DisplayName("Отдел")]
+    //public Otdel Otdel { get; set; }
 
     [DisplayName("Описание км")]
     public int KmId { get; set; }
 
-    [DisplayName("Описание км")]
-    public Kilometri Km { get; set; }
+    //[DisplayName("Описание км")]
+    //public Kilometri Km { get; set; }
 
     public int PListId { get; set; }
 

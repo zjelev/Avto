@@ -19,7 +19,7 @@ public class Transak
     public int PListId { get; set; }
     public PList PList { get; set; }
 
-    public DateTime? DateTrans { get; set; }
+    //public DateTime? DateTrans { get; set; }
 
     // public string? TransNumber { get; set; } // Номер на пътен лист - има го в PList
 

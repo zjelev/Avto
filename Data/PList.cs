@@ -4,6 +4,11 @@ namespace Avto.Data;
 
 public class PList
 {
+    public PList()
+    {
+        Transaks = new HashSet<Transak>();
+    }
+
     public int Id { get; set; }
 
     [MaxLength(50)]

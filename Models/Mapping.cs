@@ -8,12 +8,17 @@ public class Mapping : Profile
     public Mapping()
     {
         CreateMap<Transak, TransakModel>();
+        
+        CreateMap<TransakModel, Transak>();
 
         CreateMap<PList, PListModel>()
-            .ForMember(dest => dest.Transaks, opt => opt.MapFrom(src => src.Transaks.ToList()))
-            .ForMember(dest => dest.Moto, opt => opt.MapFrom(src => src.Transaks.FirstOrDefault().Moto))
-            .ForMember(dest => dest.Slujitel, opt => opt.MapFrom(src => src.Transaks.FirstOrDefault().Slujitel));
+            .ForMember(dest => dest.Transaks, opt => opt.MapFrom(src => src.Transaks.ToList()));
 
+        CreateMap<PListModel, PList>()
+            .ForMember(dest => dest.Transaks, opt => opt.MapFrom(src => src.TransaksModel.ToList()));
+        
         CreateMap<DateTime, DateOnly>().ConvertUsing<DateTimeToDateOnlyConverter>();
+        CreateMap<DateOnly, DateTime>().ConvertUsing<DateOnlyToDateTimeConverter>();
+
     }
 }
