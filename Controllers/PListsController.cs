@@ -115,6 +115,8 @@ public class PListsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit([FromForm] PListModel pListModel)
     {
+        ModelState.Remove("Transaks");
+
         if (ModelState.IsValid)
         {
             var pList = _mapper.Map<PList>(pListModel);
