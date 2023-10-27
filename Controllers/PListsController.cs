@@ -57,7 +57,7 @@ public class PListsController : Controller
 
     public IActionResult Create()
     {
-        ViewData["Motos"] = new SelectList(_context.Motos, "Id", "NumberAndName");
+        ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
         ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
         ViewData["Km"] = new SelectList(_context.Kilometris, "Id", "Name");
         ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
@@ -74,6 +74,8 @@ public class PListsController : Controller
         if (ModelState.IsValid)
         {
             PList pList = _mapper.Map<PList>(pListModel);
+            pList.TekushtaData = DateTime.Now;
+            pList.User = User.Identity.Name;
             _context.Add(pList);  // In SSMS delete FK_Transaks_Motos_MotoId & FK_Transaks_Slujiteli_SlujitelId
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

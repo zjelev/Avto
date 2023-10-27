@@ -4,14 +4,14 @@ public class Transak
 {
     public int Id { get; set; }
 
-    public int MotoId { get; set; }
-    public Moto Moto { get; set; }
+    //public int MotoId { get; set; }
+    //public Moto Moto { get; set; }
 
     public int OtdelId { get; set; }
     public Otdel Otdel { get; set; }
 
-    public int SlujitelId { get; set; }
-    public Slujitel Slujitel { get; set; }
+    //public int SlujitelId { get; set; }
+    //public Slujitel Slujitel { get; set; }
 
     public int KmId { get; set; }
     public Kilometri Km { get; set; }

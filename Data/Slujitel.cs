@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Avto.Data;
 
@@ -15,6 +14,4 @@ public partial class Slujitel
     public DateTime? TekushtaData { get; set; }
 
     public string? User { get; set; }
-
-    public ICollection<Transak> Transaks { get; }
 }

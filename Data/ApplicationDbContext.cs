@@ -44,9 +44,8 @@ public partial class ApplicationDbContext : IdentityDbContext
         modelBuilder.Entity<Transak>()
             .Ignore(t => t.PList); // avoid circular reference
 
-        modelBuilder.Entity<Slujitel>()
-            .Ignore(t => t.Transaks); // avoid circular reference
-
         base.OnModelCreating(modelBuilder); //fixes Error "The entity type 'IdentityUserLogin<string>' requires a primary key to be defined..."
     }
 }
+
+// SSMS -> Transaks.MotoId & Transaks.SlujitelId allow null

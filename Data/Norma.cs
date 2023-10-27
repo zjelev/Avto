@@ -8,7 +8,7 @@ public partial class Norma
 
     public double? NormaKlimatronik { get; set; }
 
-    public DateTime? TekushtaData { get; set; }
+    public DateTime TekushtaData { get; set; }
 
-    public string? User { get; set; }
+    public string User { get; set; }
 }

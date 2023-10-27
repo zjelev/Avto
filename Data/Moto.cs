@@ -41,7 +41,5 @@ public partial class Moto
 
     public bool Brak { get; set; }
 
-    public ICollection<Transak> Transaks { get; }
-
     public ICollection<Zastrahovka> Zastrahovki { get; }
 }

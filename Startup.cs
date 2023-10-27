@@ -1,5 +1,6 @@
 using Avto.Data;
 using Avto.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,12 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddAuthorization(options =>
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser() //all users to be authenticated, except with [AllowAnonymous]
+        .Build()
+    );
 
 builder.Services.AddAutoMapper(typeof(Mapping));
 builder.Services.AddControllersWithViews();
