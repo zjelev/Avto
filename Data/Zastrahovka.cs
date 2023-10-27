@@ -7,9 +7,9 @@ public partial class Zastrahovka
     public int MotoId { get; set; }
     public Moto Moto { get; set; }
 
-    public DateTime? DataStart { get; set; }
+    public DateOnly? DataStart { get; set; }
 
-    public DateTime? DataEnd { get; set; }
+    public DateOnly? DataEnd { get; set; }
 
     public int TipZastrahovkaId { get; set; }
 

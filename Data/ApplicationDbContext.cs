@@ -6,10 +6,11 @@
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Avto.Data;
 
-public partial class ApplicationDbContext : IdentityDbContext
+public class ApplicationDbContext : IdentityDbContext
 {
     public ApplicationDbContext()
     {
@@ -46,6 +47,26 @@ public partial class ApplicationDbContext : IdentityDbContext
 
         base.OnModelCreating(modelBuilder); //fixes Error "The entity type 'IdentityUserLogin<string>' requires a primary key to be defined..."
     }
+
+    protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+    {
+
+        builder.Properties<DateOnly>()
+            .HaveConversion<DateOnlyConverter>()
+            .HaveColumnType("date");
+
+        base.ConfigureConventions(builder);
+
+    }
 }
 
 // SSMS -> Transaks.MotoId & Transaks.SlujitelId allow null
+
+public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
+{
+    public DateOnlyConverter()
+        : base(dateOnly =>
+                dateOnly.ToDateTime(TimeOnly.MinValue),
+            dateTime => DateOnly.FromDateTime(dateTime))
+    { }
+}
