@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Avto.Models.PListModel>
+﻿@model IEnumerable<PListModel>
 
 @{
     ViewData["Title"] = "Пътни листи";
@@ -25,7 +25,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td><a asp-action="Details" asp-route-id="@item.Id">@item.Number</a></td>
+            <td><a asp-action="Edit" asp-route-id="@item.Id">@item.Number</a></td>
             <td>@item.Data</td>
             <td>@item.Moto.Name</td>
             <td>@item.Slujitel.Name</td>

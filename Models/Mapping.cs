@@ -12,7 +12,7 @@ public class Mapping : Profile
         CreateMap<TransakModel, Transak>();
 
         CreateMap<PList, PListModel>()
-            .ForMember(dest => dest.Transaks, opt => opt.MapFrom(src => src.Transaks.ToList()));
+            .ForMember(dest => dest.TransaksModel, opt => opt.MapFrom(src => src.Transaks.ToList()));
 
         CreateMap<PListModel, PList>()
             .ForMember(dest => dest.Transaks, opt => opt.MapFrom(src => src.TransaksModel.ToList()));

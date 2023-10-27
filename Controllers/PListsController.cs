@@ -80,35 +80,48 @@ public class PListsController : Controller
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
+        ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
+        ViewData["Km"] = new SelectList(_context.Kilometris, "Id", "Name");
+        ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
+
         return View(pListModel);
     }
 
-    // GET: PLists/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
+        ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
+        ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
+        ViewData["Km"] = new SelectList(_context.Kilometris, "Id", "Name");
+        ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
+
         if (id == null || _context.Lists == null)
             return NotFound();
 
-        var pList = await _context.Lists.FindAsync(id);
+        var pList = await _context.Lists
+            .Include(pl => pl.Transaks)
+            .FirstOrDefaultAsync(pl => pl.Id == id);
+
         if (pList == null)
             return NotFound();
-        return View(pList);
+
+        var pListModel = _mapper.Map<PListModel>(pList);
+        pListModel.Transaks = null;
+        return View(pListModel);
     }
 
-    // POST: PLists/Edit/5
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,Number,Data,Moto,Slujitel,Zarabotka,Izvan,Doma,TekushtaData,User")] PList pList)
+    public async Task<IActionResult> Edit([FromForm] PListModel pListModel)
     {
-        if (id != pList.Id)
-            return NotFound();
-
         if (ModelState.IsValid)
         {
+            var pList = _mapper.Map<PList>(pListModel);
             try
             {
+                pList.TekushtaData = DateTime.Now;
+                pList.User = User.Identity.Name;
                 _context.Update(pList);
                 await _context.SaveChangesAsync();
             }
@@ -121,7 +134,13 @@ public class PListsController : Controller
             }
             return RedirectToAction(nameof(Index));
         }
-        return View(pList);
+
+        ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
+        ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
+        ViewData["Km"] = new SelectList(_context.Kilometris, "Id", "Name");
+        ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
+
+        return View(pListModel);
     }
 
     // GET: PLists/Delete/5

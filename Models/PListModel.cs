@@ -18,6 +18,7 @@ public class PListModel
     public string? Number { get; set; }
 
     [Required, DisplayName("От"), DataType(DataType.Date)]
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
     public DateOnly? Data { get; set; }
 
     [DisplayName("Автомобил")]
