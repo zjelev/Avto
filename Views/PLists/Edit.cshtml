@@ -9,6 +9,7 @@
 <div class="container">
     <form asp-action="Edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
         <div class="row">
             <div class="col-4">
                 <div class="form-group mb-3">
@@ -44,6 +45,7 @@
                     </tr>
                     @for(int i = 0; i < Model.TransaksModel.Count; i++)
                     {
+                        <input type="hidden" asp-for="TransaksModel[i].Id" />
                         <tr>
                             <td>
                                 <select asp-for="TransaksModel[i].KmId" class="form-control" asp-items="ViewBag.Km">
