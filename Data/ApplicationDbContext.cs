@@ -34,8 +34,6 @@ public class ApplicationDbContext : IdentityDbContext
 
     public virtual DbSet<Slujitel> Slujiteli { get; set; }
 
-    public virtual DbSet<TipZastrahovka> TipZastrahovki { get; set; }
-
     public virtual DbSet<Transak> Transaks { get; set; }
 
     public virtual DbSet<Zastrahovka> Zastrahovki { get; set; }

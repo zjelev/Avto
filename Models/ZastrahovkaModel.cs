@@ -1,6 +1,9 @@
-﻿namespace Avto.Data;
+﻿using Avto.Data;
+using System.ComponentModel;
 
-public class Zastrahovka
+namespace Avto.Models;
+
+public class ZastrahovkaModel
 {
     public int Id { get; set; }
 
@@ -13,7 +16,17 @@ public class Zastrahovka
 
     public int TipZastrahovkaId { get; set; }
 
+    public TipZastrahovka TipZastrahovka { get; set; }
+
     public DateTime? TekushtaData { get; set; }
 
     public string? User { get; set; }
+}
+
+public enum TipZastrahovka
+{
+    [Description("Преглед")]
+    Pregled = 1,
+    [Description("ГО")]
+    Go = 3
 }
