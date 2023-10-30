@@ -1,0 +1,51 @@
+﻿@model ZastrahovkaModel
+
+@{
+    ViewData["Title"] = "Редакция";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>ZastrahovkaModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="MotoId" class="control-label"></label>
+                <select asp-for="MotoId" class="form-control" asp-items="ViewBag.MotoId"></select>
+                <span asp-validation-for="MotoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataStart" class="control-label"></label>
+                <input asp-for="DataStart" class="form-control date-input" />
+                <span asp-validation-for="DataStart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataEnd" class="control-label"></label>
+                <input asp-for="DataEnd" class="form-control date-input" />
+                <span asp-validation-for="DataEnd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipZastrahovkaId" class="control-label"></label>
+                <select asp-for="TipZastrahovkaId" asp-items="Html.GetEnumSelectList<TipZastrahovkaId>()" class="form-control">
+                    <option value="">Select TipZastrahovkaId</option>
+                </select>
+                <span asp-validation-for="TipZastrahovkaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

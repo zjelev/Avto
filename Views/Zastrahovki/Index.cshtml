@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ZastrahovkaModel>
+
+@{
+    ViewData["Title"] = "Застраховки";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">Добави</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th asp-display-name-for="@Model.First().Moto.Name"></th>
+            <th asp-display-name-for="@Model.First().DataStart"></th>
+            <th asp-display-name-for="@Model.First().DataEnd"></th>
+            <th asp-display-name-for="@Model.First().TipZastrahovkaId"></th>
+            <th asp-display-name-for="@Model.First().TekushtaData"></th>
+            <th asp-display-name-for="@Model.First().User"></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td><a asp-action="Edit" asp-route-id="@item.Id">@item.Moto.Name</a></td>
+            <td>@item.DataStart</td>
+            <td>@item.DataEnd</td>
+            <td>@item.TipZastrahovkaId</td>
+            <td>@item.TekushtaData</td>
+            <td>@item.User</td>
+        </tr>
+}
+    </tbody>
+</table>

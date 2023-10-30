@@ -20,5 +20,9 @@ public class Mapping : Profile
         CreateMap<DateTime, DateOnly>().ConvertUsing<DateTimeToDateOnlyConverter>();
         CreateMap<DateOnly, DateTime>().ConvertUsing<DateOnlyToDateTimeConverter>();
 
+        CreateMap<Zastrahovka, ZastrahovkaModel>();
+
+        CreateMap<ZastrahovkaModel, Zastrahovka>();
+
     }
 }

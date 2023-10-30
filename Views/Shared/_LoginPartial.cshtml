@@ -13,6 +13,16 @@
             <button  type="submit" class="nav-link btn btn-link text-white">Logout</button>
         </form>
     </li>
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle nav-link active" href="#" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">Въвеждане</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" asp-area="" asp-controller="Zastrahovki" asp-action="Create">Застраховки</a></li>
+            </ul>
+        </div>
+    </li>
 }
 else
 {

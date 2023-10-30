@@ -1,0 +1,49 @@
+﻿@model ZastrahovkaModel
+
+@{
+    ViewData["Title"] = "Добави";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>ZastrahovkaModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <select asp-for="MotoId" class ="form-control" asp-items="ViewBag.MotoId">
+                    <option value="">Избери автомобил</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataStart" class="control-label"></label>
+                <input asp-for="DataStart" class="form-control date-input" />
+                <span asp-validation-for="DataStart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataEnd" class="control-label"></label>
+                <input asp-for="DataEnd" class="form-control date-input" />
+                <span asp-validation-for="DataEnd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <select asp-for="TipZastrahovkaId" asp-items="Html.GetEnumSelectList<TipZastrahovkaId>()" class="form-control">
+                    <option value="">Избери тип застраховка</option>
+                </select>
+                <span asp-validation-for="TipZastrahovkaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Списък</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
