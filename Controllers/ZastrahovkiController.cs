@@ -55,9 +55,13 @@ public class ZastrahovkiController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(ZastrahovkaModel zastrahovkaModel)
     {
+        ModelState.Remove("Moto");
+
         if (ModelState.IsValid)
         {
             Zastrahovka zastrahovka = _mapper.Map<Zastrahovka>(zastrahovkaModel);
+            zastrahovka.TekushtaData = DateTime.Now;
+            zastrahovka.User = User.Identity.Name;
             _context.Add(zastrahovka);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -92,11 +96,15 @@ public class ZastrahovkiController : Controller
         if (id != zastrahovkaModel.Id)
             return NotFound();
 
+        ModelState.Remove("Moto");
+
         if (ModelState.IsValid)
         {
             var zastrahovka = _mapper.Map<Zastrahovka>(zastrahovkaModel);
             try
             {
+                zastrahovka.TekushtaData = DateTime.Now;
+                zastrahovka.User = User.Identity.Name;
                 _context.Update(zastrahovka);
                 await _context.SaveChangesAsync();
             }

@@ -21,7 +21,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model) {
         <tr>
             <td><a asp-action="Edit" asp-route-id="@item.Id">@item.Moto.Name</a></td>
             <td>@item.DataStart</td>
@@ -30,6 +30,6 @@
             <td>@item.TekushtaData</td>
             <td>@item.User</td>
         </tr>
-}
+    }
     </tbody>
 </table>
