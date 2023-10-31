@@ -48,7 +48,7 @@
                         <input type="hidden" asp-for="TransaksModel[i].Id" />
                         <tr>
                             <td>
-                                <select asp-for="TransaksModel[i].KmId" class="form-control" asp-items="ViewBag.Km">
+                                <select asp-for="TransaksModel[i].KmId" class="form-control" asp-items="Html.GetEnumSelectList<KmId>()">
                                     <option>Вид движение</option>
                                 </select>
                             </td>

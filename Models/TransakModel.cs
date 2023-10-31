@@ -13,7 +13,7 @@ public class TransakModel
     //public Otdel Otdel { get; set; }
 
     [DisplayName("Описание км")]
-    public int KmId { get; set; }
+    public KmId KmId { get; set; }
 
     //[DisplayName("Описание км")]
     //public Kilometri Km { get; set; }
@@ -25,4 +25,18 @@ public class TransakModel
     public string? User { get; set; }
 
     public DateTime? TekushtaData { get; set; }
+}
+
+public enum KmId
+{
+    Основни = 1,
+    Рудник = 2,
+    Областни = 3,
+    София = 4,
+    Ремарке = 5,
+    Място = 6,
+    Климатик = 7,
+    Агрегат = 8,
+    Климатроник = 14,
+    Печка = 15
 }

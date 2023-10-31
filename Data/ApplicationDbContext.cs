@@ -22,13 +22,9 @@ public class ApplicationDbContext : IdentityDbContext
         Database.SetCommandTimeout(120);
     }
 
-    public virtual DbSet<Kilometri> Kilometris { get; set; }
-
     public virtual DbSet<PList> Lists { get; set; }
 
     public virtual DbSet<Moto> Motos { get; set; }
-
-    public virtual DbSet<Norma> Normas { get; set; }
 
     public virtual DbSet<Otdel> Otdels { get; set; }
 

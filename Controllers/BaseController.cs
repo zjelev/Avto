@@ -54,7 +54,6 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         // Plists
         ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
         ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
-        ViewData["Km"] = new SelectList(_context.Kilometris, "Id", "Name");
         ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
 
         return View();
@@ -84,7 +83,6 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         // Plists
         ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
         ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
-        ViewData["Km"] = new SelectList(_context.Kilometris, "Id", "Name");
         ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
 
         return View(model);
@@ -105,7 +103,6 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         // Plists
         ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
         ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
-        ViewData["Km"] = new SelectList(_context.Kilometris, "Id", "Name");
         ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
 
         return View(_mapper.Map<TModel>(entity));

@@ -23,7 +23,6 @@ public class PListsController : BaseController<PListModel, PList>
             .Include(pl => pl.Transaks)
                 .ThenInclude(t => t.Otdel)
             .Include(pl => pl.Transaks)
-                .ThenInclude(t => t.Km)
             .OrderByDescending(pl => pl.Id)
             .Take(100);
     }
@@ -34,7 +33,6 @@ public class PListsController : BaseController<PListModel, PList>
     {
         ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
         ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
-        ViewData["Km"] = new SelectList(_context.Kilometris, "Id", "Name");
         ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
 
         ModelState.Remove("Transaks");
