@@ -28,5 +28,13 @@ public class Mapping : Profile
 
         CreateMap<MotoModel, Moto>();
 
+        CreateMap<Otdel, OtdelModel>();
+
+        CreateMap<OtdelModel, Otdel>();
+
+        CreateMap<Slujitel, SlujitelModel>();
+
+        CreateMap<SlujitelModel, Slujitel>();
+
     }
 }

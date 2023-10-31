@@ -1,17 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Avto.Data;
+namespace Avto.Models;
 
-public class Otdel : IEntity
+public class SlujitelModel
 {
     public int Id { get; set; }
 
-    [MaxLength(50)]
+    [MaxLength(80)]
     public string? Name { get; set; }
+
+    public int Number { get; set; }
 
     public DateTime? TekushtaData { get; set; }
 
     public string? User { get; set; }
-
-    public ICollection<Transak> Transaks { get; }
 }

@@ -7,11 +7,12 @@
 {
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle nav-link active" href="#" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false">Въвеждане</a>
+            data-bs-toggle="dropdown" aria-expanded="false">Списъци</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" asp-area="" asp-controller="Motos" asp-action="Create">Автомобили</a></li>
-                <li><a class="dropdown-item" asp-area="" asp-controller="Zastrahovki" asp-action="Create">Застраховки</a></li>
+                <li><a class="dropdown-item" asp-area="" asp-controller="Motos" asp-action="Index">Автомобили</a></li>
+                    <li><a class="dropdown-item" asp-area="" asp-controller="Zastrahovki" asp-action="Index">Застраховки</a></li>
+                    <li><a class="dropdown-item" asp-area="" asp-controller="Otdels" asp-action="Index">Отдели</a></li>
             </ul>
         </div>
     </li>
