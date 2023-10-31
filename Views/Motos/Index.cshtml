@@ -1,0 +1,83 @@
+﻿@model IEnumerable<MotoModel>
+
+@{
+    ViewData["Title"] = "Автомобили";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">Добави</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OsnovnaNorma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GradskaNorma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RudnikNorma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OkragNorma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StolicaNorma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MqstoNorma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KlimaNorma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgregatNorma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KlimatikNorma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PechkaNorma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TekushtaData)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brak)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td><a asp-action="Edit" asp-route-id="@item.Id">@item.Name</a></td>
+            <td>@item.Number</td>
+            <td>@Math.Round(item.OsnovnaNorma, 4)</td>
+            <td>@(item.GradskaNorma.HasValue ? Math.Round(item.GradskaNorma.Value, 4).ToString("N4") : "N/A")</td>
+            <td>@(item.RudnikNorma.HasValue ? Math.Round(item.RudnikNorma.Value, 4).ToString("N4") : "N/A")</td>
+            <td>@(item.OkragNorma.HasValue ? Math.Round(item.OkragNorma.Value, 4).ToString("N4") : "N/A")</td>
+            <td>@(item.StolicaNorma.HasValue ? Math.Round(item.StolicaNorma.Value, 4).ToString("N4") : "N/A")</td>
+            <td>@(item.MqstoNorma.HasValue ? Math.Round(item.MqstoNorma.Value, 4).ToString("N4") : "N/A")</td>
+            <td>@(item.KlimaNorma.HasValue ? Math.Round(item.KlimaNorma.Value, 4).ToString("N4") : "N/A")</td>
+            <td>@(item.AgregatNorma.HasValue ? Math.Round(item.AgregatNorma.Value, 4).ToString("N4") : "N/A")</td>
+            <td>@(item.KlimatikNorma.HasValue ? Math.Round(item.KlimatikNorma.Value, 4).ToString("N4") : "N/A")</td>
+            <td>@(item.PechkaNorma.HasValue ? Math.Round(item.PechkaNorma.Value, 4).ToString("N4") : "N/A")</td>
+            <td>@item.TekushtaData</td>
+            <td>@item.User</td>
+            <td>@item.Brak</td>
+        </tr>
+}
+    </tbody>
+</table>

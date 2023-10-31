@@ -24,5 +24,9 @@ public class Mapping : Profile
 
         CreateMap<ZastrahovkaModel, Zastrahovka>();
 
+        CreateMap<Moto, MotoModel>();
+
+        CreateMap<MotoModel, Moto>();
+
     }
 }
