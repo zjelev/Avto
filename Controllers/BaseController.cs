@@ -111,14 +111,10 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         return View(_mapper.Map<TModel>(entity));
     }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [FromForm] IModel model)
+    public async Task<IActionResult> EditBase(int id, [FromForm] IModel model)
     {
         if (id != model.Id)
             return NotFound();
-        
-        ModelState.Remove("Moto"); // Zastrahovki
 
         if (ModelState.IsValid)
         {
@@ -139,14 +135,6 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
             }
             return RedirectToAction(nameof(Index));
         }
-        
-        // Zastrahovki
-        ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name"); // Zastrahovki
-        // Plists
-        ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
-        ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
-        ViewData["Km"] = new SelectList(_context.Kilometris, "Id", "Name");
-        ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
 
         return View(model);
     }
@@ -179,7 +167,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         return RedirectToAction(nameof(Index));
     }
 
-    private bool EntityExists(int id) =>
+    internal bool EntityExists(int id) =>
         _context.Set<TEntity>().Any(e => e.Id == id);
 }
 

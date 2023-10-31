@@ -2,6 +2,8 @@
 using Avto.Data;
 using Avto.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Avto.Controllers;
 
@@ -16,5 +18,15 @@ public class ZastrahovkiController : BaseController<ZastrahovkaModel, Zastrahovk
     {
         // Customize the includes for ZastrahovkiController.
         return dbSet.Include(z => z.Moto);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, [FromForm] ZastrahovkaModel zastrahovkaModel)
+    {
+        ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name");
+        ModelState.Remove("Moto");
+
+        return await EditBase(id, zastrahovkaModel);
     }
 }
