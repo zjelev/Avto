@@ -1,4 +1,5 @@
 ﻿using Avto.Data;
+using Avto.Data.Enums;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -31,10 +32,4 @@ public class ZastrahovkaModel : IModel
     public DateTime? TekushtaData { get; set; }
 
     public string? User { get; set; }
-}
-
-public enum TipZastrahovkaId
-{
-    Преглед = 1,
-    ГО = 3
 }

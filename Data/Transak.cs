@@ -1,4 +1,4 @@
-﻿using Avto.Models;
+﻿using Avto.Data.Enums;
 
 namespace Avto.Data;
 
