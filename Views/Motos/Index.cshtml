@@ -74,9 +74,9 @@
             <td>@(item.AgregatNorma.HasValue ? Math.Round(item.AgregatNorma.Value, 4).ToString("N4") : "N/A")</td>
             <td>@(item.KlimatikNorma.HasValue ? Math.Round(item.KlimatikNorma.Value, 4).ToString("N4") : "N/A")</td>
             <td>@(item.PechkaNorma.HasValue ? Math.Round(item.PechkaNorma.Value, 4).ToString("N4") : "N/A")</td>
-            <td>@item.TekushtaData</td>
+            <td asp-display-for="@item.TekushtaData"></td>
             <td>@item.User</td>
-            <td>@item.Brak</td>
+            <td asp-display-for="@item.Brak"></td>
         </tr>
 }
     </tbody>

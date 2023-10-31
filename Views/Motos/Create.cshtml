@@ -1,4 +1,4 @@
-﻿@model Avto.Models.MotoModel
+﻿@model MotoModel
 
 @{
     ViewData["Title"] = "Добави автомобил";
@@ -69,11 +69,6 @@
                 <label asp-for="PechkaNorma" class="control-label"></label>
                 <input asp-for="PechkaNorma" class="form-control" />
                 <span asp-validation-for="PechkaNorma" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Brak" /> @Html.DisplayNameFor(model => model.Brak)
-                </label>
             </div>
             <div class="form-group m-3">
                 <input type="submit" value="Добави" class="btn btn-primary" />

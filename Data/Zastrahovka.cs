@@ -1,6 +1,6 @@
 ﻿namespace Avto.Data;
 
-public class Zastrahovka
+public class Zastrahovka : IEntity
 {
     public int Id { get; set; }
 

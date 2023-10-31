@@ -2,7 +2,7 @@
 
 namespace Avto.Data;
 
-public partial class Moto
+public partial class Moto : IEntity
 {
     public int Id { get; set; }
 

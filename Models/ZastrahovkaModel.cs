@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Avto.Models;
 
-public class ZastrahovkaModel
+public class ZastrahovkaModel : IModel
 {
     [DisplayName("ID №")]
     public int Id { get; set; }
