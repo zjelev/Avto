@@ -2,7 +2,7 @@
 
 namespace Avto.Data;
 
-public class PList
+public class PList : IEntity
 {
     public PList()
     {

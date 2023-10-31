@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Avto.Data;
 using AutoMapper;
 using Avto.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Avto.Controllers;
 
@@ -48,7 +49,14 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
 
     public IActionResult Create()
     {
-        // Zastrahovki: ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name");
+        // Zastrahovki:
+        ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name");
+        // Plists
+        ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
+        ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
+        ViewData["Km"] = new SelectList(_context.Kilometris, "Id", "Name");
+        ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
+
         return View();
     }
 
@@ -56,18 +64,29 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(TModel model)
     {
+        // Zastrahovki:
         ModelState.Remove("Moto");
+        // Plists
+        ModelState.Remove("Transaks");
 
         if (ModelState.IsValid)
         {
             var entity = _mapper.Map<TEntity>(model);
             entity.TekushtaData = DateTime.Now;
             entity.User = User.Identity.Name;
-            _context.Add(entity);
+            _context.Add(entity); // For PLists // In SSMS delete FK_Transaks_Motos_MotoId & FK_Transaks_Slujiteli_SlujitelId
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        // Zastrahovki: ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Id", zastrahovkaModel.MotoId);
+        
+        // Zastrahovki
+        ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name"); // Zastrahovki
+        // Plists
+        ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
+        ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
+        ViewData["Km"] = new SelectList(_context.Kilometris, "Id", "Name");
+        ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
+
         return View(model);
     }
 
@@ -81,7 +100,13 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         if (entity == null)
             return NotFound();
 
-        // Zastrahovki: ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name", zastrahovka.MotoId);
+        // Zastrahovki
+        ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name");
+        // Plists
+        ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
+        ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
+        ViewData["Km"] = new SelectList(_context.Kilometris, "Id", "Name");
+        ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
 
         return View(_mapper.Map<TModel>(entity));
     }
@@ -92,9 +117,8 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
     {
         if (id != model.Id)
             return NotFound();
-
-        // Zastrahovki
-        ModelState.Remove("Moto");
+        
+        ModelState.Remove("Moto"); // Zastrahovki
 
         if (ModelState.IsValid)
         {
@@ -115,7 +139,15 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
             }
             return RedirectToAction(nameof(Index));
         }
-        // Zastrahovki: ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Id", model.MotoId);
+        
+        // Zastrahovki
+        ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name"); // Zastrahovki
+        // Plists
+        ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
+        ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
+        ViewData["Km"] = new SelectList(_context.Kilometris, "Id", "Name");
+        ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
+
         return View(model);
     }
 

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Avto.Models;
 
-public class PListModel
+public class PListModel : IModel
 {
     public PListModel()
     {
