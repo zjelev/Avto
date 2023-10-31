@@ -1,0 +1,19 @@
+﻿@model IModel
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <a asp-action="Index">Списък</a>
+    </div>
+    <div class="col-md-4">
+        <a asp-action="Delete" asp-route-id="@Model.Id">Изтрий</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
