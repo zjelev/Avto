@@ -35,7 +35,7 @@
                 <ol>
                     @foreach (var transak in item.Transaks)
                     {
-                        <li>@transak.KmId | @transak.Otdel.Name | @transak.KmKm</li>
+                        <li>@Html.DisplayFor(model => transak.KmId) | @Html.DisplayFor(model => transak.Otdel.Name) | @transak.KmKm</li>
                     }
                 </ol>
             </td>

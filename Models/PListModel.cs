@@ -42,7 +42,6 @@ public class PListModel : IModel
     [DisplayName("Маршрут")]
     public IList<TransakModel> TransaksModel { get; set; }
 
-    [DisplayName("Маршрут")]
-
+    [DisplayName("Вид | Отдел | км")]
     public ICollection<Transak> Transaks { get; set; }
 }

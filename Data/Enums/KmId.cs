@@ -1,27 +1,27 @@
-﻿using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Avto.Data.Enums;
 
 public enum KmId
 {
-    [Description("Основни км")]
+    [Display(Name="Основни км")]
     Основни = 1,
-    [Description("Областни градове км")]
+    [Display(Name="Областни градове км")]
     Рудник = 2,
-    [Description("Рудник км")]
+    [Display(Name="Рудник км")]
     Областни = 3,
-    [Description("София км")]
+    [Display(Name="София км")]
     София = 4,
-    [Description("Теглене ремарке")]
+    [Display(Name="Теглене ремарке")]
     Ремарке = 5,
-    [Description("Работа на място")]
+    [Display(Name="Работа на място")]
     Място = 6, 
-    [Description("Работа с климатик")]
+    [Display(Name="Работа с климатик")]
     Климатик = 7,
-    [Description("Работа с агрегат")]
+    [Display(Name="Работа с агрегат")]
     Агрегат = 8,
-    [Description("Работа с климатроник")]
+    [Display(Name="Работа с климатроник")]
     Климатроник = 14,
-    [Description("Работа с печка")]
+    [Display(Name="Работа с печка")]
     Печка = 15
 }
