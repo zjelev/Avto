@@ -1,0 +1,11 @@
+﻿@model PListModel
+
+<div class="text-center p-3" name="search">
+    <form asp-controller="PLists" method="get">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="@Model.Number" placeholder="Пътен лист №" />
+        <label asp-display-name-for="Data"></label>
+        <input type="date" asp-for="@Model.Data"/>
+        <input type="submit" value="Търси" />
+    </form>
+</div>

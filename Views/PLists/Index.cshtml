@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<PListModel>
 @Html.Partial("_IndexHead", Model)
+@await Component.InvokeAsync("Search")
+<table class="table">
     <thead>
         <tr>
             <th asp-display-name-for="@Model.First().Number"></th>
