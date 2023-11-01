@@ -12,11 +12,15 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
 {
     protected readonly ApplicationDbContext _context;
     protected readonly IMapper _mapper;
+    protected readonly string _modelDescription;
 
     public BaseController(ApplicationDbContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
+        var modelType = typeof(TModel);
+        var descriptionAttribute = modelType.GetCustomAttribute<DescriptionAttribute>();
+        _modelDescription = descriptionAttribute?.Description ?? modelType.Name;
     }
 
     protected virtual IQueryable<TEntity> ApplyCustomIncludes(DbSet<TEntity> dbSet)
@@ -50,6 +54,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
 
     public IActionResult Create()
     {
+        ViewData["Title"] = "Добавяне на " + _modelDescription;
         // Zastrahovki:
         ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name");
         // Plists
@@ -78,7 +83,9 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        
+
+        ViewData["Title"] = "Добавяне на " + _modelDescription;
+
         // Zastrahovki
         ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name"); // Zastrahovki
         // Plists
@@ -99,11 +106,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         if (entity == null)
             return NotFound();
 
-        var modelType = typeof(TModel);
-        var descriptionAttribute = modelType.GetCustomAttribute<DescriptionAttribute>();
-        string modelDescription = descriptionAttribute?.Description ?? modelType.Name;
-
-        ViewData["Title"] = "Редакция - " + modelDescription;
+        ViewData["Title"] = "Редактиране на " + _modelDescription;
 
         // Zastrahovki
         ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name");
@@ -140,6 +143,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
             return RedirectToAction(nameof(Index));
         }
 
+        ViewData["Title"] = "Редактиране на " + _modelDescription;
         return View(model);
     }
 
@@ -153,6 +157,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         if (entity == null)
             return NotFound();
 
+        ViewData["Title"] = "Изтриване на " + _modelDescription;
         return View(_mapper.Map<TModel>(entity));
     }
 
@@ -168,6 +173,8 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
             _context.Remove(entity);
 
         await _context.SaveChangesAsync();
+
+        ViewData["Title"] = "Изтриване на " + _modelDescription;
         return RedirectToAction(nameof(Index));
     }
 

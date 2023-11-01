@@ -1,12 +1,6 @@
 ﻿@model PListModel
 
-@{
-    ViewData["Title"] = "Нов";
-}
-
-<h1 class="m-3">@ViewData["Title"]</h1>
-
-<div class="container">
+@Html.Partial("_Head", Model)
     <form asp-action="Create">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row">
@@ -65,16 +59,4 @@
             </div>
         </div>
     </form>
-</div>
-
-<div class="m-3">
-    <a asp-action="Index">Списък</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    
-    <script>
-        let rowIndex = 1;
-    </script>
-}
+@Html.Partial("_Foot", Model)
