@@ -1,15 +1,6 @@
-﻿@model Avto.Models.MotoModel
+﻿@model MotoModel
 
-@{
-    ViewData["Title"] = "Delete";
-}
-
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>MotoModel</h4>
-    <hr />
+@Html.Partial("_Head", Model)
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
@@ -102,10 +93,4 @@
             @Html.DisplayFor(model => model.Brak)
         </dd>
     </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
-</div>
+@Html.Partial("_DeleteFoot", Model)

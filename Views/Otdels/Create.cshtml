@@ -1,13 +1,6 @@
 ﻿@model OtdelModel
 
-@{
-    ViewData["Title"] = "Добави отдел";
-}
-
-<h1>@ViewData["Title"]</h1>
-
-<div class="row">
-    <div class="col-md-4">
+@Html.Partial("_Head", Model)
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -19,13 +12,5 @@
                 <input type="submit" value="Добави" class="btn btn-primary" />
             </div>
         </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Списък</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+@Html.Partial("_FootTop")
+@Html.Partial("_FootBottom")

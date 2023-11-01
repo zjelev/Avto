@@ -1,19 +1,7 @@
 ﻿@model IModel
 
-    </div>
-</div>
-
-<div class="row m-3">
-    <div class="col-md-4">
-        <a asp-action="Index">Списък</a>
-    </div>
+@Html.Partial("_FootTop")
     <div class="col-md-4">
         <a asp-action="Delete" asp-route-id="@Model.Id">Изтрий</a>
     </div>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+@Html.Partial("_FootBottom")
