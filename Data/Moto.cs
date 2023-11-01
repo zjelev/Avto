@@ -2,10 +2,8 @@
 
 namespace Avto.Data;
 
-public partial class Moto : IEntity
+public partial class Moto : BaseEntity
 {
-    public int Id { get; set; }
-
     [MaxLength(50)]
     public string? Name { get; set; }
 
@@ -13,7 +11,6 @@ public partial class Moto : IEntity
     public string? Number { get; set; }
 
     public string NumberAndName => $"{Number} - {Name}";
-
 
     public double OsnovnaNorma { get; set; }
 
@@ -34,10 +31,6 @@ public partial class Moto : IEntity
     public double? KlimatikNorma { get; set; }
 
     public double? PechkaNorma { get; set; }
-
-    public DateTime? TekushtaData { get; set; }
-
-    public string? User { get; set; }
 
     public bool Brak { get; set; }
 

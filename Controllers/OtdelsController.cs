@@ -14,6 +14,10 @@ namespace Avto.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [FromForm] OtdelModel otdelModel) => await EditBase(id, otdelModel);
+        public async Task<IActionResult> Edit(int id, [FromForm] OtdelModel otdelModel)
+        {
+            ModelState.Remove("Transaks");
+            return await EditBase(id, otdelModel);
+        }
     }
 }

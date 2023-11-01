@@ -14,5 +14,9 @@ public class MotosController : BaseController<MotoModel, Moto>
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [FromForm] MotoModel motoModel) => await EditBase(id, motoModel);
+    public async Task<IActionResult> Edit(int id, [FromForm] MotoModel motoModel)
+    {
+        ModelState.Remove("Zastrahovki");
+        return await EditBase(id, motoModel);
+    }
 }
