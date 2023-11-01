@@ -2,6 +2,7 @@
 
 namespace Avto.Models;
 
+[Description("Служител")]
 public class SlujitelModel
 {
     public int Id { get; set; }

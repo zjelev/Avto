@@ -1,6 +1,6 @@
 ﻿@model ZastrahovkaModel
 
-@Html.Partial("_EditHead", Model)
+@Html.Partial("_Head", Model)
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />

@@ -4,6 +4,7 @@ using Avto.Data;
 using AutoMapper;
 using Avto.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Reflection;
 
 namespace Avto.Controllers;
 
@@ -97,6 +98,12 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
 
         if (entity == null)
             return NotFound();
+
+        var modelType = typeof(TModel);
+        var descriptionAttribute = modelType.GetCustomAttribute<DescriptionAttribute>();
+        string modelDescription = descriptionAttribute?.Description ?? modelType.Name;
+
+        ViewData["Title"] = "Редакция - " + modelDescription;
 
         // Zastrahovki
         ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name");

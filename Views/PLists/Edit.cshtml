@@ -1,12 +1,5 @@
 ﻿@model PListModel
-
-@{
-    ViewData["Title"] = "Редактиране";
-}
-
-<h1>@ViewData["Title"]</h1>
-
-<div class="container">
+@Html.Partial("_Head", Model)
     <form asp-action="Edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" />
@@ -70,17 +63,4 @@
             </div>
         </div>
     </form>
-</div>
-
-
-<div class="m-3">
-    <a asp-action="Index">Списък</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-    <script>
-        let rowIndex = @Model.TransaksModel.Count;
-    </script>
-}
+@Html.Partial("_EditFoot", Model)

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Avto.Models;
 
+[Description("Застраховка")]
 public class ZastrahovkaModel : IModel
 {
     [DisplayName("ID №")]

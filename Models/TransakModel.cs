@@ -3,6 +3,7 @@ using System.ComponentModel;
 
 namespace Avto.Models;
 
+[Description("Маршрут")]
 public class TransakModel
 {
     public int Id { get; set; }

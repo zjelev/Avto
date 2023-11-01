@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Avto.Models;
 
+[Description("Пътен лист")]
 public class PListModel : IModel
 {
     public PListModel()
