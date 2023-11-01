@@ -5,15 +5,12 @@ using System.ComponentModel.DataAnnotations;
 namespace Avto.Models;
 
 [Description("Пътен лист")]
-public class PListModel : IModel
+public class PListModel : BaseModel
 {
     public PListModel()
     {
         TransaksModel = new List<TransakModel> { new TransakModel() };
     }
-
-    [DisplayName("ID №")]
-    public int Id { get; set; }
 
     [DisplayName("Пътен лист №")]
     public string? Number { get; set; }
@@ -33,12 +30,6 @@ public class PListModel : IModel
 
     [DisplayName("Служител")]
     public Slujitel? Slujitel { get; set; }
-
-    [DisplayName("Въведен на")]
-    public DateTime? TekushtaData { get; set; }
-
-    [DisplayName("От")]
-    public string? User { get; set; }
 
     [DisplayName("Маршрут")]
     public IList<TransakModel> TransaksModel { get; set; }

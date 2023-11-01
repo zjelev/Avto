@@ -2,7 +2,7 @@
 
 namespace Avto.Data;
 
-public partial class Slujitel
+public partial class Slujitel : IEntity
 {
     public int Id { get; set; }
 

@@ -5,10 +5,8 @@ using System.ComponentModel.DataAnnotations;
 namespace Avto.Models;
 
 [Description("Автомобил")]
-public class MotoModel : IModel
+public class MotoModel : BaseModel
 {
-    public int Id { get; set; }
-
     [MaxLength(50)]
     [DisplayName("Марка")]
     public string? Name { get; set; }
@@ -48,12 +46,6 @@ public class MotoModel : IModel
 
     [DisplayName("Норма печка")]
     public double? PechkaNorma { get; set; }
-
-    [DisplayName("Въведен на")]
-    public DateTime? TekushtaData { get; set; }
-
-    [DisplayName("От потребител")]
-    public string? User { get; set; }
 
     [DisplayName("Бракуван")]
     public bool Brak { get; set; }

@@ -5,19 +5,11 @@ using System.ComponentModel.DataAnnotations;
 namespace Avto.Models;
 
 [Description("Отдел")]
-public class OtdelModel : IModel
+public class OtdelModel : BaseModel
 {
-    public int Id { get; set; }
-
     [MaxLength(50)]
     [DisplayName("Име")]
     public string? Name { get; set; }
-
-    [DisplayName("Въведен на")]
-    public DateTime? TekushtaData { get; set; }
-
-    [DisplayName("От потребител")]
-    public string? User { get; set; }
 
     public ICollection<Transak> Transaks { get; }
 }

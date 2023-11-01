@@ -6,11 +6,8 @@ using System.ComponentModel.DataAnnotations;
 namespace Avto.Models;
 
 [Description("Застраховка")]
-public class ZastrahovkaModel : IModel
+public class ZastrahovkaModel : BaseModel
 {
-    [DisplayName("ID №")]
-    public int Id { get; set; }
-
     [DisplayName("Автомобил")]
     public int MotoId { get; set; }
 
@@ -29,8 +26,4 @@ public class ZastrahovkaModel : IModel
 
     [DisplayName("Тип")]
     public TipZastrahovkaId TipZastrahovkaId { get; set; }
-
-    public DateTime? TekushtaData { get; set; }
-
-    public string? User { get; set; }
 }

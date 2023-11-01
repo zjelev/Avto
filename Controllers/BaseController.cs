@@ -5,7 +5,6 @@ using AutoMapper;
 using Avto.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Reflection;
-using NuGet.Packaging;
 
 namespace Avto.Controllers;
 
@@ -35,7 +34,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         var query = _context.Set<TEntity>();
         var items = await ApplyCustomIncludes(query).ToListAsync();
 
-        ViewData["Title"] = string.Join(" ", PluralizeBulgarian(_modelDescription));
+        ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
 
         return items != null ?
             View(_mapper.Map<List<TModel>>(items)) :
@@ -185,47 +184,54 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
     internal bool EntityExists(int id) =>
         _context.Set<TEntity>().Any(e => e.Id == id);
 
-    internal List<string> PluralizeBulgarian(string modelDescription)
+    public List<string> PluralizePhraze(string modelDescription)
     {
         var modelDescriptionWords = modelDescription.Split(" ").ToList();
         var modelDescriptionPlural = new List<string>();
 
         foreach (var word in modelDescriptionWords)
-            modelDescriptionPlural.Add(PluralizeBulgarianWord(word));
+            modelDescriptionPlural.Add(PluralizeBulgarian(word));
 
         return modelDescriptionPlural;
     }
 
-    public string PluralizeBulgarianWord(string word)
+    public string PluralizeBulgarian(string word)
     {
         if (string.IsNullOrWhiteSpace(word))
             return word;
-
+        
         if (word.EndsWith("а") || word.EndsWith("я")) // Feminine nouns
             return word.Substring(0, word.Length - 1) + "и";
-        else if (word.EndsWith("ен")) // Masculine nouns
+        
+        if (word.EndsWith("ен")) // Masculine nouns
             return word.Substring(0, word.Length - 2) + "ни";
-        else if (word.EndsWith("о") || word.EndsWith("е")) // Neutral nouns
+        
+        if (word.EndsWith("о") || word.EndsWith("е")) // Neutral nouns
             return word.Substring(0, word.Length - 1) + "а";
-        else if (word.EndsWith("ът") || word.EndsWith("ят")) // Definite article endings
+        
+        if (word.EndsWith("ът") || word.EndsWith("ят")) // Definite article endings
         {
             // Handle definite article endings by pluralizing the base word
             string baseWord = word.Substring(0, word.Length - 2);
-            return PluralizeBulgarianWord(baseWord) + "те";
+            return PluralizeBulgarian(baseWord) + "те";
         }
-        else if (word.EndsWith("че") || word.EndsWith("ще")) // Some irregular cases
+        
+        if (word.EndsWith("че") || word.EndsWith("ще")) // Some irregular cases
             return word + "та";
-        else if (word.EndsWith("ко") || word.EndsWith("го")) // Neutral nouns
+        
+        if (word.EndsWith("ко") || word.EndsWith("го")) // Neutral nouns
             return word.Substring(0, word.Length - 2) + "та";
-        else if (word.EndsWith("о") || word.EndsWith("е")) // Neutral nouns
+        
+        if (word.EndsWith("о") || word.EndsWith("е")) // Neutral nouns
             return word.Substring(0, word.Length - 1) + "а";
-        else if (word.EndsWith("ец")) // Masculine nouns
+        
+        if (word.EndsWith("ец")) // Masculine nouns
             return word.Substring(0, word.Length - 2) + "ци";
-        else if (word.EndsWith("ка")) // Feminine nouns
+        
+        if (word.EndsWith("ка")) // Feminine nouns
             return word.Substring(0, word.Length - 2) + "ки";
-        else
-            // For all other cases, simply add "и" to the end
-            return word + "и";
+       
+        // For all other cases, simply add "и" to the end
+        return word + "и";
     }
 }
-

@@ -1,18 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Avto.Models;
 
 [Description("Служител")]
-public class SlujitelModel
+public class SlujitelModel : BaseModel
 {
-    public int Id { get; set; }
-
     [MaxLength(80)]
+    [DisplayName("Име")]
     public string? Name { get; set; }
 
+    [DisplayName("Раб. №")]
     public int Number { get; set; }
-
-    public DateTime? TekushtaData { get; set; }
-
-    public string? User { get; set; }
 }
