@@ -1,15 +1,6 @@
 ﻿@model IEnumerable<MotoModel>
+@Html.Partial("_IndexHead", Model)
 
-@{
-    ViewData["Title"] = "Автомобили";
-}
-
-<h1>@ViewData["Title"]</h1>
-
-<p>
-    <a asp-action="Create">Добави</a>
-</p>
-<table class="table">
     <thead>
         <tr>
             <th>

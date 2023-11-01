@@ -1,16 +1,5 @@
 ﻿@model IEnumerable<PListModel>
-
-@{
-    ViewData["Title"] = "Последни";
-}
-
-<h1>@ViewData["Title"]</h1>
-
-<p>
-    <a asp-action="Create">Нов</a>
-</p>
-
-<table class="table">
+@Html.Partial("_IndexHead", Model)
     <thead>
         <tr>
             <th asp-display-name-for="@Model.First().Number"></th>
