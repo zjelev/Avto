@@ -39,4 +39,15 @@ public class PListsController : BaseController<PListModel, PList>
 
         return await EditBase(id, pListModel);
     }
+
+    public async Task<IActionResult> Search(SearchModel searchModel)
+    {
+        // Perform the search based on the criteria in searchModel
+
+        // Build the query to filter the data from database
+
+        // Return the filtered data to the view
+        var filteredData = _context.Lists.FirstOrDefault(); // Query the database
+        return View("Index", filteredData);
+    }
 }

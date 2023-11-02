@@ -5,7 +5,7 @@ namespace Avto.ViewComponents;
 
 public class Search : ViewComponent
 {
-    public IViewComponentResult Invoke(PListModel searchModel)
+    public IViewComponentResult Invoke(SearchModel searchModel)
     {
         ViewData["SearchModel"] = searchModel;
         return View(searchModel);
