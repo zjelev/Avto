@@ -7,7 +7,7 @@ namespace Avto.Models;
 public class SearchModel : BaseModel
 {
     [DisplayName("Пътен лист №")]
-    public string? Number { get; set; }
+    public string Number { get; set; } = string.Empty;
 
     [Required, DisplayName("От"), DataType(DataType.Date)]
     [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

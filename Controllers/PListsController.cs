@@ -14,17 +14,30 @@ public class PListsController : BaseController<PListModel, PList>
     {
     }
 
-    protected override IQueryable<PList> ApplyCustomIncludes(DbSet<PList> dbSet)
+    // Aplly custom Index with search
+    public async Task<IActionResult> Index(SearchModel searchModel)
     {
-        // Customize the includes for ZastrahovkiController.
-        return dbSet
+        // Perform the search based on the criteria in searchModel
+        var query = _context.Lists.Where(l => l.Number.Contains(searchModel.Number));
+        
+        // Include navigation properties
+        query = query
             .Include(pl => pl.Moto)
             .Include(pl => pl.Slujitel)
             .Include(pl => pl.Transaks)
                 .ThenInclude(t => t.Otdel)
-            .Include(pl => pl.Transaks)
+            .Include(pl => pl.Transaks);
+
+        // Build the query to filter the data from database
+        var filteredData = await query
             .OrderByDescending(pl => pl.Id)
-            .Take(100);
+            .Take(100)
+            .ToListAsync();
+
+        ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
+
+        // Return the filtered data to the view
+        return View(_mapper.Map<List<PListModel>>(filteredData));
     }
 
     [HttpPost]
@@ -38,21 +51,5 @@ public class PListsController : BaseController<PListModel, PList>
         ModelState.Remove("Transaks");
 
         return await EditBase(id, pListModel);
-    }
-
-    public async Task<IActionResult> Index()
-    {
-        return await IndexBase();
-    }
-    
-    public async Task<IActionResult> Search(SearchModel searchModel)
-    {
-        // Perform the search based on the criteria in searchModel
-
-        // Build the query to filter the data from database
-
-        // Return the filtered data to the view
-        var filteredData = _context.Lists.FirstOrDefault(); // Query the database
-        return View("Index", filteredData);
     }
 }

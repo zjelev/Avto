@@ -38,7 +38,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
 
         return items != null ?
             View(_mapper.Map<List<TModel>>(items)) :
-            Problem($"Entity set '{typeof(TEntity).Name}' is null.");
+            Problem($"В '{typeof(PList).Name}' няма записи отговарящи на зададените критерии.");
     }
 
     public async Task<IActionResult> Details(int? id)
