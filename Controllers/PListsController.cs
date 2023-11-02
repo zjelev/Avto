@@ -18,8 +18,29 @@ public class PListsController : BaseController<PListModel, PList>
     public async Task<IActionResult> Index(SearchModel searchModel)
     {
         // Perform the search based on the criteria in searchModel
-        var query = _context.Lists.Where(l => l.Number.Contains(searchModel.Number));
+        var query = _context.Lists.Where(l => true);
+
+        if (searchModel.Number != null)
+            query = query.Where(l => l.Number.Contains(searchModel.Number));
+
+        if (searchModel.From != null)
+            query = query.Where(l => (DateTime)l.Data >= ToNullableDateTime(searchModel.From));
+
+        if (searchModel.To != null)
+            query = query.Where(l => (DateTime)l.Data <= ToNullableDateTime(searchModel.To));
+
+        if (searchModel.MotoName != null)
+            query = query.Where(l => l.Moto.Name.Contains(searchModel.MotoName));
+
+        if (searchModel.MotoNumber != null)
+            query = query.Where(l => l.Moto.Number.Contains(searchModel.Number));
+
+        if (searchModel.SlujitelId != 0)
+            query = query.Where(l => l.Slujitel.Number == searchModel.SlujitelId);
         
+        if (searchModel.SlujitelName != null)
+            query = query.Where(l => l.Slujitel.Name.Contains(searchModel.SlujitelName));
+
         // Include navigation properties
         query = query
             .Include(pl => pl.Moto)

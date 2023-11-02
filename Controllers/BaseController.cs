@@ -234,4 +234,12 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         // For all other cases, simply add "и" to the end
         return word + "и";
     }
+
+    public DateTime ToNullableDateTime(DateOnly? dateOnly)
+    {
+        if (dateOnly == null)
+            return DateTime.MinValue;
+
+        return new DateTime((int)dateOnly?.Year, (int)dateOnly?.Month, (int)dateOnly?.Day);
+    }
 }

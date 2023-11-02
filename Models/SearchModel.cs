@@ -3,34 +3,56 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Avto.Models;
 
-[Description("Пътен лист")]
+[Description("Търсене")]
 public class SearchModel : BaseModel
 {
+    //public SearchModel()
+    //{
+    //    Number = string.Empty;
+    //    From = DateOnly.FromDateTime(DateTime.MinValue);
+    //    To = DateOnly.FromDateTime(DateTime.MaxValue);
+    //    MotoName = string.Empty;
+    //    MotoNumber = string.Empty;
+    //    SlujitelId = 0;
+    //    SlujitelName = string.Empty;
+    //    Otdel = string.Empty;
+    //    Route = string.Empty;
+    //    KmMin = 0;
+    //    KmMax = 99999;
+    //}
+
     [DisplayName("Пътен лист №")]
-    public string Number { get; set; } = string.Empty;
+    public string Number { get; set; } //= string.Empty;
 
     [Required, DisplayName("От"), DataType(DataType.Date)]
     [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-    public DateOnly? Data { get; set; }
+    public DateOnly From { get; set; } = DateOnly.FromDateTime(DateTime.MinValue);
 
-    [DisplayName("Автомобил")]
-    public string? Moto { get; set; }
+    [Required, DisplayName("До"), DataType(DataType.Date)]
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+    public DateOnly To { get; set; } = DateOnly.FromDateTime(DateTime.MaxValue);
+
+    [DisplayName("Марка автомобил")]
+    public string MotoName { get; set; } //= string.Empty;
+
+    [DisplayName("Рег. №")]
+    public string MotoNumber { get; set; } //= string.Empty;
 
     [DisplayName("Раб. № шофьор")]
-    public int? SlujitelId { get; set; }
+    public int SlujitelId { get; set; } //= 0;
 
     [DisplayName("Име шофьор")]
-    public string? Slujitel { get; set; }
+    public string SlujitelName { get; set; } //= string.Empty;
 
     [DisplayName("Отдел")]
-    public string? Otdel { get; set; }
+    public string Otdel { get; set; } //= string.Empty;
 
     [DisplayName("Вид маршрут")]
-    public string? Route { get; set; }
+    public string Route { get; set; } //= string.Empty;
 
     [DisplayName("Минимум км")]
-    public int? KmMin { get; set; }
+    public int KmMin { get; set; } //= 0;
 
     [DisplayName("Максимум км")]
-    public int? KmMax { get; set; }
+    public int KmMax { get; set; } //= 0;
 }

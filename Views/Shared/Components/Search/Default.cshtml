@@ -1,11 +1,18 @@
 ﻿@model SearchModel
 
 <div class="text-center p-3" name="search">
-    <form asp-controller="PLists" asp-action="Search" method="get">
+    <form asp-controller="PLists" method="get">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input asp-for="Number" placeholder="Пътен лист №" />
-        <label asp-display-name-for="Data"></label>
-        <input asp-for="Data" />
+        <label asp-display-name-for="From"></label>
+        <input asp-for="From" />
+        <label asp-display-name-for="To"></label>
+        <input asp-for="To" />
+        <input asp-for="MotoName" placeholder="Марка автомобил" />
+        <input asp-for="MotoNumber" placeholder="Рег. № автомобил" />
+        <input asp-for="SlujitelId" placeholder="Раб. № шофьор" />
+        <input asp-for="SlujitelName" placeholder="Име шофьор" />
+        <input asp-for="Otdel" placeholder="Отдел" />
         <input type="submit" value="Търси" />
     </form>
 </div>
