@@ -26,11 +26,11 @@ public class SearchModel : BaseModel
 
     [Required, DisplayName("От"), DataType(DataType.Date)]
     [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-    public DateOnly From { get; set; } = DateOnly.FromDateTime(DateTime.MinValue);
+    public DateOnly? From { get; set; } // = DateOnly.FromDateTime(DateTime.MinValue);
 
     [Required, DisplayName("До"), DataType(DataType.Date)]
     [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-    public DateOnly To { get; set; } = DateOnly.FromDateTime(DateTime.MaxValue);
+    public DateOnly? To { get; set; } // = DateOnly.FromDateTime(DateTime.MaxValue);
 
     [DisplayName("Марка автомобил")]
     public string MotoName { get; set; } //= string.Empty;

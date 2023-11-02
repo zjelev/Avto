@@ -7,7 +7,6 @@ public class Search : ViewComponent
 {
     public IViewComponentResult Invoke(SearchModel searchModel)
     {
-        ViewData["SearchModel"] = searchModel;
         return View(searchModel);
     }
 }

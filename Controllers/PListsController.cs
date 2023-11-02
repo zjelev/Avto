@@ -15,10 +15,16 @@ public class PListsController : BaseController<PListModel, PList>
     }
 
     // Aplly custom Index with search
-    public async Task<IActionResult> Index(SearchModel searchModel)
+    public async Task<IActionResult> Index(SearchModel searchModel, int? page)
     {
+        ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
+
+        // Paging
+        int pageNumber = page ?? 1;
+        int pageSize = 100;
+
         // Perform the search based on the criteria in searchModel
-        var query = _context.Lists.Where(l => true);
+        var query = _context.Lists.Where(l => l.Data > DateTime.Today.AddYears(-3));
 
         if (searchModel.Number != null)
             query = query.Where(l => l.Number.Contains(searchModel.Number));
@@ -42,6 +48,7 @@ public class PListsController : BaseController<PListModel, PList>
             query = query.Where(l => l.Slujitel.Name.Contains(searchModel.SlujitelName));
 
         // Include navigation properties
+        // Build the query to filter the data from database
         query = query
             .Include(pl => pl.Moto)
             .Include(pl => pl.Slujitel)
@@ -49,16 +56,20 @@ public class PListsController : BaseController<PListModel, PList>
                 .ThenInclude(t => t.Otdel)
             .Include(pl => pl.Transaks);
 
-        // Build the query to filter the data from database
-        var filteredData = await query
-            .OrderByDescending(pl => pl.Id)
-            .Take(100)
-            .ToListAsync();
+        // Calculate the number of records to skip
+        int recordsToSkip = (pageNumber - 1) * pageSize;
 
-        ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
+        // Apply paging using Take and Skip
+        var pagedData = query
+            .Skip(recordsToSkip)
+            .Take(pageSize)
+            .OrderByDescending(pl => pl.Id)
+            .ToList();
+
+        var mappedData = _mapper.Map<List<PListModel>>(pagedData);
 
         // Return the filtered data to the view
-        return View(_mapper.Map<List<PListModel>>(filteredData));
+        return View(mappedData);
     }
 
     [HttpPost]
