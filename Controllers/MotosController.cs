@@ -12,6 +12,8 @@ public class MotosController : BaseController<MotoModel, Moto>
     {
     }
 
+    public async Task<IActionResult> Index() => await IndexBase();
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [FromForm] MotoModel motoModel)

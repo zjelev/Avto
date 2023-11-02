@@ -12,6 +12,8 @@ public class SlujiteliController : BaseController<SlujitelModel, Slujitel>
     {
     }
 
+    public async Task<IActionResult> Index() => await IndexBase();
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [FromForm] SlujitelModel slujitelModel) => await EditBase(id, slujitelModel);

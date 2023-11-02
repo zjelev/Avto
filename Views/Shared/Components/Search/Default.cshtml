@@ -1,11 +1,11 @@
-﻿@model PListModel
+﻿@model SearchModel
 
 <div class="text-center p-3" name="search">
     <form asp-controller="PLists" asp-action="Search" method="get">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input asp-for="@Model.Number" placeholder="Пътен лист №" />
+        <input asp-for="Number" placeholder="Пътен лист №" />
         <label asp-display-name-for="Data"></label>
-        <input type="date" asp-for="@Model.Data"/>
+        <input asp-for="Data" />
         <input type="submit" value="Търси" />
     </form>
 </div>

@@ -29,7 +29,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         return dbSet;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> IndexBase()
     {
         var query = _context.Set<TEntity>();
         var items = await ApplyCustomIncludes(query).ToListAsync();

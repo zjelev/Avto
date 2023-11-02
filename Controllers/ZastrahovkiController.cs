@@ -20,6 +20,8 @@ public class ZastrahovkiController : BaseController<ZastrahovkaModel, Zastrahovk
         return dbSet.Include(z => z.Moto);
     }
 
+    public async Task<IActionResult> Index() => await IndexBase();
+    
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [FromForm] ZastrahovkaModel zastrahovkaModel)

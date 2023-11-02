@@ -40,6 +40,11 @@ public class PListsController : BaseController<PListModel, PList>
         return await EditBase(id, pListModel);
     }
 
+    public async Task<IActionResult> Index()
+    {
+        return await IndexBase();
+    }
+    
     public async Task<IActionResult> Search(SearchModel searchModel)
     {
         // Perform the search based on the criteria in searchModel
