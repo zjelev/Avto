@@ -6,21 +6,6 @@ namespace Avto.Models;
 [Description("Търсене")]
 public class SearchModel : BaseModel
 {
-    //public SearchModel()
-    //{
-    //    Number = string.Empty;
-    //    From = DateOnly.FromDateTime(DateTime.MinValue);
-    //    To = DateOnly.FromDateTime(DateTime.MaxValue);
-    //    MotoName = string.Empty;
-    //    MotoNumber = string.Empty;
-    //    SlujitelId = 0;
-    //    SlujitelName = string.Empty;
-    //    Otdel = string.Empty;
-    //    Route = string.Empty;
-    //    KmMin = 0;
-    //    KmMax = 99999;
-    //}
-
     [DisplayName("Пътен лист №")]
     public string Number { get; set; } //= string.Empty;
 
