@@ -19,58 +19,52 @@ public class PListsController : BaseController<PListModel, PList>
     {
         ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
 
-        // Paging
         int pageNumber = page ?? 1;
         int pageSize = 100;
 
-        // Perform the search based on the criteria in searchModel
-        var query = _context.Lists.Where(l => l.Data > DateTime.Today.AddYears(-3));
+        var query = _context.Lists
+            .Where(l => l.Data > DateTime.Today.AddYears(-6));
 
-        if (searchModel.Number != null)
+        if (!string.IsNullOrEmpty(searchModel.Number))
             query = query.Where(l => l.Number.Contains(searchModel.Number));
 
-        if (searchModel.From != null)
-            query = query.Where(l => (DateTime)l.Data >= ToNullableDateTime(searchModel.From));
+        if (searchModel.From.HasValue)
+            query = query.Where(l => l.Data >= ToNullableDateTime(searchModel.From.Value));
 
-        if (searchModel.To != null)
-            query = query.Where(l => (DateTime)l.Data <= ToNullableDateTime(searchModel.To));
+        if (searchModel.To.HasValue)
+            query = query.Where(l => l.Data <= ToNullableDateTime(searchModel.To.Value));
 
-        if (searchModel.MotoName != null)
+        if (!string.IsNullOrEmpty(searchModel.MotoName))
             query = query.Where(l => l.Moto.Name.Contains(searchModel.MotoName));
 
-        if (searchModel.MotoNumber != null)
-            query = query.Where(l => l.Moto.Number.Contains(searchModel.Number));
+        if (!string.IsNullOrEmpty(searchModel.MotoNumber))
+            query = query.Where(l => l.Moto.Number.Contains(searchModel.MotoNumber));
 
         if (searchModel.SlujitelId != 0)
             query = query.Where(l => l.Slujitel.Number == searchModel.SlujitelId);
-        
-        if (searchModel.SlujitelName != null)
+
+        if (!string.IsNullOrEmpty(searchModel.SlujitelName))
             query = query.Where(l => l.Slujitel.Name.Contains(searchModel.SlujitelName));
 
-        // Include navigation properties
-        // Build the query to filter the data from database
         query = query
             .Include(pl => pl.Moto)
             .Include(pl => pl.Slujitel)
             .Include(pl => pl.Transaks)
-                .ThenInclude(t => t.Otdel)
-            .Include(pl => pl.Transaks);
+            .ThenInclude(t => t.Otdel);
 
-        // Calculate the number of records to skip
         int recordsToSkip = (pageNumber - 1) * pageSize;
 
-        // Apply paging using Take and Skip
-        var pagedData = query
+        var pagedData = await query
+            .OrderByDescending(pl => pl.Id)
             .Skip(recordsToSkip)
             .Take(pageSize)
-            .OrderByDescending(pl => pl.Id)
-            .ToList();
+            .ToListAsync();
 
         var mappedData = _mapper.Map<List<PListModel>>(pagedData);
 
-        // Return the filtered data to the view
         return View(mappedData);
     }
+
 
     [HttpPost]
     [ValidateAntiForgeryToken]
