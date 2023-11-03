@@ -21,11 +21,11 @@ public class PListsController : BaseController<PListModel, PList>
         int pageNumber = page ?? 1;
 
         ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
-        ViewData["SearchModel"] = searchModel;
+        ViewData["Search"] = searchModel;
         ViewData["Page"] = pageNumber;
 
         var query = _context.Lists
-            .Where(l => l.Data > DateTime.Today.AddYears(-6));
+            .Where(l => l.Data > DateTime.Today.AddYears(-3));
 
         if (!string.IsNullOrEmpty(searchModel.Number))
             query = query.Where(l => l.Number.Contains(searchModel.Number));

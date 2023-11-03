@@ -1,25 +1,25 @@
 ﻿@{
-    var search = ViewData["SearchModel"] as SearchModel;
+    var search = ViewData["Search"] as SearchModel;
 }
 
 <div class="pager-container d-flex justify-content-center ">
-    @if (ViewData.ContainsKey("TotalPages") && (int)ViewData["TotalPages"] > 1)
+    @if ((int)ViewData["TotalPages"] > 1)
     {
         <nav>
             <ul class="pagination flex-wrap">
                 <li asp-if="((int)ViewBag.Page > 1)" class="page-item">
-                    <a class="page-link" search-page="((int)ViewBag.Page - 1)" search-model="@search">Предишна</a>
+                    <a class="page-link" search-page="((int)ViewBag.Page - 1)" search-model="search">&lt;&lt;</a>
                 </li>
 
                 @for (int i = 1; i <= (int)ViewData["TotalPages"]; i++)
                 {
                     <li class="page-item @(i == (int)ViewData["Page"] ? "active" : "")">
-                        <a class="page-link" search-page="i" search-model="@search">@i</a>
+                        <a class="page-link" search-page="i" search-model="search">@i</a>
                     </li>
                 }
 
                 <li asp-if="((int)ViewBag.Page < (int)ViewBag.TotalPages)" class="page-item">
-                    <a class="page-link" search-page="((int)ViewBag.Page + 1)" search-model="@search">Следваща</a>
+                    <a class="page-link" search-page="((int)ViewBag.Page + 1)" search-model="search">>></a>
                 </li>
             </ul>
         </nav>
