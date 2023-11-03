@@ -1,0 +1,33 @@
+﻿@{
+    var searchModel = ViewData["SearchModel"] as SearchModel;
+}
+
+<div class="pager-container d-flex justify-content-center ">
+    @if (ViewData.ContainsKey("TotalPages") && (int)ViewData["TotalPages"] > 1)
+    {
+        <nav>
+            <ul class="pagination flex-wrap">
+                @if ((bool)((int)ViewData["Page"] > 1))
+                {
+                    <li class="page-item">
+                        <a class="page-link" search-model="@searchModel" search-page="@((int)ViewData["Page"] - 1)">Предишна</a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= (int)ViewData["TotalPages"]; i++)
+                {
+                    <li class="page-item @(i == (int)ViewData["Page"] ? "active" : "")">
+                        <a class="page-link" search-model="@searchModel" search-page="@i">@i</a>
+                    </li>
+                }
+
+                @if ((bool)((int)ViewData["Page"] < (int)ViewData["TotalPages"]))
+                {
+                    <li class="page-item">
+                        <a class="page-link" search-model="@searchModel" search-page="@((int)ViewData["Page"] + 1)">Следваща</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+</div>

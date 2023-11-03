@@ -17,10 +17,12 @@ public class PListsController : BaseController<PListModel, PList>
     // Aplly custom Index with search
     public async Task<IActionResult> Index(SearchModel searchModel, int? page)
     {
-        ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
-
-        int pageNumber = page ?? 1;
         int pageSize = 100;
+        int pageNumber = page ?? 1;
+
+        ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
+        ViewData["SearchModel"] = searchModel;
+        ViewData["Page"] = pageNumber;
 
         var query = _context.Lists
             .Where(l => l.Data > DateTime.Today.AddYears(-6));
@@ -52,11 +54,11 @@ public class PListsController : BaseController<PListModel, PList>
             .Include(pl => pl.Transaks)
             .ThenInclude(t => t.Otdel);
 
-        int recordsToSkip = (pageNumber - 1) * pageSize;
+        ViewData["TotalPages"] = (int)Math.Ceiling((double)query.Count() / pageSize);
 
         var pagedData = await query
             .OrderByDescending(pl => pl.Id)
-            .Skip(recordsToSkip)
+            .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
 
@@ -64,7 +66,6 @@ public class PListsController : BaseController<PListModel, PList>
 
         return View(mappedData);
     }
-
 
     [HttpPost]
     [ValidateAntiForgeryToken]
