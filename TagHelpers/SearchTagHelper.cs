@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Avto.TagHelpers;
 
-[HtmlTargetElement("a")]
+[HtmlTargetElement("a", Attributes = "search")]
 public class SearchTagHelper : TagHelper
 {
     private readonly IUrlHelperFactory _urlHelperFactory;
