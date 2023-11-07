@@ -43,4 +43,7 @@ public class SearchModel : BaseModel
 
     [DisplayName("Максимум км")]
     public int KmMax { get; set; } //= 0;
+
+    public int Page { get; set; } = 1;
+
 }

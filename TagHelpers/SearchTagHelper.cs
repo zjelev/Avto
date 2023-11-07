@@ -7,13 +7,12 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Avto.TagHelpers;
 
-[HtmlTargetElement("a", Attributes = "search")]
+[HtmlTargetElement("a", Attributes = "search-vm")]
 public class SearchTagHelper : TagHelper
 {
     private readonly IUrlHelperFactory _urlHelperFactory;
-    public int? SearchPage { get; set; }
 
-    public SearchModel SearchModel { get; set; } = new SearchModel();
+    public SearchModel SearchVm { get; set; } = new SearchModel();
 
     [ViewContext]
     [HtmlAttributeNotBound]
@@ -28,15 +27,15 @@ public class SearchTagHelper : TagHelper
     {
         var routeValues = new Dictionary<string, object>
             {
-                { "Number", SearchModel.Number ?? null},
-                { "From", SearchModel.From ?? null },
-                { "To", SearchModel.To ?? null },
-                { "MotoName", SearchModel.MotoName ?? null },
-                { "MotoNumber", SearchModel.MotoNumber ?? null },
-                { "SlujitelId", SearchModel.SlujitelId },
-                { "SlujitelName", SearchModel.SlujitelName ?? null },
-                { "Otdel", SearchModel.Otdel ?? null },
-                { "Page", SearchPage ?? null}
+                { "Number", SearchVm.Number ?? null},
+                { "From", SearchVm.From ?? null },
+                { "To", SearchVm.To ?? null },
+                { "MotoName", SearchVm.MotoName ?? null },
+                { "MotoNumber", SearchVm.MotoNumber ?? null },
+                { "SlujitelId", SearchVm.SlujitelId },
+                { "SlujitelName", SearchVm.SlujitelName ?? null },
+                { "Otdel", SearchVm.Otdel ?? null },
+                { "Page", SearchVm.Page }
             };
 
         var urlHelper = _urlHelperFactory.GetUrlHelper(ViewContext);

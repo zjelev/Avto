@@ -21,10 +21,10 @@ public class PListsController : BaseController<PListModel, PList>
     }
 
     // Aplly custom Index with search
-    public async Task<IActionResult> Index(SearchModel searchModel, int? page)
+    public async Task<IActionResult> Index(SearchModel searchModel)
     {
         int pageSize = 100;
-        int pageNumber = page ?? 1;
+        int pageNumber = searchModel.Page;
 
         ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
         ViewData["Search"] = searchModel;
