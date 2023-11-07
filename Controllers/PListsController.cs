@@ -28,7 +28,6 @@ public class PListsController : BaseController<PListModel, PList>
 
         ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
         ViewData["Search"] = searchModel;
-        ViewData["Page"] = pageNumber;
         ViewData["CallingIndexView"] = "PLists";
 
         var query = _context.Lists

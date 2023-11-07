@@ -1,5 +1,6 @@
 ﻿@{
     var searchVm = ViewData["Search"] as SearchModel;
+    var currentPage = searchVm.Page;
 }
 
 <div class="pager-container d-flex justify-content-center ">
@@ -8,23 +9,25 @@
         <nav>
             <ul class="pagination flex-wrap">
                 @{
-                    searchVm.Page = (int)ViewBag.Page - 1;
+                    searchVm.Page = currentPage - 1;
                 }
-                <li asp-if="((int)ViewBag.Page > 1)" class="page-item">
+                <li asp-if="(currentPage > 1)" class="page-item">
                     <a class="page-link" search-vm="@searchVm">&lt;&lt;</a>
                 </li>
 
                 @for (int i = 1; i <= (int)ViewData["TotalPages"]; i++)
                 {
-                    searchVm.Page = i;
-                    <li class="page-item @(i == (int)ViewData["Page"] ? "active" : "")">
-                        <a class="page-link" search-vm="@searchVm">@i</a>
+                    <li class="page-item @(i == currentPage ? "active" : "")">
+                    @{
+                        searchVm.Page = i;
+                    }
+                    <a class="page-link" search-vm="@searchVm">@i</a>
                     </li>
                 }
                 @{
-                    searchVm.Page = (int)ViewBag.Page + 1;
+                    searchVm.Page = currentPage + 1;
                 }
-                <li asp-if="((int)ViewBag.Page < (int)ViewBag.TotalPages)" class="page-item">
+                <li asp-if="(currentPage < (int)ViewBag.TotalPages)" class="page-item">
                     <a class="page-link" search-vm="@searchVm">>></a>
                 </li>
             </ul>
