@@ -1,0 +1,32 @@
+﻿@model IEnumerable<TransakModel>
+<h1>@ViewData["Title"]</h1>
+@await Component.InvokeAsync("Search")
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PListId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OtdelId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KmId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KmKm)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><a asp-controller="PLists" asp-action="Edit" asp-route-id="@item.PListId">@item.PListId</a></td>
+                <td asp-display-for="@item.OtdelId"></td>
+                <td asp-display-for="@item.KmId"></td>
+                <td asp-display-for="@item.KmKm"></td>
+            </tr>
+        }
+    </tbody>
+</table>

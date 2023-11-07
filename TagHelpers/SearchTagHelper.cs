@@ -35,6 +35,7 @@ public class SearchTagHelper : TagHelper
                 { "MotoNumber", SearchModel.MotoNumber ?? null },
                 { "SlujitelId", SearchModel.SlujitelId },
                 { "SlujitelName", SearchModel.SlujitelName ?? null },
+                { "Otdel", SearchModel.Otdel ?? null },
                 { "Page", SearchPage ?? null}
             };
 

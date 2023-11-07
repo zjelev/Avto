@@ -30,6 +30,9 @@ public class SearchModel : BaseModel
     public string SlujitelName { get; set; } //= string.Empty;
 
     [DisplayName("Отдел")]
+    public int OtdelId { get; set; } //= 0;
+    
+    [DisplayName("Отдел")]
     public string Otdel { get; set; } //= string.Empty;
 
     [DisplayName("Вид маршрут")]

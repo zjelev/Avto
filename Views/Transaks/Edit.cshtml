@@ -1,0 +1,25 @@
+﻿@model TransakModel
+@Html.Partial("_Head", Model)
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="OtdelId" class="control-label"></label>
+                <input asp-for="OtdelId" class="form-control" />
+                <span asp-validation-for="OtdelId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KmId" class="control-label"></label>
+                <input asp-for="KmId" class="form-control" />
+                <span asp-validation-for="KmId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KmKm" class="control-label"></label>
+                <input asp-for="KmKm" class="form-control" />
+                <span asp-validation-for="KmKm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Запази" class="btn btn-primary" />
+            </div>
+        </form>
+@Html.Partial("_EditFoot", Model)
