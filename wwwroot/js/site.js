@@ -1,6 +1,4 @@
-﻿
-let rowIndex = 1;
-function newRow() {
+﻿function newRow() {
     var table = document.querySelector("table");
     var lastRow = table.querySelector("tr:last-child"); // Get the last row as a template
 

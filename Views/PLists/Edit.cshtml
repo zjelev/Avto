@@ -1,5 +1,5 @@
 ﻿@model PListModel
-@Html.Partial("_Head", Model)
+<partial name="_Head" />
     <form asp-action="Edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" />
@@ -53,7 +53,6 @@
                             <td><input asp-for="TransaksModel[i].KmKm" /></td>
                         </tr>
                     }
-                    <!-- Add rows dynamically with JS -->
                 </table>
                 <button type="button" id="addRow" class="float-end" onclick="newRow()">Добави ред</button>
             </div>
@@ -64,3 +63,7 @@
         </div>
     </form>
 @Html.Partial("_EditFoot", Model)
+
+<script>
+    let rowIndex = @Model.TransaksModel.Count;
+</script>

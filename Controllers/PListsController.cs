@@ -14,6 +14,12 @@ public class PListsController : BaseController<PListModel, PList>
     {
     }
 
+    protected override IQueryable<PList> ApplyCustomIncludes(DbSet<PList> dbSet)
+    {
+        // Customize the includes for this Controller.
+        return dbSet.Include(pl => pl.Transaks);
+    }
+
     // Aplly custom Index with search
     public async Task<IActionResult> Index(SearchModel searchModel, int? page)
     {
