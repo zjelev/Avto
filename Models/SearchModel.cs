@@ -46,4 +46,6 @@ public class SearchModel : BaseModel
 
     public int Page { get; set; } = 1;
 
+    public int TotalPages { get; set; } = 1;
+
 }

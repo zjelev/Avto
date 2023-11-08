@@ -4,33 +4,29 @@
 }
 
 <div class="pager-container d-flex justify-content-center ">
-    @if ((int)ViewData["TotalPages"] > 1)
-    {
-        <nav>
-            <ul class="pagination flex-wrap">
+    <nav asp-if="searchVm.TotalPages > 1">
+        <ul class="pagination flex-wrap">
+            <li asp-if="currentPage > 1" class="page-item">
                 @{
                     searchVm.Page = currentPage - 1;
                 }
-                <li asp-if="(currentPage > 1)" class="page-item">
-                    <a class="page-link" search-vm="@searchVm">&lt;&lt;</a>
-                </li>
-
-                @for (int i = 1; i <= (int)ViewData["TotalPages"]; i++)
-                {
-                    <li class="page-item @(i == currentPage ? "active" : "")">
+                <a class="page-link" search-vm="@searchVm">&lt;&lt;</a>
+            </li>
+            @for (int i = 1; i <= searchVm.TotalPages; i++)
+            {
+                <li class="page-item @(i == currentPage ? "active" : "")">
                     @{
                         searchVm.Page = i;
                     }
                     <a class="page-link" search-vm="@searchVm">@i</a>
-                    </li>
-                }
+                </li>
+            }
+            <li asp-if="currentPage < searchVm.TotalPages" class="page-item">
                 @{
                     searchVm.Page = currentPage + 1;
                 }
-                <li asp-if="(currentPage < (int)ViewBag.TotalPages)" class="page-item">
-                    <a class="page-link" search-vm="@searchVm">>></a>
-                </li>
-            </ul>
-        </nav>
-    }
+                <a class="page-link" search-vm="@searchVm">>></a>
+            </li>
+        </ul>
+    </nav>
 </div>

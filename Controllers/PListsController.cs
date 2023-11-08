@@ -60,7 +60,7 @@ public class PListsController : BaseController<PListModel, PList>
             .Include(pl => pl.Transaks)
             .ThenInclude(t => t.Otdel);
 
-        ViewData["TotalPages"] = (int)Math.Ceiling((double)query.Count() / pageSize);
+        searchModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);
 
         var pagedData = await query
             .OrderByDescending(pl => pl.Id)
