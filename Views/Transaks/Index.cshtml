@@ -1,27 +1,24 @@
 ﻿@model IEnumerable<TransakModel>
 <h1>@ViewData["Title"]</h1>
 @await Component.InvokeAsync("Search")
+@{
+    int count = 0;
+}
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PListId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OtdelId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.KmId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.KmKm)
-            </th>
+            <th>№</th>
+            <th>@Html.DisplayNameFor(model => model.PListId)</th>
+            <th>@Html.DisplayNameFor(model => model.OtdelId)</th>
+            <th>@Html.DisplayNameFor(model => model.KmId)</th>
+            <th>@Html.DisplayNameFor(model => model.KmKm)</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
+                <td>@((int)((ViewData["Search"] as SearchModel).Page - 1) * 100 + ++count)</td>
                 <td><a asp-controller="PLists" asp-action="Edit" asp-route-id="@item.PListId">@item.PListId</a></td>
                 <td asp-display-for="@item.OtdelId"></td>
                 <td asp-display-for="@item.KmId"></td>
@@ -30,3 +27,5 @@
         }
     </tbody>
 </table>
+
+<partial name="_Pager" />

@@ -2,9 +2,13 @@
 <partial name="_IndexHead"/>
 @*@await Html.PartialAsync("_IndexHead", Model)*@
 @await Component.InvokeAsync("Search")
+@{
+    int count = 0;
+}
 <table class="table">
     <thead>
         <tr>
+            <th>№</th>
             <th asp-display-name-for="@Model.First().Number"></th>
             <th asp-display-name-for="@Model.First().Data"></th>
             <th asp-display-name-for="@Model.First().Moto"></th>
@@ -17,6 +21,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>@((int)((ViewData["Search"] as SearchModel).Page - 1) * 100 + ++count)</td>
             <td><a asp-action="Edit" asp-route-id="@item.Id">@item.Number</a></td>
             <td>@item.Data</td>
             <td>@item.Moto.Name</td>

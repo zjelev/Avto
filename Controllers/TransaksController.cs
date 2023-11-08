@@ -13,14 +13,13 @@ public class TransaksController : BaseController<TransakModel, Transak>
     {
     }
 
-    public async Task<IActionResult> Index(SearchModel searchModel, int? page)
+    public async Task<IActionResult> Index(SearchModel searchModel)
     {
         int pageSize = 100;
-        int pageNumber = page ?? 1;
+        int pageNumber = searchModel.Page;
 
         ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
         ViewData["Search"] = searchModel;
-        ViewData["Page"] = pageNumber;
         ViewData["CallingIndexView"] = "Transaks";
 
         IQueryable<Transak> query = _context.Transaks;
@@ -29,6 +28,8 @@ public class TransaksController : BaseController<TransakModel, Transak>
         if (!string.IsNullOrEmpty(searchModel.Otdel))
             query = query.Where(t => t.OtdelId == 3);
 
+        searchModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);
+        
         var pagedData = await query
             .OrderByDescending(t => t.Id)
             .Skip((pageNumber - 1) * pageSize)
@@ -37,7 +38,6 @@ public class TransaksController : BaseController<TransakModel, Transak>
 
         var mappedData = _mapper.Map<List<TransakModel>>(pagedData);
 
-        ViewData["TotalPages"] = (int)Math.Ceiling((double)query.Count() / pageSize);
         return View(mappedData);
     }
 
