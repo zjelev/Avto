@@ -36,8 +36,8 @@ public class ApplicationDbContext : IdentityDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Transak>()
-            .Ignore(t => t.PList); // avoid circular reference
+        //modelBuilder.Entity<Transak>()
+        //    .Ignore(t => t.PList); // avoid circular reference
 
         base.OnModelCreating(modelBuilder); //fixes Error "The entity type 'IdentityUserLogin<string>' requires a primary key to be defined..."
     }

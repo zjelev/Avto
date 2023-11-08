@@ -60,8 +60,6 @@ public class PListsController : BaseController<PListModel, PList>
             .Include(pl => pl.Transaks)
             .ThenInclude(t => t.Otdel);
 
-        searchModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);
-
         var pagedData = await query
             .OrderByDescending(pl => pl.Id)
             .Skip((pageNumber - 1) * pageSize)
@@ -69,6 +67,7 @@ public class PListsController : BaseController<PListModel, PList>
             .ToListAsync();
 
         var mappedData = _mapper.Map<List<PListModel>>(pagedData);
+        searchModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);
 
         return View(mappedData);
     }

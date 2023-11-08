@@ -22,14 +22,17 @@ public class TransaksController : BaseController<TransakModel, Transak>
         ViewData["Search"] = searchModel;
         ViewData["CallingIndexView"] = "Transaks";
 
-        IQueryable<Transak> query = _context.Transaks;
-        //.Where(l => l.PList.Data > DateTime.Today.AddYears(-1));
+        IQueryable<Transak> query = _context.Transaks
+            .Include(t => t.PList)
+                .ThenInclude(pl => pl.Moto)
+            .Include(t => t.PList)
+                .ThenInclude(pl => pl.Slujitel)
+            .Include(t => t.Otdel)
+            .Where(l => l.PList.Data > DateTime.Today.AddYears(-1));
 
         if (!string.IsNullOrEmpty(searchModel.Otdel))
-            query = query.Where(t => t.OtdelId == 3);
+            query = query.Where(t => t.Otdel.Name.Contains(searchModel.Otdel));
 
-        searchModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);
-        
         var pagedData = await query
             .OrderByDescending(t => t.Id)
             .Skip((pageNumber - 1) * pageSize)
@@ -37,6 +40,7 @@ public class TransaksController : BaseController<TransakModel, Transak>
             .ToListAsync();
 
         var mappedData = _mapper.Map<List<TransakModel>>(pagedData);
+        searchModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);
 
         return View(mappedData);
     }

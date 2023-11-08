@@ -15,6 +15,7 @@ public class MotoModel : BaseModel
     [DisplayName("Рег. №")]
     public string? Number { get; set; }
 
+    [DisplayName("Автомобил")]
     public string NumberAndName => $"{Number} - {Name}";
 
     [DisplayName("Осн. норма")]

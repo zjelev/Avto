@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Avto.Data;
 
@@ -10,6 +11,7 @@ public partial class Moto : BaseEntity
     [MaxLength(8)]
     public string? Number { get; set; }
 
+    [DisplayName("Автомобил")]
     public string NumberAndName => $"{Number} - {Name}";
 
     public double OsnovnaNorma { get; set; }
