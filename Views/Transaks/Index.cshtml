@@ -9,6 +9,7 @@
         <tr>
             <th>№</th>
             <th asp-display-name-for="@Model.First().PListId"></th>
+            <th asp-display-name-for="@Model.First().PList.Data"></th>
             <th asp-display-name-for="@Model.First().PList.Moto.NumberAndName"></th>
             <th asp-display-name-for="@Model.First().PList.Slujitel.Name"></th>
             <th>@Html.DisplayNameFor(model => model.Otdel.Name)</th>
@@ -22,6 +23,7 @@
             <tr>
                 <td>@((int)((ViewData["Search"] as SearchModel).Page - 1) * 100 + ++count)</td>
                 <td><a asp-controller="PLists" asp-action="Edit" asp-route-id="@item.PListId">@item.PList.Number</a></td>
+                <td>@item.PList.Data?.ToString("dd.MM.yyyy")</td>
                 <td asp-display-for="@item.PList.Moto.NumberAndName"></td>
                 <td asp-display-for="@item.PList.Slujitel.Name"></td>
                 <td asp-display-for="@item.Otdel.Name"></td>

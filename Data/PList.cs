@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Avto.Data;
 
@@ -12,6 +13,7 @@ public class PList : BaseEntity
     [MaxLength(50)]
     public string? Number { get; set; }
 
+    [DisplayName("Дата")]
     public DateTime? Data { get; set; }
 
     public int MotoId { get; set; }
