@@ -16,19 +16,13 @@ public class PListsController : BaseController<PListModel, PList>
 
     protected override IQueryable<PList> ApplyCustomIncludes(DbSet<PList> dbSet)
     {
-        // Customize the includes for this Controller.
+        // Customize the includes for this Controller's Edit action.
         return dbSet.Include(pl => pl.Transaks);
     }
 
     // Aplly custom Index with search
     public async Task<IActionResult> Index(SearchModel searchModel)
     {
-        int pageSize = 100;
-        int pageNumber = searchModel.Page;
-
-        ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
-        ViewData["Search"] = searchModel;
-        ViewData["CallingIndexView"] = "PLists";
 
         var query = _context.Lists
             .Where(l => l.Data > DateTime.Today.AddYears(-3));
@@ -60,11 +54,18 @@ public class PListsController : BaseController<PListModel, PList>
             .Include(pl => pl.Transaks)
             .ThenInclude(t => t.Otdel);
 
+        int pageSize = 100;
+        int pageNumber = searchModel.Page;
+
         var pagedData = await query
             .OrderByDescending(pl => pl.Id)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
+
+        ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
+        ViewData["Search"] = searchModel;
+        ViewData["CallingIndexView"] = "PLists";
 
         var mappedData = _mapper.Map<List<PListModel>>(pagedData);
         searchModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);

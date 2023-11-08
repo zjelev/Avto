@@ -12,7 +12,7 @@ public class SlujiteliController : BaseController<SlujitelModel, Slujitel>
     {
     }
 
-    public async Task<IActionResult> Index() => await IndexBase();
+    public async Task<IActionResult> Index(SearchModel searchModel) => await IndexBase(searchModel);
 
     [HttpPost]
     [ValidateAntiForgeryToken]

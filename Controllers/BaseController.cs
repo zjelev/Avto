@@ -29,12 +29,22 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         return dbSet;
     }
 
-    public async Task<IActionResult> IndexBase()
+    public async Task<IActionResult> IndexBase(SearchModel searchModel)
     {
+        int pageSize = 100;
+        int pageNumber = searchModel.Page;
+
         var query = _context.Set<TEntity>();
-        var items = await ApplyCustomIncludes(query).ToListAsync();
+        searchModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);
+
+        var items = await ApplyCustomIncludes(query)
+            .OrderByDescending(pl => pl.Id)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
 
         ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
+        ViewData["Search"] = searchModel;
 
         return items != null ?
             View(_mapper.Map<List<TModel>>(items)) :
