@@ -14,16 +14,19 @@ public class PListsController : BaseController<PListModel, PList>
     {
     }
 
-    protected override IQueryable<PList> ApplyCustomIncludes(DbSet<PList> dbSet)
+    protected override IQueryable<PList> ApplyCustomIncludes(IQueryable<PList> dbSet)
     {
-        // Customize the includes for this Controller's Edit action.
-        return dbSet.Include(pl => pl.Transaks);
+        // Customize the includes for this Controller's actions.
+        return dbSet
+            .Include(pl => pl.Transaks)
+            .Include(pl => pl.Moto)
+            .Include(pl => pl.Slujitel)
+            .Include(pl => pl.Transaks)
+                .ThenInclude(t => t.Otdel);
     }
 
-    // Aplly custom Index with search
-    public async Task<IActionResult> Index(SearchModel searchModel)
+    protected override IQueryable<PList> ApplyCustomSearch(SearchModel searchModel)
     {
-
         var query = _context.Lists
             .Where(l => l.Data > DateTime.Today.AddYears(-3));
 
@@ -48,29 +51,15 @@ public class PListsController : BaseController<PListModel, PList>
         if (!string.IsNullOrEmpty(searchModel.SlujitelName))
             query = query.Where(l => l.Slujitel.Name.Contains(searchModel.SlujitelName));
 
-        query = query
-            .Include(pl => pl.Moto)
-            .Include(pl => pl.Slujitel)
-            .Include(pl => pl.Transaks)
-            .ThenInclude(t => t.Otdel);
+        return query;
+    }
 
-        int pageSize = 100;
-        int pageNumber = searchModel.Page;
-
-        var pagedData = await query
-            .OrderByDescending(pl => pl.Id)
-            .Skip((pageNumber - 1) * pageSize)
-            .Take(pageSize)
-            .ToListAsync();
-
-        ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
-        ViewData["Search"] = searchModel;
+    // Apply custom Index with search
+    public async Task<IActionResult> Index(SearchModel searchModel)
+    {
         ViewData["CallingIndexView"] = "PLists";
 
-        var mappedData = _mapper.Map<List<PListModel>>(pagedData);
-        searchModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);
-
-        return View(mappedData);
+        return await IndexBase(searchModel);
     }
 
     [HttpPost]

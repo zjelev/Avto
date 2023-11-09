@@ -23,10 +23,16 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         _modelDescription = descriptionAttribute?.Description ?? modelType.Name;
     }
 
-    protected virtual IQueryable<TEntity> ApplyCustomIncludes(DbSet<TEntity> dbSet)
+    protected virtual IQueryable<TEntity> ApplyCustomIncludes(IQueryable<TEntity> dbSet)
     {
         // By default, do nothing. Subclasses can override this method to customize includes.
         return dbSet;
+    }
+
+    protected virtual IQueryable<TEntity> ApplyCustomSearch(SearchModel searchModel)
+    {
+        // By default, return the whole dbSet. Subclasses can override this method to customize search.
+        return _context.Set<TEntity>();
     }
 
     public async Task<IActionResult> IndexBase(SearchModel searchModel)
@@ -34,8 +40,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         int pageSize = 100;
         int pageNumber = searchModel.Page;
 
-        var query = _context.Set<TEntity>();
-        searchModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);
+        var query = ApplyCustomSearch(searchModel);
 
         var items = await ApplyCustomIncludes(query)
             .OrderByDescending(pl => pl.Id)
@@ -43,6 +48,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
             .Take(pageSize)
             .ToListAsync();
 
+        searchModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);
         ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
         ViewData["Search"] = searchModel;
 
@@ -87,7 +93,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         // Plists
         ModelState.Remove("Transaks");
 
-        if (ModelState.IsValid)
+        //if (ModelState.IsValid)
         {
             var entity = _mapper.Map<TEntity>(model);
             entity.TekushtaData = DateTime.Now;
@@ -136,7 +142,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         if (id != model.Id)
             return NotFound();
 
-        if (ModelState.IsValid)
+        //if (ModelState.IsValid)
         {
             var entity = _mapper.Map<TEntity>(model);
             try

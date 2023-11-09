@@ -13,36 +13,33 @@ public class TransaksController : BaseController<TransakModel, Transak>
     {
     }
 
-    public async Task<IActionResult> Index(SearchModel searchModel)
+    protected override IQueryable<Transak> ApplyCustomIncludes(IQueryable<Transak> dbSet)
     {
-        int pageSize = 100;
-        int pageNumber = searchModel.Page;
-
-        ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
-        ViewData["Search"] = searchModel;
-        ViewData["CallingIndexView"] = "Transaks";
-
-        IQueryable<Transak> query = _context.Transaks
-            .Include(t => t.PList)
+        return dbSet.
+            Include(t => t.PList)
                 .ThenInclude(pl => pl.Moto)
             .Include(t => t.PList)
                 .ThenInclude(pl => pl.Slujitel)
-            .Include(t => t.Otdel)
-            .Where(l => l.PList.Data > DateTime.Today.AddYears(-1));
+            .Include(t => t.Otdel);
+    }
+
+    protected override IQueryable<Transak> ApplyCustomSearch(SearchModel searchModel)
+    {
+        var query = _context.Transaks.
+            Where(l => l.PList.Data > DateTime.Today.AddYears(-1));
 
         if (!string.IsNullOrEmpty(searchModel.Otdel))
             query = query.Where(t => t.Otdel.Name.Contains(searchModel.Otdel));
 
-        var pagedData = await query
-            .OrderByDescending(t => t.Id)
-            .Skip((pageNumber - 1) * pageSize)
-            .Take(pageSize)
-            .ToListAsync();
+        return query;
+    }
 
-        var mappedData = _mapper.Map<List<TransakModel>>(pagedData);
-        searchModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);
+    public async Task<IActionResult> Index(SearchModel searchModel)
+    {
 
-        return View(mappedData);
+        ViewData["CallingIndexView"] = "Transaks";
+
+        return await IndexBase(searchModel);
     }
 
     [HttpPost]

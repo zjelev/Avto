@@ -14,7 +14,7 @@ public class ZastrahovkiController : BaseController<ZastrahovkaModel, Zastrahovk
     {
     }
 
-    protected override IQueryable<Zastrahovka> ApplyCustomIncludes(DbSet<Zastrahovka> dbSet)
+    protected override IQueryable<Zastrahovka> ApplyCustomIncludes(IQueryable<Zastrahovka> dbSet)
     {
         // Customize the includes for ZastrahovkiController.
         return dbSet.Include(z => z.Moto);
