@@ -54,14 +54,6 @@ public class PListsController : BaseController<PListModel, PList>
         return query;
     }
 
-    // Apply custom Index with search
-    public async Task<IActionResult> Index(SearchModel searchModel)
-    {
-        ViewData["CallingIndexView"] = "PLists";
-
-        return await IndexBase(searchModel);
-    }
-
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [FromForm] PListModel pListModel)

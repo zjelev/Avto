@@ -35,7 +35,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         return _context.Set<TEntity>();
     }
 
-    public async Task<IActionResult> IndexBase(SearchModel searchModel)
+    public async Task<IActionResult> Index(SearchModel searchModel)
     {
         int pageSize = 100;
         int pageNumber = searchModel.Page;
@@ -51,6 +51,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         searchModel.TotalPages = (int)Math.Ceiling((double)query.Count() / pageSize);
         ViewData["Title"] = string.Join(" ", PluralizePhraze(_modelDescription));
         ViewData["Search"] = searchModel;
+        ViewData["CallingIndexView"] = ControllerContext.ActionDescriptor.ControllerName;
 
         return items != null ?
             View(_mapper.Map<List<TModel>>(items)) :

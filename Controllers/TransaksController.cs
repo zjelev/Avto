@@ -34,14 +34,6 @@ public class TransaksController : BaseController<TransakModel, Transak>
         return query;
     }
 
-    public async Task<IActionResult> Index(SearchModel searchModel)
-    {
-
-        ViewData["CallingIndexView"] = "Transaks";
-
-        return await IndexBase(searchModel);
-    }
-
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [FromForm] SlujitelModel slujitelModel) => await EditBase(id, slujitelModel);

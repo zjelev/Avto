@@ -19,8 +19,6 @@ public class ZastrahovkiController : BaseController<ZastrahovkaModel, Zastrahovk
         // Customize the includes for ZastrahovkiController.
         return dbSet.Include(z => z.Moto);
     }
-
-    public async Task<IActionResult> Index(SearchModel searchModel) => await IndexBase(searchModel);
     
     [HttpPost]
     [ValidateAntiForgeryToken]

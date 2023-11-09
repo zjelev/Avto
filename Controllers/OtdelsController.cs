@@ -12,8 +12,6 @@ public class OtdelsController : BaseController<OtdelModel, Otdel>
     {
     }
 
-    public async Task<IActionResult> Index(SearchModel searchModel) => await IndexBase(searchModel);
-
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [FromForm] OtdelModel otdelModel)
