@@ -74,13 +74,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
 
     public IActionResult Create()
     {
-        ViewData["Title"] = "Добавяне на " + _modelDescription;
-        // Zastrahovki:
-        ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name");
-        // Plists
-        ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
-        ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
-        ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
+        SetViews();
 
         return View();
     }
@@ -89,10 +83,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(TModel model)
     {
-        // Zastrahovki:
-        ModelState.Remove("Moto");
-        // Plists
-        ModelState.Remove("Transaks");
+        SetViews();
 
         //if (ModelState.IsValid)
         {
@@ -105,13 +96,6 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         }
 
         ViewData["Title"] = "Добавяне на " + _modelDescription;
-
-        // Zastrahovki
-        ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name"); // Zastrahovki
-        // Plists
-        ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
-        ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
-        ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
 
         return View(model);
     }
@@ -128,12 +112,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
 
         ViewData["Title"] = "Редактиране на " + _modelDescription;
 
-        // Zastrahovki
-        ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name");
-        // Plists
-        ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
-        ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
-        ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
+        SetViews();
 
         return View(_mapper.Map<TModel>(entity));
     }
@@ -259,4 +238,27 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
 
         return new DateTime((int)dateOnly?.Year, (int)dateOnly?.Month, (int)dateOnly?.Day);
     }
+
+    private void SetViews()
+    {
+        if (ControllerContext.ActionDescriptor.ControllerName.Equals("Zastrahovki"))
+        {
+            ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name");
+            ModelState.Remove("Moto");
+        }
+
+        if (ControllerContext.ActionDescriptor.ControllerName.Equals("PLists"))
+        {
+            ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
+            ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
+            ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
+            ModelState.Remove("Transaks");
+        }
+
+        if (ControllerContext.ActionDescriptor.ControllerName.Equals("Motos"))
+        {
+            ModelState.Remove("Zastrahovki");
+        }
+    }
+
 }
