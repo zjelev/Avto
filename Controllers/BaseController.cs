@@ -127,16 +127,17 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, IModel model)
+    public async Task<IActionResult> Edit(int id, TModel model)
     {
-        if (id != model.Id)
-            return NotFound();
-
         SetViews();
 
         //if (ModelState.IsValid)
         {
             var entity = _mapper.Map<TEntity>(model);
+
+            if (id != entity.Id)
+                return NotFound();
+
             try
             {
                 entity.TekushtaData = DateTime.Now;
