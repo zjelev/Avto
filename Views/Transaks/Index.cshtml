@@ -22,7 +22,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@((int)((ViewData["Search"] as SearchModel).Page - 1) * 100 + ++count)</td>
+                <td>@(((ViewData["Search"] as SearchModel).Page - 1) * 100 + ++count)</td>
                 <td><a asp-controller="PLists" asp-action="Edit" asp-route-id="@item.PListId">@item.PList.Number</a></td>
                 <td>@item.PList.Data?.ToString("dd.MM.yyyy")</td>
                 <td><a asp-controller="Motos" asp-action="Edit" asp-route-id="@item.PList.MotoId">@item.PList.Moto.NumberAndName</a></td>
@@ -30,7 +30,7 @@
                 <td><a asp-controller="Otdels" asp-action="Edit" asp-route-id="@item.OtdelId">@item.Otdel.Name</a></td>
                 <td asp-display-for="@item.KmId"></td>
                 <td asp-display-for="@item.KmKm"></td>
-                <td>@Math.Round(item.Litres.Value, 2)</td>
+                <td asp-display-for="@item.Litres"></td>
             </tr>
         }
     </tbody>
