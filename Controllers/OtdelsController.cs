@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Avto.Data;
+﻿using Avto.Data;
 using Avto.Models;
 using AutoMapper;
 

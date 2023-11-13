@@ -92,6 +92,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         SetViews();
 
         //if (ModelState.IsValid)
+        try
         {
             var entity = _mapper.Map<TEntity>(model);
             entity.TekushtaData = DateTime.Now;
@@ -100,10 +101,11 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-        ViewData["Title"] = "Добавяне на " + _modelDescription;
-
-        return View(model);
+        catch (Exception)
+        {
+            ViewData["Title"] = "Добавяне на " + _modelDescription;
+            return View(model);
+        }
     }
 
     public async Task<IActionResult> Edit(int? id)
@@ -130,11 +132,8 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         SetViews();
 
         //if (ModelState.IsValid)
-        {
+        //{
             var entity = _mapper.Map<TEntity>(model);
-
-            if (id != entity.Id)
-                return NotFound();
 
             try
             {
@@ -148,13 +147,13 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
                 if (!EntityExists(id))
                     return NotFound();
                 else
-                    throw;
+                {
+                    ViewData["Title"] = "Редактиране на " + _modelDescription;
+                    return View(model);
+                }
             }
             return RedirectToAction(nameof(Index));
-        }
-
-        ViewData["Title"] = "Редактиране на " + _modelDescription;
-        return View(model);
+        //}
     }
 
     public async Task<IActionResult> Delete(int? id)

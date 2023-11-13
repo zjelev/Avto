@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Avto.Data;
 using Avto.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Avto.Controllers;
