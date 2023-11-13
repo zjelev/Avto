@@ -53,9 +53,13 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         ViewData["Search"] = searchModel;
         ViewData["CallingIndexView"] = ControllerContext.ActionDescriptor.ControllerName;
 
-        return items != null ?
-            View(_mapper.Map<List<TModel>>(items)) :
-            Problem($"В '{typeof(PList).Name}' няма записи отговарящи на зададените критерии.");
+        if (items != null)
+        {
+            var mappedItems = _mapper.Map<List<TModel>>(items);
+            return View(mappedItems);
+        }
+
+        return Problem($"В '{typeof(PList).Name}' няма записи отговарящи на зададените критерии.");
     }
 
     public async Task<IActionResult> Details(int? id)
@@ -119,14 +123,19 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         return View(_mapper.Map<TModel>(entity));
     }
 
-    public async Task<IActionResult> EditBase(int id, [FromForm] IModel model)
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, TModel model)
     {
-        if (id != model.Id)
-            return NotFound();
+        SetViews();
 
         //if (ModelState.IsValid)
         {
             var entity = _mapper.Map<TEntity>(model);
+
+            if (id != entity.Id)
+                return NotFound();
+
             try
             {
                 entity.TekushtaData = DateTime.Now;
