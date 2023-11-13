@@ -101,7 +101,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        catch (Exception)
+        catch (DbUpdateConcurrencyException)
         {
             ViewData["Title"] = "Добавяне на " + _modelDescription;
             return View(model);

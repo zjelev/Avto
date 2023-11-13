@@ -1,0 +1,28 @@
+﻿@model IEnumerable<ReportModel>
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th asp-display-name-for="@Model.First().MotoNumberAndName"></th>
+            <th asp-display-name-for="@Model.First().SlujitelName"></th>
+            <th asp-display-name-for="@Model.First().OtdelName"></th>
+            <th asp-display-name-for="@Model.First().KmId"></th>
+            <th asp-display-name-for="@Model.First().KmKm"></th>
+            <th asp-display-name-for="@Model.First().Litres"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td asp-display-for="@item.MotoNumberAndName"></td>
+                <td asp-display-for="@item.SlujitelName"></td>
+                <td asp-display-for="@item.OtdelName"></td>
+                <td asp-display-for="@item.KmId"></td>
+                <td asp-display-for="@item.KmKm"></td>
+                <td asp-display-for="@item.Litres"></td>
+            </tr>
+        }
+    </tbody>
+</table>
