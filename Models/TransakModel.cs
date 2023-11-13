@@ -25,27 +25,22 @@ public class TransakModel : BaseModel
     [DisplayName("км")]
     public double? KmKm { get; set; }
 
-    [DisplayName("Литри")]
-    public double? Litres
-    {
-        get
+    [DisplayName("Текуща норма")]
+    private double? CurrentNorma => KmId switch
         {
-            double? norma = KmId switch
-            {
-                KmId.Основни => PList.Moto.OsnovnaNorma,
-                KmId.Областни => PList.Moto.OkragNorma,
-                KmId.Рудник => PList.Moto.RudnikNorma,
-                KmId.София => PList.Moto.StolicaNorma,
-                KmId.Ремарке => 0,
-                KmId.Място => PList.Moto.MqstoNorma,
-                KmId.Климатик => PList.Moto.KlimatikNorma,
-                KmId.Агрегат => PList.Moto.AgregatNorma,
-                KmId.Климатроник => PList.Moto.KlimaNorma,
-                KmId.Печка => PList.Moto.PechkaNorma,
-                _ => 0
-            };
+            KmId.Основни => PList?.Moto.OsnovnaNorma,
+            KmId.Областни => PList?.Moto.OkragNorma,
+            KmId.Рудник => PList?.Moto.RudnikNorma,
+            KmId.София => PList?.Moto.StolicaNorma,
+            KmId.Ремарке => 0,
+            KmId.Място => PList?.Moto.MqstoNorma,
+            KmId.Климатик => PList?.Moto.KlimatikNorma,
+            KmId.Агрегат => PList?.Moto.AgregatNorma,
+            KmId.Климатроник => PList?.Moto.KlimaNorma,
+            KmId.Печка => PList?.Moto.PechkaNorma,
+            _ => 0
+        };
 
-            return norma * KmKm;
-        }
-    }
+    [DisplayName("Литри")]
+    public double? Litres => Math.Round((double)(CurrentNorma * KmKm), 2);
 }

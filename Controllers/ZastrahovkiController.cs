@@ -20,13 +20,4 @@ public class ZastrahovkiController : BaseController<ZastrahovkaModel, Zastrahovk
         return dbSet.Include(z => z.Moto);
     }
     
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [FromForm] ZastrahovkaModel zastrahovkaModel)
-    {
-        ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name");
-        ModelState.Remove("Moto");
-
-        return await EditBase(id, zastrahovkaModel);
-    }
 }

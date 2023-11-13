@@ -12,7 +12,4 @@ public class SlujiteliController : BaseController<SlujitelModel, Slujitel>
     {
     }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [FromForm] SlujitelModel slujitelModel) => await EditBase(id, slujitelModel);
 }

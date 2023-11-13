@@ -21,7 +21,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>@((int)((ViewData["Search"] as SearchModel).Page - 1) * 100 + ++count)</td>
+            <td>@(((ViewData["Search"] as SearchModel).Page - 1) * 100 + ++count)</td>
             <td><a asp-action="Edit" asp-route-id="@item.Id">@item.Number</a></td>
             <td>@item.Data</td>
             <td>@item.Moto.NumberAndName</td>

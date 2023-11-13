@@ -51,8 +51,4 @@ public class TransaksController : BaseController<TransakModel, Transak>
 
         return query;
     }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [FromForm] SlujitelModel slujitelModel) => await EditBase(id, slujitelModel);
 }

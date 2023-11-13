@@ -2,8 +2,6 @@
 using Avto.Data;
 using AutoMapper;
 using Avto.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Avto.Controllers;
 
@@ -54,16 +52,4 @@ public class PListsController : BaseController<PListModel, PList>
         return query;
     }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [FromForm] PListModel pListModel)
-    {
-        ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
-        ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
-        ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
-
-        ModelState.Remove("Transaks");
-
-        return await EditBase(id, pListModel);
-    }
 }

@@ -7,6 +7,19 @@
 {
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle nav-link active" href="#" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">Справки</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" asp-controller="Otdels" asp-action="Index">Отдели</a></li>
+                <li><a class="dropdown-item" asp-controller="Slujiteli" asp-action="Index">Шофьори</a></li>
+                <li><a class="dropdown-item" asp-controller="Motos" asp-action="Index">Автомобили</a></li>
+                <li><a class="dropdown-item" asp-controller="Zastrahovki" asp-action="Index">Застраховки</a></li>
+            </ul>
+        </div>
+    </li>
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle nav-link active" href="#" role="button"
             data-bs-toggle="dropdown" aria-expanded="false">Списъци</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="dropdown-menu dropdown-menu-end">
@@ -26,17 +39,17 @@
 
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-white">Logout</button>
+            <button  type="submit" class="nav-link btn btn-link text-white">Изход</button>
         </form>
     </li>
 }
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">Регистиране</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login">Вход</a>
     </li>
 }
 </ul>
