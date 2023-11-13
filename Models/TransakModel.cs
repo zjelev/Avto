@@ -30,22 +30,27 @@ public class TransakModel : BaseModel
     {
         get
         {
-            double? norma = KmId switch
+            if (PList != null)
             {
-                KmId.Основни => PList.Moto.OsnovnaNorma,
-                KmId.Областни => PList.Moto.OkragNorma,
-                KmId.Рудник => PList.Moto.RudnikNorma,
-                KmId.София => PList.Moto.StolicaNorma,
-                KmId.Ремарке => 0,
-                KmId.Място => PList.Moto.MqstoNorma,
-                KmId.Климатик => PList.Moto.KlimatikNorma,
-                KmId.Агрегат => PList.Moto.AgregatNorma,
-                KmId.Климатроник => PList.Moto.KlimaNorma,
-                KmId.Печка => PList.Moto.PechkaNorma,
-                _ => 0
-            };
+                double? norma = KmId switch
+                {
+                    KmId.Основни => PList.Moto.OsnovnaNorma,
+                    KmId.Областни => PList.Moto.OkragNorma,
+                    KmId.Рудник => PList.Moto.RudnikNorma,
+                    KmId.София => PList.Moto.StolicaNorma,
+                    KmId.Ремарке => 0,
+                    KmId.Място => PList.Moto.MqstoNorma,
+                    KmId.Климатик => PList.Moto.KlimatikNorma,
+                    KmId.Агрегат => PList.Moto.AgregatNorma,
+                    KmId.Климатроник => PList.Moto.KlimaNorma,
+                    KmId.Печка => PList.Moto.PechkaNorma,
+                    _ => 0
+                };
 
-            return norma * KmKm;
+                return norma * KmKm / 100;
+            }
+            else
+                return 0;
         }
     }
 }
