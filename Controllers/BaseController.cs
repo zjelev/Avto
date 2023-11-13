@@ -74,6 +74,8 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
 
     public IActionResult Create()
     {
+        ViewData["Title"] = "Добавяне на " + _modelDescription;
+
         SetViews();
 
         return View();
