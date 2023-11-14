@@ -1,0 +1,12 @@
+﻿@model IDictionary<string, IEnumerable<TransakModel>>
+<h1>@ViewData["Title"]</h1>
+
+@foreach (var group in Model)
+{
+    <hr />
+    <ul>@group.Key</ul>
+    @foreach (var value in group.Value)
+    {
+        <li>@value.PList.Moto.NameNumber | @value.PList.Slujitel.Name | @value.KmId | @value.KmKm</li>
+    }
+}

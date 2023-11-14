@@ -1,14 +1,29 @@
-﻿@model IDictionary<string, IEnumerable<Avto.Data.Transak>>
+﻿@model List<IGrouping<string, ReportModel>>
 <h1>@ViewData["Title"]</h1>
 
-@foreach (var group in Model)
+@foreach (var otdelGroup in Model)
 {
-    <hr />
-    <ul>@group.Key</ul>
-    @foreach (var value in group.Value)
-    {
-        <li>@value.PList.Moto.NameNumber | @value.PList.Slujitel.Name | @value.KmId | @value.KmKm</li>
-    }
+    <h2>@otdelGroup.Key</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Автомобил</th>
+                <th>Общо км</th>
+                <th>Общо литри</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var motoGroup in otdelGroup.GroupBy(m => m.Moto))
+            {
+                <tr>
+                    <td>@motoGroup.Key</td>
+                    <td>@motoGroup.Sum(t => t.TotalKm)</td>
+                    <td>@Math.Round(motoGroup.Sum(t => (double)t.TotalLitres), 3)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 
 @* <table class="table">

@@ -7,21 +7,17 @@ namespace Avto.Models;
 [Description("Отчет")]
 public class ReportModel
 {
-    [DisplayName("Автомобил")]
-    public string MotoNumberAndName { get; set; }
-
-    [DisplayName("Шофьор")]
-    public string? SlujitelName { get; set; }
-
     [DisplayName("Отдел")]
-    public string OtdelName { get; set; }
+    public string Otdel { get; set; }
 
-    [DisplayName("Описание км")]
-    public KmId KmId { get; set; }
+    [DisplayName("Автомобил")]
+    public string Moto { get; set; }
 
-    [DisplayName("км")]
-    public double? KmKm { get; set; }
+    [DisplayName("Общо км")]
+    public double? TotalKm { get; set; }
 
-    [DisplayName("Литри")]
-    public double? Litres { get; set; }
+    [DisplayName("Общо литри")]
+    public double? TotalLitres { get; set; }
+
+    public IEnumerable<TransakModel> Transaks { get; set; }
 }
