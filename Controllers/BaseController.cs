@@ -308,7 +308,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
 
         if (ControllerContext.ActionDescriptor.ControllerName.Equals("PLists"))
         {
-            ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NumberAndName");
+            ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NameNumber");
             ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
             ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
             ModelState.Remove("Transaks");

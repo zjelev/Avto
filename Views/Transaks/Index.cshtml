@@ -10,7 +10,7 @@
             <th>№</th>
             <th asp-display-name-for="@Model.First().PListId"></th>
             <th asp-display-name-for="@Model.First().PList.Data"></th>
-            <th asp-display-name-for="@Model.First().PList.Moto.NumberAndName"></th>
+            <th asp-display-name-for="@Model.First().PList.Moto.NameNumber"></th>
             <th asp-display-name-for="@Model.First().PList.Slujitel.Name"></th>
             <th>@Html.DisplayNameFor(model => model.Otdel.Name)</th>
             <th>@Html.DisplayNameFor(model => model.KmId)</th>
@@ -25,7 +25,7 @@
                 <td>@(((ViewData["Search"] as SearchModel).Page - 1) * 100 + ++count)</td>
                 <td><a asp-controller="PLists" asp-action="Edit" asp-route-id="@item.PListId">@item.PList.Number</a></td>
                 <td>@item.PList.Data?.ToString("dd.MM.yyyy")</td>
-                <td><a asp-controller="Motos" asp-action="Edit" asp-route-id="@item.PList.MotoId">@item.PList.Moto.NumberAndName</a></td>
+                <td><a asp-controller="Motos" asp-action="Edit" asp-route-id="@item.PList.MotoId">@item.PList.Moto.NameNumber</a></td>
                 <td><a asp-controller="Slujiteli" asp-action="Edit" asp-route-id="@item.PList.SlujitelId">@item.PList.Slujitel.Name</a></td>
                 <td><a asp-controller="Otdels" asp-action="Edit" asp-route-id="@item.OtdelId">@item.Otdel.Name</a></td>
                 <td asp-display-for="@item.KmId"></td>

@@ -12,7 +12,7 @@ public partial class Moto : BaseEntity
     public string? Number { get; set; }
 
     [DisplayName("Автомобил")]
-    public string NumberAndName => $"{Number} - {Name}";
+    public string NameNumber => $"{Name} {Number}";
 
     public double OsnovnaNorma { get; set; }
 
