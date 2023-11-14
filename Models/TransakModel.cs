@@ -11,13 +11,13 @@ public class TransakModel : BaseModel
     public int PListId { get; set; }
 
     [DisplayName("П. лист №")]
-    public PList PList { get; set; }
+    public PList? PList { get; set; }
 
     [DisplayName("Отдел")]
     public int OtdelId { get; set; }
 
     [DisplayName("Отдел")]
-    public Otdel Otdel { get; set; }
+    public Otdel? Otdel { get; set; }
 
     [DisplayName("Описание км")]
     public KmId KmId { get; set; }

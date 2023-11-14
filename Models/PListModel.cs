@@ -9,7 +9,7 @@ public class PListModel : BaseModel
 {
     public PListModel()
     {
-        TransaksModel = new List<TransakModel> { new TransakModel() };
+        TransaksModel = new List<TransakModel> { new TransakModel { PList = new PList(), Otdel = new Otdel() } };
     }
 
     [DisplayName("Пътен лист №")]

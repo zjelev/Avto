@@ -5,6 +5,7 @@ using AutoMapper;
 using Avto.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Reflection;
+using AngleSharp.Dom;
 
 namespace Avto.Controllers;
 
@@ -91,21 +92,47 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
     {
         SetViews();
 
-        //if (ModelState.IsValid)
-        try
+        if (ModelState.IsValid)
         {
             var entity = _mapper.Map<TEntity>(model);
-            entity.TekushtaData = DateTime.Now;
-            entity.User = User.Identity.Name;
-            _context.Add(entity); // For PLists // In SSMS delete FK_Transaks_Motos_MotoId & FK_Transaks_Slujiteli_SlujitelId
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                entity.TekushtaData = DateTime.Now;
+                entity.User = User.Identity.Name;
+                _context.Add(entity); // For PLists // In SSMS delete FK_Transaks_Motos_MotoId & FK_Transaks_Slujiteli_SlujitelId
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!EntityExists(entity.Id))
+                    return NotFound();
+                else
+                {
+                    // Optionally
+                    TempData["ErrorMessage"] = "Concurrency error occurred. Please try again.";
+
+                    // Reload the entity and display it for the user to resolve conflicts
+                    var currentEntity = await _context.FindAsync<TEntity>(entity.Id);
+                    if (currentEntity == null)
+                        return NotFound();
+
+                    // Merge any changes from the database into the model
+                    _context.Entry(entity).Reload();
+
+                    // Update ModelState to reflect the current state of the entity
+                    ModelState.Clear();
+                    _context.Entry(entity).State = EntityState.Detached;
+                    TryValidateModel(entity);
+
+                    // Pass the updated model back to the view for user resolution
+                    return View(entity);
+                }
+            }
         }
-        catch (DbUpdateConcurrencyException)
-        {
-            ViewData["Title"] = "Добавяне на " + _modelDescription;
-            return View(model);
-        }
+        
+        ViewData["Title"] = "Добавяне на " + _modelDescription;
+        return View(model);
     }
 
     public async Task<IActionResult> Edit(int? id)
@@ -131,8 +158,8 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
     {
         SetViews();
 
-        //if (ModelState.IsValid)
-        //{
+        if (ModelState.IsValid)
+        {
             var entity = _mapper.Map<TEntity>(model);
 
             try
@@ -148,12 +175,34 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
                     return NotFound();
                 else
                 {
-                    ViewData["Title"] = "Редактиране на " + _modelDescription;
-                    return View(model);
+                    // Log the concurrency exception for investigation
+                    //_logger.LogError($"Concurrency exception occurred for {typeof(TEntity).Name} with ID {id}");
+
+                    // Optionally
+                    TempData["ErrorMessage"] = "Concurrency error occurred. Please try again.";
+
+                    // Reload the entity and display it for the user to resolve conflicts
+                    var currentEntity = await _context.FindAsync<TEntity>(id);
+                    if (currentEntity == null)
+                        return NotFound();
+
+                    // Merge any changes from the database into the model
+                    _context.Entry(entity).Reload();
+
+                    // Update ModelState to reflect the current state of the entity
+                    ModelState.Clear();
+                    _context.Entry(entity).State = EntityState.Detached;
+                    TryValidateModel(entity);
+
+                    // Pass the updated model back to the view for user resolution
+                    return View(entity);
                 }
             }
             return RedirectToAction(nameof(Index));
-        //}
+        }
+
+        ViewData["Title"] = "Редактиране на " + _modelDescription;
+        return View(model);
     }
 
     public async Task<IActionResult> Delete(int? id)
