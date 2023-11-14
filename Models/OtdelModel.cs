@@ -9,7 +9,7 @@ public class OtdelModel : BaseModel
 {
     [MaxLength(50)]
     [DisplayName("Име")]
-    public string? Name { get; set; }
+    public string Name { get; set; }
 
     public ICollection<Transak> Transaks { get; }
 }

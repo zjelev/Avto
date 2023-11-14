@@ -1,7 +1,17 @@
-﻿@model IEnumerable<ReportModel>
+﻿@model IDictionary<string, IEnumerable<Avto.Data.Transak>>
 <h1>@ViewData["Title"]</h1>
 
-<table class="table">
+@foreach (var group in Model)
+{
+    <hr />
+    <ul>@group.Key</ul>
+    @foreach (var value in group.Value)
+    {
+        <li>@value.PList.Moto.NumberAndName | @value.PList.Slujitel.Name | @value.KmId | @value.KmKm</li>
+    }
+}
+
+@* <table class="table">
     <thead>
         <tr>
             <th asp-display-name-for="@Model.First().MotoNumberAndName"></th>
@@ -25,4 +35,4 @@
             </tr>
         }
     </tbody>
-</table>
+</table> *@

@@ -9,11 +9,11 @@ public class MotoModel : BaseModel
 {
     [MaxLength(50)]
     [DisplayName("Марка")]
-    public string? Name { get; set; }
+    public string Name { get; set; }
 
     [MaxLength(8)]
     [DisplayName("Рег. №")]
-    public string? Number { get; set; }
+    public string Number { get; set; }
 
     [DisplayName("Автомобил")]
     public string NumberAndName => $"{Number} - {Name}";
