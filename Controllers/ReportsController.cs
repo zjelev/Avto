@@ -25,10 +25,8 @@ public class ReportsController : Controller
         
         var query = _context.Transaks
             .Where(l => l.PList.Data >= monthStart && l.PList.Data <= monthEnd)
-            .Include(t => t.PList)
-                .ThenInclude(pl => pl.Moto)
-            .Include(t => t.PList)
-                .ThenInclude(pl => pl.Slujitel)
+            .Include(t => t.PList.Moto)
+            .Include(t => t.PList.Slujitel)
             .Include(t => t.Otdel);
 
         var groupByOtdel = await query

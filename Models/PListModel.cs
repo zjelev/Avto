@@ -7,11 +7,6 @@ namespace Avto.Models;
 [Description("Пътен лист")]
 public class PListModel : BaseModel
 {
-    public PListModel()
-    {
-        TransaksModel = new List<TransakModel> { new TransakModel { PList = new PList(), Otdel = new Otdel() } };
-    }
-
     [DisplayName("Пътен лист №")]
     public string? Number { get; set; }
 
