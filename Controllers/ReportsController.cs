@@ -28,7 +28,7 @@ public class ReportsController : Controller
             {
                 Otdel = group.Key.Otdel,
                 Moto = group.Key.Moto,
-                TotalKm = group.Sum(t => t.KmKm),
+                TotalKm = group.Sum(t => t.Km),
                 TotalLitres = group.Sum(t => t.Litres),
                 Transaks = group.ToList()
             })

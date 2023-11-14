@@ -22,11 +22,23 @@ public class TransakModel : BaseModel
     [DisplayName("Описание км")]
     public KmId KmId { get; set; }
 
-    [DisplayName("км")]
+    [DisplayName("Kм")]
     public double? KmKm { get; set; }
 
-    [DisplayName("Текуща норма")]
-    private double? CurrentNorma
+    [DisplayName("км")]
+    public double Km 
+    { 
+        get
+        {
+            if (KmId == KmId.Основни || KmId == KmId.Областни || KmId == KmId.Рудник || KmId == KmId.София)
+                return (double)KmKm;
+            
+            return 0;
+        }
+    }
+
+    [DisplayName("Норма км")]
+    private double? NormaKm
     {
         get
         {
@@ -37,6 +49,21 @@ public class TransakModel : BaseModel
                     KmId.Областни => PList.Moto.OkragNorma,
                     KmId.Рудник => PList.Moto.RudnikNorma,
                     KmId.София => PList.Moto.StolicaNorma,
+                    _ => 0
+                };
+            else
+                return 0;
+        }
+    }
+
+    [DisplayName("Допълнителна норма")]
+    private double? NormaOther
+    {
+        get
+        {
+            if (PList != null)
+                return KmId switch
+                {
                     KmId.Ремарке => 0,
                     KmId.Място => PList.Moto.MqstoNorma,
                     KmId.Климатик => PList.Moto.KlimatikNorma,
@@ -51,5 +78,5 @@ public class TransakModel : BaseModel
     }
 
     [DisplayName("Литри")]
-    public double? Litres => Math.Round((double)(CurrentNorma * KmKm / 100), 2);
+    public double? Litres => Math.Round((double)((NormaKm + NormaOther) * KmKm / 100), 2);
 }
