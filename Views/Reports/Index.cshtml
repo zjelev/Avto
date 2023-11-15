@@ -3,6 +3,8 @@
 
 @foreach (var otdelGroup in Model)
 {
+    double sumKm = 0;
+    double sumLitres = 0;
     <h2>@otdelGroup.Key</h2>
 
     <table class="table">
@@ -14,14 +16,21 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var motoGroup in otdelGroup.GroupBy(m => m.Moto))
+            @foreach (var motoGroup in otdelGroup)
             {
+                sumKm += motoGroup.TotalKm;
+                sumLitres += motoGroup.TotalLitres;
                 <tr>
-                    <td>@motoGroup.Key</td>
-                    <td>@motoGroup.Sum(t => t.TotalKm)</td>
-                    <td>@Math.Round(motoGroup.Sum(t => (double)t.TotalLitres), 3)</td>
+                    <td>@motoGroup.Moto</td>
+                    <td>@motoGroup.TotalKm</td>
+                    <td>@motoGroup.TotalLitres</td>
                 </tr>
             }
+            <tr>
+                <th>Общо</th>
+                <th>@sumKm</th>
+                <th>@Math.Round(sumLitres, 2)</th>
+            </tr>
         </tbody>
     </table>
 }

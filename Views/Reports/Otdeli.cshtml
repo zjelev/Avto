@@ -3,10 +3,35 @@
 
 @foreach (var group in Model)
 {
-    <hr />
-    <ul>@group.Key</ul>
-    @foreach (var value in group.Value)
-    {
-        <li>@value.PList.Moto.NameNumber | @value.PList.Slujitel.Name | @value.KmId | @value.KmKm</li>
-    }
+    double sumKm = 0;
+    <h2>@group.Key</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Автомобил</th>
+                <th>Шофьор</th>
+                <th>Вид работа</th>
+                <th>км</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var value in group.Value)
+            {
+                sumKm += (double)value.KmKm;
+                <tr>
+                    <td>@value.PList.Moto.NameNumber</td>
+                    <td>@value.PList.Slujitel.Name</td>
+                    <td>@value.KmId</td>
+                    <td>@value.KmKm</td>
+                </tr>
+            }
+            <tr>
+                <th></th>
+                <th></th>
+                <th>Общо</th>
+                <th>@sumKm</th>
+            </tr>
+        </tbody>
+    </table>
 }

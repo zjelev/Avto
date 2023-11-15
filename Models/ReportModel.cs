@@ -1,6 +1,4 @@
-﻿using Avto.Data;
-using Avto.Data.Enums;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace Avto.Models;
 
@@ -14,10 +12,10 @@ public class ReportModel
     public string Moto { get; set; }
 
     [DisplayName("Общо км")]
-    public double? TotalKm { get; set; }
+    public double TotalKm { get; set; }
 
     [DisplayName("Общо литри")]
-    public double? TotalLitres { get; set; }
+    public double TotalLitres { get; set; }
 
     public IEnumerable<TransakModel> Transaks { get; set; }
 }

@@ -78,5 +78,5 @@ public class TransakModel : BaseModel
     }
 
     [DisplayName("Литри")]
-    public double? Litres => Math.Round((double)((NormaKm + NormaOther) * KmKm / 100), 2);
+    public double Litres => Math.Round((double)((NormaKm + NormaOther) * KmKm / 100), 2);
 }

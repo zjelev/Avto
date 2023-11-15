@@ -29,7 +29,7 @@ public class ReportsController : Controller
                 Otdel = group.Key.Otdel,
                 Moto = group.Key.Moto,
                 TotalKm = group.Sum(t => t.Km),
-                TotalLitres = group.Sum(t => t.Litres),
+                TotalLitres = Math.Round(group.Sum(t => t.Litres), 2),
                 Transaks = group.ToList()
             })
             .GroupBy(result => result.Otdel)
@@ -48,6 +48,7 @@ public class ReportsController : Controller
             .GroupBy(t => t.Otdel.Name)
             .ToDictionary(ng => ng.Key, ng => ng.AsEnumerable());
 
+        ViewData["Title"] = "Отчет по отдели";
         return View(groupByOtdel);
     }
 
