@@ -2,6 +2,7 @@
 using Avto.Data;
 using AutoMapper;
 using Avto.Models;
+using Avto.Services;
 
 namespace Avto.Controllers;
 
@@ -32,10 +33,10 @@ public class PListsController : BaseController<PListModel, PList>
             query = query.Where(l => l.Number.Contains(searchModel.Number));
 
         if (searchModel.From.HasValue)
-            query = query.Where(l => l.Data >= ToNullableDateTime(searchModel.From.Value));
+            query = query.Where(l => l.Data >= ViewService.ToNullableDateTime(searchModel.From.Value));
 
         if (searchModel.To.HasValue)
-            query = query.Where(l => l.Data <= ToNullableDateTime(searchModel.To.Value));
+            query = query.Where(l => l.Data <= ViewService.ToNullableDateTime(searchModel.To.Value));
 
         if (!string.IsNullOrEmpty(searchModel.MotoName))
             query = query.Where(l => l.Moto.Name.Contains(searchModel.MotoName));

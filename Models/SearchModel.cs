@@ -48,4 +48,6 @@ public class SearchModel : BaseModel
 
     public int TotalPages { get; set; } = 1;
 
+    public int MonthsBack { get; set; } = 12;
+
 }

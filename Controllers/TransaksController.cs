@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Avto.Data;
 using Avto.Models;
+using Avto.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Avto.Controllers;
@@ -31,10 +32,10 @@ public class TransaksController : BaseController<TransakModel, Transak>
             query = query.Where(l => l.PList.Number.Contains(searchModel.Number));
 
         if (searchModel.From.HasValue)
-            query = query.Where(l => l.PList.Data >= ToNullableDateTime(searchModel.From.Value));
+            query = query.Where(l => l.PList.Data >= ViewService.ToNullableDateTime(searchModel.From.Value));
 
         if (searchModel.To.HasValue)
-            query = query.Where(l => l.PList.Data <= ToNullableDateTime(searchModel.To.Value));
+            query = query.Where(l => l.PList.Data <= ViewService.ToNullableDateTime(searchModel.To.Value));
 
         if (!string.IsNullOrEmpty(searchModel.MotoName))
             query = query.Where(l => l.PList.Moto.Name.Contains(searchModel.MotoName));
