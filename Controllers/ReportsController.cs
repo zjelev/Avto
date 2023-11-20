@@ -71,6 +71,27 @@ public class ReportsController : Controller
         return View(groupBySlujitelThenMoto);
     }
 
+    public async Task<IActionResult> Motos(SearchModel searchModel)
+    {
+        List<Transak> transaks = await GetTransaks(searchModel).ToListAsync();
+
+        var transaksModel = _mapper.Map<List<TransakModel>>(transaks);
+
+        List<IGrouping<string, ReportModel>> groupBySlujitelThenMoto = transaksModel
+            .GroupBy(t => new { Slujitel = t.PList.Slujitel.Name, Moto = t.PList.Moto.NameNumber })
+            .Select(group => new ReportModel
+            {
+                Slujitel = group.Key.Slujitel,
+                Moto = group.Key.Moto,
+                TotalKm = group.Sum(t => t.Km),
+                TotalLitres = Math.Round(group.Sum(t => t.Litres), 2)
+            })
+            .GroupBy(result => result.Moto)
+            .ToList();
+
+        return View(groupBySlujitelThenMoto);
+    }
+
     private IQueryable<Transak> GetTransaks(SearchModel searchModel)
     {
         ViewData["CallingIndexView"] = ControllerContext.ActionDescriptor.ControllerName;
@@ -92,6 +113,12 @@ public class ReportsController : Controller
 
         if (!string.IsNullOrEmpty(searchModel.MotoNumber))
             query = query.Where(l => l.PList.Moto.Number.Contains(searchModel.MotoNumber));
+
+        if (searchModel.SlujitelId != 0)
+            query = query.Where(l => l.PList.SlujitelId == searchModel.SlujitelId);
+        
+        if (!string.IsNullOrEmpty(searchModel.SlujitelName))
+            query = query.Where(l => l.PList.Slujitel.Name.Contains(searchModel.SlujitelName));
 
         var transaks = query
             .Include(t => t.PList.Moto)

@@ -1,0 +1,44 @@
+﻿@model List<IGrouping<string, ReportModel>>
+<h1>@ViewData["Title"]</h1>
+@await Component.InvokeAsync("Search")
+@{
+    int count = 0;
+}
+
+@foreach (var otdelGroup in Model)
+{
+    double sumKm = 0;
+    double sumLitres = 0;
+    <h2>@otdelGroup.Key</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th asp-display-name-for="@otdelGroup.FirstOrDefault().Slujitel"></th>
+                <th asp-display-name-for="@otdelGroup.FirstOrDefault().TotalKm"></th>
+                <th asp-display-name-for="@otdelGroup.FirstOrDefault().TotalLitres"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var motoGroup in otdelGroup)
+            {
+                sumKm += motoGroup.TotalKm;
+                sumLitres += motoGroup.TotalLitres;
+                <tr>
+                    <td>@(++count)</td>
+                    <td asp-display-for="@motoGroup.Slujitel"></td>
+                    <td asp-display-for="@motoGroup.TotalKm"></td>
+                    <td asp-display-for="@motoGroup.TotalLitres"></td>
+                </tr>
+            }
+            <tr>
+                <th></th>
+                <th>Общо</th>
+                <th>@sumKm</th>
+                <th>@Math.Round(sumLitres, 2)</th>
+            </tr>
+        </tbody>
+    </table>
+    count = 0;
+}

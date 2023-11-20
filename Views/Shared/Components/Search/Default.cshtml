@@ -8,10 +8,10 @@
         <input asp-for="From" />
         <label asp-display-name-for="To"></label>
         <input asp-for="To" />
-        <input asp-for="MotoName" placeholder="Марка автомобил" />
-        <input asp-for="MotoNumber" placeholder="Рег. № автомобил" />
-        <input asp-if='ViewBag.CallingIndexView != "Reports"' asp-for="SlujitelId" placeholder="Раб. № шофьор" />
-        <input asp-if='ViewBag.CallingIndexView != "Reports"' asp-for="SlujitelName" placeholder="Име шофьор" />
+        <input asp-if='ViewBag.FormAction != "Motos"' asp-for="MotoName" placeholder="Марка автомобил" />
+        <input asp-if='ViewBag.FormAction != "Motos"' asp-for="MotoNumber" placeholder="Рег. № автомобил" />
+        <input asp-if='ViewBag.CallingIndexView != "Reports" || ViewBag.FormAction == "Motos"' asp-for="SlujitelId" placeholder="Раб. № шофьор" />
+        <input asp-if='ViewBag.CallingIndexView != "Reports" || ViewBag.FormAction == "Motos"' asp-for="SlujitelName" placeholder="Име шофьор" />
         <input asp-if='ViewBag.CallingIndexView == "Transaks"' asp-for="Otdel" placeholder="Отдел" />
         <input type="submit" value="Търси" />
     </form>
