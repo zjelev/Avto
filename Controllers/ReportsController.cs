@@ -20,7 +20,9 @@ public class ReportsController : Controller
 
     public async Task<IActionResult> Index(SearchModel searchModel)
     {
-        List<TransakModel> transaksModel = GetTransaks(searchModel);
+        List<Transak> transaks = await GetTransaks(searchModel).ToListAsync();
+
+        var transaksModel = _mapper.Map<List<TransakModel>>(transaks);
 
         var groupByOtdelThenMoto = transaksModel
             .GroupBy(t => new { Otdel = t.Otdel.Name, Moto = t.PList.Moto.NameNumber })
@@ -40,16 +42,16 @@ public class ReportsController : Controller
 
     public async Task<IActionResult> Otdeli(SearchModel searchModel)
     {
-        List<TransakModel> transaksModel = GetTransaks(searchModel);
+        List<Transak> transaks = await GetTransaks(searchModel).ToListAsync();
 
-        var groupByOtdel = transaksModel
+        var groupByOtdel = transaks
             .GroupBy(t => t.Otdel.Name)
             .ToDictionary(ng => ng.Key, ng => ng.AsEnumerable());
 
         return View(groupByOtdel);
     }
 
-    private List<TransakModel> GetTransaks(SearchModel searchModel)
+    private IQueryable<Transak> GetTransaks(SearchModel searchModel)
     {
         ViewData["CallingIndexView"] = ControllerContext.ActionDescriptor.ControllerName;
         var baseDate = DateTime.Today.AddMonths(-searchModel.MonthsBack);
@@ -57,9 +59,16 @@ public class ReportsController : Controller
         var monthEnd = monthStart.AddMonths(1).AddDays(-1);
         var yearStart = new DateTime(baseDate.Year, 1, 1);
 
-        ViewData["Title"] = "Отчет по отдели";
-        if (searchModel.From == null || searchModel.To == null)
-            ViewData["Title"] += "от " + yearStart.ToString("D");
+        ViewData["Title"] = "Отчет по отдели от ";
+        if (searchModel.From == null)
+            ViewData["Title"] += yearStart.ToString("D");
+        else
+            ViewData["Title"] += searchModel.From.ToString();
+
+        if (searchModel.To == null)
+            ViewData["Title"] += " до " + DateTime.Now.ToString("D");
+        else
+            ViewData["Title"] += " до " + searchModel.To.ToString();
 
         IQueryable<Transak> query = _context.Transaks
             .Where(l => l.PList.Data >= yearStart
@@ -83,7 +92,6 @@ public class ReportsController : Controller
             .Include(t => t.PList.Slujitel)
             .Include(t => t.Otdel);
 
-        var transaksModel = _mapper.Map<List<TransakModel>>(transaks);
-        return transaksModel;
+        return transaks;
     }
 }
