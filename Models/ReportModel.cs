@@ -16,6 +16,4 @@ public class ReportModel
 
     [DisplayName("Общо литри")]
     public double TotalLitres { get; set; }
-
-    public IEnumerable<TransakModel> Transaks { get; set; }
 }

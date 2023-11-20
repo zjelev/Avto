@@ -24,15 +24,14 @@ public class ReportsController : Controller
 
         var transaksModel = _mapper.Map<List<TransakModel>>(transaks);
 
-        var groupByOtdelThenMoto = transaksModel
+        List<IGrouping<string, ReportModel>> groupByOtdelThenMoto = transaksModel
             .GroupBy(t => new { Otdel = t.Otdel.Name, Moto = t.PList.Moto.NameNumber })
             .Select(group => new ReportModel
             {
                 Otdel = group.Key.Otdel,
                 Moto = group.Key.Moto,
                 TotalKm = group.Sum(t => t.Km),
-                TotalLitres = Math.Round(group.Sum(t => t.Litres), 2),
-                Transaks = group.ToList()
+                TotalLitres = Math.Round(group.Sum(t => t.Litres), 2)
             })
             .GroupBy(result => result.Otdel)
             .ToList();
