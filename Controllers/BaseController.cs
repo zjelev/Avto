@@ -53,6 +53,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
         ViewData["Title"] = string.Join(" ", ViewService.PluralizePhraze(_modelDescription));
         ViewData["Search"] = searchModel;
         ViewData["CallingIndexView"] = ControllerContext.ActionDescriptor.ControllerName;
+        ViewData["FormAction"] = ControllerContext.ActionDescriptor.ActionName;
 
         if (items != null)
         {

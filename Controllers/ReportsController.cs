@@ -50,9 +50,31 @@ public class ReportsController : Controller
         return View(groupByOtdel);
     }
 
+    public async Task<IActionResult> Drivers(SearchModel searchModel)
+    {
+        List<Transak> transaks = await GetTransaks(searchModel).ToListAsync();
+
+        var transaksModel = _mapper.Map<List<TransakModel>>(transaks);
+
+        List<IGrouping<string, ReportModel>> groupBySlujitelThenMoto = transaksModel
+            .GroupBy(t => new { Slujitel = t.PList.Slujitel.Name, Moto = t.PList.Moto.NameNumber })
+            .Select(group => new ReportModel
+            {
+                Slujitel = group.Key.Slujitel,
+                Moto = group.Key.Moto,
+                TotalKm = group.Sum(t => t.Km),
+                TotalLitres = Math.Round(group.Sum(t => t.Litres), 2)
+            })
+            .GroupBy(result => result.Slujitel)
+            .ToList();
+
+        return View(groupBySlujitelThenMoto);
+    }
+
     private IQueryable<Transak> GetTransaks(SearchModel searchModel)
     {
         ViewData["CallingIndexView"] = ControllerContext.ActionDescriptor.ControllerName;
+        ViewData["FormAction"] = ControllerContext.ActionDescriptor.ActionName;
 
         var from = searchModel.From != null ? ViewService.ToNullableDateTime(searchModel.From) 
             : DateTime.Today.AddMonths(-1);

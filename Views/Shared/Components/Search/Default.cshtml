@@ -1,7 +1,7 @@
 ﻿@model SearchModel
 
 <div class="text-center p-3" name="search">
-    <form asp-action="Index" method="get">
+    <form asp-action="@ViewBag.FormAction" method="get">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input asp-if='ViewBag.CallingIndexView != "Reports"' asp-for="Number" placeholder="Пътен лист №" />
         <label asp-display-name-for="From"></label>

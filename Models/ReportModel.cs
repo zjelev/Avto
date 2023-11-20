@@ -11,6 +11,9 @@ public class ReportModel
     [DisplayName("Автомобил")]
     public string Moto { get; set; }
 
+    [DisplayName("Шофьор")]
+    public string Slujitel { get; set; }
+
     [DisplayName("Общо км")]
     public double TotalKm { get; set; }
 

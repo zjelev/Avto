@@ -1,6 +1,10 @@
 ﻿@using Avto.Data
 @model IDictionary<string, IEnumerable<Transak>>
 <h1>@ViewData["Title"]</h1>
+@await Component.InvokeAsync("Search")
+@{
+    int count = 0;
+}
 
 @foreach (var group in Model)
 {
@@ -10,6 +14,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>№</th>
                 <th>Автомобил</th>
                 <th>Шофьор</th>
                 <th>Вид работа</th>
@@ -21,6 +26,7 @@
             {
                 sumKm += (double)value.KmKm;
                 <tr>
+                    <td>@(++count)</td>
                     <td>@value.PList.Moto.NameNumber</td>
                     <td>@value.PList.Slujitel.Name</td>
                     <td>@value.KmId</td>
@@ -28,6 +34,7 @@
                 </tr>
             }
             <tr>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th>Общо</th>
