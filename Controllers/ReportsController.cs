@@ -53,32 +53,17 @@ public class ReportsController : Controller
     private IQueryable<Transak> GetTransaks(SearchModel searchModel)
     {
         ViewData["CallingIndexView"] = ControllerContext.ActionDescriptor.ControllerName;
-        var baseDate = DateTime.Today.AddMonths(-searchModel.MonthsBack);
-        var monthStart = new DateTime(baseDate.Year, baseDate.Month, 1);
-        var monthEnd = monthStart.AddMonths(1).AddDays(-1);
-        var yearStart = new DateTime(baseDate.Year, 1, 1);
 
-        ViewData["Title"] = "Отчет по отдели от ";
-        if (searchModel.From == null)
-            ViewData["Title"] += yearStart.ToString("D");
-        else
-            ViewData["Title"] += searchModel.From.ToString();
+        var from = searchModel.From != null ? ViewService.ToNullableDateTime(searchModel.From) 
+            : DateTime.Today.AddMonths(-1);
 
-        if (searchModel.To == null)
-            ViewData["Title"] += " до " + DateTime.Now.ToString("D");
-        else
-            ViewData["Title"] += " до " + searchModel.To.ToString();
+        var to = searchModel.To != null ? ViewService.ToNullableDateTime(searchModel.To)
+            : DateTime.Now;
+
+        ViewData["Title"] = "Отчет за периода " + from.ToString("d") + " - " + to.ToString("d");
 
         IQueryable<Transak> query = _context.Transaks
-            .Where(l => l.PList.Data >= yearStart
-            //monthStart && l.PList.Data <= monthEnd
-            );
-
-        if (searchModel.From.HasValue)
-            query = query.Where(l => l.PList.Data >= ViewService.ToNullableDateTime(searchModel.From.Value));
-
-        if (searchModel.To.HasValue)
-            query = query.Where(l => l.PList.Data <= ViewService.ToNullableDateTime(searchModel.To.Value));
+            .Where(l => l.PList.Data >= from && l.PList.Data <= to);
 
         if (!string.IsNullOrEmpty(searchModel.MotoName))
             query = query.Where(l => l.PList.Moto.Name.Contains(searchModel.MotoName));
