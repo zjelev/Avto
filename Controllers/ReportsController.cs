@@ -20,12 +20,36 @@ public class ReportsController : Controller
 
     public async Task<IActionResult> Index(SearchModel searchModel)
     {
-        List<Transak> transaks = await GetTransaks(searchModel).ToListAsync();
+        var transaksModel = await GetTransaks(searchModel)
+            .Include(t => t.PList.Moto)
+            .Include(t => t.Otdel)
+            .Select(t => new TransakModel()
+            {
+                KmId = t.KmId,
+                KmKm = t.KmKm,
+                OtdelId = t.OtdelId,
+                OtdelName = t.Otdel.Name,
+                PListId = t.PListId,
+                Data = t.PList.Data,
+                MotoId = t.PList.MotoId,
+                Moto = t.PList.Moto,
+                OsnovnaNorma = t.PList.Moto.OsnovnaNorma,
+                GradskaNorma = t.PList.Moto.GradskaNorma,
+                RudnikNorma = t.PList.Moto.RudnikNorma,
+                OkragNorma = t.PList.Moto.OkragNorma,
+                StolicaNorma = t.PList.Moto.StolicaNorma,
+                MqstoNorma = t.PList.Moto.MqstoNorma,
+                KlimaNorma = t.PList.Moto.KlimaNorma,
+                AgregatNorma = t.PList.Moto.AgregatNorma,
+                KlimatikNorma = t.PList.Moto.KlimatikNorma,
+                PechkaNorma = t.PList.Moto.PechkaNorma
+            })
+            .ToListAsync();
 
-        var transaksModel = _mapper.Map<List<TransakModel>>(transaks);
+        //var transaksModel = _mapper.Map<List<TransakModel>>(transaks);
 
         List<IGrouping<string, ReportModel>> groupByOtdelThenMoto = transaksModel
-            .GroupBy(t => new { Otdel = t.Otdel.Name, Moto = t.PList.Moto.NameNumber })
+            .GroupBy(t => new { Otdel = t.OtdelName, Moto = t.MotoNameNumber })
             .Select(group => new ReportModel
             {
                 Otdel = group.Key.Otdel,
@@ -41,7 +65,9 @@ public class ReportsController : Controller
 
     public async Task<IActionResult> Otdeli(SearchModel searchModel)
     {
-        List<Transak> transaks = await GetTransaks(searchModel).ToListAsync();
+        List<Transak> transaks = await GetTransaks(searchModel)
+            .Include(t => t.Otdel)
+            .ToListAsync();
 
         var groupByOtdel = transaks
             .GroupBy(t => t.Otdel.Name)
@@ -52,7 +78,10 @@ public class ReportsController : Controller
 
     public async Task<IActionResult> Drivers(SearchModel searchModel)
     {
-        List<Transak> transaks = await GetTransaks(searchModel).ToListAsync();
+        List<Transak> transaks = await GetTransaks(searchModel)
+            .Include(t => t.PList.Moto)
+            .Include(t => t.PList.Slujitel)
+            .ToListAsync();
 
         var transaksModel = _mapper.Map<List<TransakModel>>(transaks);
 
@@ -73,7 +102,10 @@ public class ReportsController : Controller
 
     public async Task<IActionResult> Motos(SearchModel searchModel)
     {
-        List<Transak> transaks = await GetTransaks(searchModel).ToListAsync();
+        List<Transak> transaks = await GetTransaks(searchModel)
+            .Include(t => t.PList.Moto)
+            .Include(t => t.PList.Slujitel)
+            .ToListAsync();
 
         var transaksModel = _mapper.Map<List<TransakModel>>(transaks);
 
@@ -120,11 +152,6 @@ public class ReportsController : Controller
         if (!string.IsNullOrEmpty(searchModel.SlujitelName))
             query = query.Where(l => l.PList.Slujitel.Name.Contains(searchModel.SlujitelName));
 
-        var transaks = query
-            .Include(t => t.PList.Moto)
-            .Include(t => t.PList.Slujitel)
-            .Include(t => t.Otdel);
-
-        return transaks;
+        return query;
     }
 }
