@@ -11,13 +11,22 @@ public class TransakModel : BaseModel
     public int PListId { get; set; }
 
     [DisplayName("П. лист №")]
-    public PList? PList { get; set; }
+    public string? PListNumber { get; set; }
+
+    [DisplayName("Автомобил")]
+    public Moto Moto { get; set; }
+
+    [DisplayName("Служител")]
+    public Slujitel Slujitel { get; set; }
+
+    [DisplayName("Дата")]
+    public DateTime? Data { get; set; }
 
     [DisplayName("Отдел")]
     public int OtdelId { get; set; }
 
     [DisplayName("Отдел")]
-    public Otdel? Otdel { get; set; }
+    public string Otdel { get; set; }
 
     [DisplayName("Описание км")]
     public KmId KmId { get; set; }
@@ -42,13 +51,13 @@ public class TransakModel : BaseModel
     {
         get
         {
-            if (PList != null)
+            if (PListId != 0)
                 return KmId switch
                 {
-                    KmId.Основни => PList.Moto.OsnovnaNorma,
-                    KmId.Областни => PList.Moto.OkragNorma,
-                    KmId.Рудник => PList.Moto.RudnikNorma,
-                    KmId.София => PList.Moto.StolicaNorma,
+                    KmId.Основни => Moto.OsnovnaNorma,
+                    KmId.Областни => Moto.OkragNorma,
+                    KmId.Рудник => Moto.RudnikNorma,
+                    KmId.София => Moto.StolicaNorma,
                     _ => 0
                 };
             else
@@ -61,15 +70,15 @@ public class TransakModel : BaseModel
     {
         get
         {
-            if (PList != null)
+            if (PListId != 0)
                 return KmId switch
                 {
                     KmId.Ремарке => 0,
-                    KmId.Място => PList.Moto.MqstoNorma,
-                    KmId.Климатик => PList.Moto.KlimatikNorma,
-                    KmId.Агрегат => PList.Moto.AgregatNorma,
-                    KmId.Климатроник => PList.Moto.KlimaNorma,
-                    KmId.Печка => PList.Moto.PechkaNorma,
+                    KmId.Място => Moto.MqstoNorma,
+                    KmId.Климатик => Moto.KlimatikNorma,
+                    KmId.Агрегат => Moto.AgregatNorma,
+                    KmId.Климатроник => Moto.KlimaNorma,
+                    KmId.Печка => Moto.PechkaNorma,
                     _ => 0
                 };
             else

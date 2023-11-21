@@ -9,10 +9,10 @@
         <tr>
             <th>№</th>
             <th asp-display-name-for="@Model.First().PListId"></th>
-            <th asp-display-name-for="@Model.First().PList.Data"></th>
-            <th asp-display-name-for="@Model.First().PList.Moto.NameNumber"></th>
-            <th asp-display-name-for="@Model.First().PList.Slujitel.Name"></th>
-            <th>@Html.DisplayNameFor(model => model.Otdel.Name)</th>
+            <th asp-display-name-for="@Model.First().Data"></th>
+            <th asp-display-name-for="@Model.First().Moto.NameNumber"></th>
+            <th asp-display-name-for="@Model.First().Slujitel.Name"></th>
+            <th>@Html.DisplayNameFor(model => model.Otdel)</th>
             <th>@Html.DisplayNameFor(model => model.KmId)</th>
             <th>@Html.DisplayNameFor(model => model.KmKm)</th>
             <th>Литри</th>
@@ -23,11 +23,11 @@
         {
             <tr>
                 <td>@(((ViewData["Search"] as SearchModel).Page - 1) * 100 + ++count)</td>
-                <td><a asp-controller="PLists" asp-action="Edit" asp-route-id="@item.PListId">@item.PList.Number</a></td>
-                <td>@item.PList.Data?.ToString("dd.MM.yyyy")</td>
-                <td><a asp-controller="Motos" asp-action="Edit" asp-route-id="@item.PList.MotoId">@item.PList.Moto.NameNumber</a></td>
-                <td><a asp-controller="Slujiteli" asp-action="Edit" asp-route-id="@item.PList.SlujitelId">@item.PList.Slujitel.Name</a></td>
-                <td><a asp-controller="Otdels" asp-action="Edit" asp-route-id="@item.OtdelId">@item.Otdel.Name</a></td>
+                <td><a asp-controller="PLists" asp-action="Edit" asp-route-id="@item.PListId">@item.PListNumber</a></td>
+                <td>@item.Data?.ToString("dd.MM.yyyy")</td>
+                <td><a asp-controller="Motos" asp-action="Edit" asp-route-id="@item.Moto.Id">@item.Moto.NameNumber</a></td>
+                <td><a asp-controller="Slujiteli" asp-action="Edit" asp-route-id="@item.Slujitel.Id">@item.Slujitel.Name</a></td>
+                <td><a asp-controller="Otdels" asp-action="Edit" asp-route-id="@item.OtdelId">@item.Otdel</a></td>
                 <td asp-display-for="@item.KmId"></td>
                 <td asp-display-for="@item.KmKm"></td>
                 <td asp-display-for="@item.Litres"></td>

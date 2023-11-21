@@ -7,8 +7,13 @@ public class Mapping : Profile
 {
     public Mapping()
     {
-        CreateMap<Transak, TransakModel>();
-        
+        CreateMap<Transak, TransakModel>()
+            .ForMember(dest => dest.PListNumber, opt => opt.MapFrom(src => src.PList.Number))
+            .ForMember(dest => dest.Data, opt => opt.MapFrom(src => src.PList.Data))
+            .ForMember(dest => dest.Otdel, opt => opt.MapFrom(src => src.Otdel.Name))
+            .ForMember(dest => dest.Moto, opt => opt.MapFrom(src => src.PList.Moto))
+            .ForMember(dest => dest.Slujitel, opt => opt.MapFrom(src => src.PList.Slujitel));
+
         CreateMap<TransakModel, Transak>();
 
         CreateMap<PList, PListModel>()

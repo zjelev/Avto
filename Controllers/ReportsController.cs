@@ -20,12 +20,12 @@ public class ReportsController : Controller
 
     public async Task<IActionResult> Index(SearchModel searchModel)
     {
-        List<Transak> transaks = await GetTransaks(searchModel).ToListAsync();
-
-        var transaksModel = _mapper.Map<List<TransakModel>>(transaks);
+        List<TransakModel> transaksModel = await GetTransaks(searchModel)
+            .Select(t => _mapper.Map<TransakModel>(t))
+            .ToListAsync();
 
         List<IGrouping<string, ReportModel>> groupByOtdelThenMoto = transaksModel
-            .GroupBy(t => new { Otdel = t.Otdel.Name, Moto = t.PList.Moto.NameNumber })
+            .GroupBy(t => new { t.Otdel, Moto = t.Moto.NameNumber })
             .Select(group => new ReportModel
             {
                 Otdel = group.Key.Otdel,
@@ -57,7 +57,7 @@ public class ReportsController : Controller
         var transaksModel = _mapper.Map<List<TransakModel>>(transaks);
 
         List<IGrouping<string, ReportModel>> groupBySlujitelThenMoto = transaksModel
-            .GroupBy(t => new { Slujitel = t.PList.Slujitel.Name, Moto = t.PList.Moto.NameNumber })
+            .GroupBy(t => new { Slujitel = t.Slujitel.Name, Moto = t.Moto.NameNumber })
             .Select(group => new ReportModel
             {
                 Slujitel = group.Key.Slujitel,
@@ -78,7 +78,7 @@ public class ReportsController : Controller
         var transaksModel = _mapper.Map<List<TransakModel>>(transaks);
 
         List<IGrouping<string, ReportModel>> groupBySlujitelThenMoto = transaksModel
-            .GroupBy(t => new { Slujitel = t.PList.Slujitel.Name, Moto = t.PList.Moto.NameNumber })
+            .GroupBy(t => new { Slujitel = t.Slujitel.Name, Moto = t.Moto.NameNumber })
             .Select(group => new ReportModel
             {
                 Slujitel = group.Key.Slujitel,

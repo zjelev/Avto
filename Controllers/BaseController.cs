@@ -89,7 +89,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(TModel model)
+    public async Task<IActionResult> Create([Bind("Id,Data,MotoId,Number,SlujitelId,TransaksModel")] TModel model)
     {
         SetViews();
 
@@ -155,7 +155,7 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, TModel model)
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Data,MotoId,Number,SlujitelId")] TModel model)
     {
         SetViews();
 
@@ -242,18 +242,19 @@ public class BaseController<TModel, TEntity> : Controller where TModel : class w
 
     private void SetViews()
     {
-        if (ControllerContext.ActionDescriptor.ControllerName.Equals("Zastrahovki"))
-        {
-            ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name");
-            ModelState.Remove("Moto");
-        }
-
         if (ControllerContext.ActionDescriptor.ControllerName.Equals("PLists"))
         {
             ViewData["Motos"] = new SelectList(_context.Motos.Where(m => !m.Brak), "Id", "NameNumber");
             ViewData["Slujiteli"] = new SelectList(_context.Slujiteli, "Id", "Name");
             ViewData["Otdeli"] = new SelectList(_context.Otdels, "Id", "Name");
+            ModelState.Remove("TransaksModel");
             ModelState.Remove("Transaks");
+        }
+
+        if (ControllerContext.ActionDescriptor.ControllerName.Equals("Zastrahovki"))
+        {
+            ViewData["MotoId"] = new SelectList(_context.Motos, "Id", "Name");
+            ModelState.Remove("Moto");
         }
 
         if (ControllerContext.ActionDescriptor.ControllerName.Equals("Motos"))
