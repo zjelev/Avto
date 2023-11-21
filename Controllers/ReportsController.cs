@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Avto.Data;
+using Avto.Data.Enums;
 using Avto.Models;
 using Avto.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -20,18 +21,26 @@ public class ReportsController : Controller
 
     public async Task<IActionResult> Index(SearchModel searchModel)
     {
-        List<Transak> transaks = await GetTransaks(searchModel).ToListAsync();
+        var transaks = GetTransaks(searchModel);
 
-        var transaksModel = _mapper.Map<List<TransakModel>>(transaks);
-
-        List<IGrouping<string, ReportModel>> groupByOtdelThenMoto = transaksModel
-            .GroupBy(t => new { Otdel = t.Otdel.Name, Moto = t.PList.Moto.NameNumber })
+        List<IGrouping<string, ReportModel>> groupByOtdelThenMoto = transaks
+            .GroupBy(t => new { Otdel = t.Otdel.Name, Moto = t.PList.Moto.Number })
             .Select(group => new ReportModel
             {
                 Otdel = group.Key.Otdel,
                 Moto = group.Key.Moto,
-                TotalKm = group.Sum(t => t.Km),
-                TotalLitres = Math.Round(group.Sum(t => t.Litres), 2)
+                TotalKm = group.Sum(t => (t.KmId == KmId.Основни || t.KmId == KmId.Областни || t.KmId == KmId.Рудник || t.KmId == KmId.София) ? (double)t.KmKm : 0),
+                TotalLitres = group.Sum(t =>
+                    (double)((t.KmId == KmId.Основни ? t.PList.Moto.OsnovnaNorma :
+                    t.KmId == KmId.Областни ? t.PList.Moto.OkragNorma :
+                    t.KmId == KmId.Рудник ? t.PList.Moto.RudnikNorma :
+                    t.KmId == KmId.София ? t.PList.Moto.StolicaNorma :
+                    t.KmId == KmId.Място ? t.PList.Moto.MqstoNorma :
+                    t.KmId == KmId.Климатик ? t.PList.Moto.KlimatikNorma :
+                    t.KmId == KmId.Агрегат ? t.PList.Moto.AgregatNorma :
+                    t.KmId == KmId.Климатроник ? t.PList.Moto.KlimaNorma :
+                    t.KmId == KmId.Печка ? t.PList.Moto.PechkaNorma :
+                    0) * t.KmKm / 100.0))
             })
             .GroupBy(result => result.Otdel)
             .ToList();

@@ -29,7 +29,7 @@
                     <td>@(++count)</td>
                     <td asp-display-for="@motoGroup.Moto"></td>
                     <td asp-display-for="@motoGroup.TotalKm"></td>
-                    <td asp-display-for="@motoGroup.TotalLitres"></td>
+                    <td>@Math.Round(motoGroup.TotalLitres, 2)</td>
                 </tr>
             }
             <tr>
