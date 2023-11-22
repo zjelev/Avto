@@ -1,4 +1,5 @@
 ﻿using Avto.Data.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Avto.Data;
 
@@ -13,4 +14,6 @@ public class Transak : BaseEntity
     public PList PList { get; set; }
 
     public double? KmKm { get; set; }
+
+    public double Litres { get; set; } // add it in DB as float not null 
 }

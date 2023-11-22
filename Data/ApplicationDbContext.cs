@@ -4,6 +4,8 @@
 // Remove [DatabaseGenerated(DatabaseGeneratedOption.None)]
 // Change Identity Specification > (Is Identity) from No to Yes in SSMS for all PK in all tables 
 
+//using Avto.Data.Enums;
+using Avto.Data.Enums;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -51,6 +53,45 @@ public class ApplicationDbContext : IdentityDbContext
 
         base.ConfigureConventions(builder);
 
+    }
+
+    public override int SaveChanges()
+    {
+        UpdateLitres();
+        return base.SaveChanges();
+    }
+
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        UpdateLitres();
+        return await base.SaveChangesAsync(cancellationToken);
+    }
+
+    private void UpdateLitres()
+    {
+        foreach (var entry in ChangeTracker.Entries())
+            if (entry.Entity is PList pList)
+            {
+                entry.Reference("Moto").Load(); // Eager load the Moto property
+
+                foreach (var transak in pList.Transaks)
+                {
+                    transak.Litres = (double)(transak.KmId switch
+                    {
+                        KmId.Основни => pList.Moto.OsnovnaNorma,
+                        KmId.Областни => pList.Moto.OkragNorma,
+                        KmId.Рудник => pList.Moto.RudnikNorma,
+                        KmId.София => pList.Moto.StolicaNorma,
+                        KmId.Ремарке => 0,
+                        KmId.Място => pList.Moto.MqstoNorma,
+                        KmId.Климатик => pList.Moto.KlimatikNorma,
+                        KmId.Агрегат => pList.Moto.AgregatNorma,
+                        KmId.Климатроник => pList.Moto.KlimaNorma,
+                        KmId.Печка => pList.Moto.PechkaNorma,
+                        _ => 0
+                    } * transak.KmKm) / 100;
+                }
+            }
     }
 }
 

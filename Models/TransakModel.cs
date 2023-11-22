@@ -26,12 +26,10 @@ public class TransakModel : BaseModel
     [DisplayName("Kм")]
     public double? KmKm { get; set; }
 
-    [NotMapped]
     [DisplayName("км")]
     public double Km => (KmId == KmId.Основни || KmId == KmId.Областни || KmId == KmId.Рудник || KmId == KmId.София) ?
                  (double)KmKm : 0;
 
-    [NotMapped]
     [DisplayName("Литри")]
     public double Litres => (PList != null) ?
             (double)(KmId switch
