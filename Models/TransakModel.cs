@@ -31,19 +31,5 @@ public class TransakModel : BaseModel
                  (double)KmKm : 0;
 
     [DisplayName("Литри")]
-    public double Litres => (PList != null) ?
-            (double)(KmId switch
-            {
-                KmId.Основни => PList.Moto.OsnovnaNorma,
-                KmId.Областни => PList.Moto.OkragNorma,
-                KmId.Рудник => PList.Moto.RudnikNorma,
-                KmId.София => PList.Moto.StolicaNorma,
-                KmId.Ремарке => 0,
-                KmId.Място => PList.Moto.MqstoNorma,
-                KmId.Климатик => PList.Moto.KlimatikNorma,
-                KmId.Агрегат => PList.Moto.AgregatNorma,
-                KmId.Климатроник => PList.Moto.KlimaNorma,
-                KmId.Печка => PList.Moto.PechkaNorma,
-                _ => 0
-            } * KmKm / 100) : 0;
+    public double Litres { get; set; }
 }

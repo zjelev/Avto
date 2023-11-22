@@ -24,23 +24,14 @@ public class ReportsController : Controller
         var transaks = GetTransaks(searchModel);
 
         List<IGrouping<string, ReportModel>> groupByOtdelThenMoto = transaks
-            .GroupBy(t => new { Otdel = t.Otdel.Name, Moto = t.PList.Moto.Number })
+            .GroupBy(t => new { t.OtdelId, t.PList.MotoId })
             .Select(group => new ReportModel
             {
-                Otdel = group.Key.Otdel,
-                Moto = group.Key.Moto,
+                Otdel = group.First().Otdel.Name,
+                MotoNumber = group.First().PList.Moto.Number,
+                Moto = group.First().PList.Moto.Name,
                 TotalKm = group.Sum(t => (t.KmId == KmId.Основни || t.KmId == KmId.Областни || t.KmId == KmId.Рудник || t.KmId == KmId.София) ? (double)t.KmKm : 0),
-                TotalLitres = group.Sum(t =>
-                    (double)((t.KmId == KmId.Основни ? t.PList.Moto.OsnovnaNorma :
-                    t.KmId == KmId.Областни ? t.PList.Moto.OkragNorma :
-                    t.KmId == KmId.Рудник ? t.PList.Moto.RudnikNorma :
-                    t.KmId == KmId.София ? t.PList.Moto.StolicaNorma :
-                    t.KmId == KmId.Място ? t.PList.Moto.MqstoNorma :
-                    t.KmId == KmId.Климатик ? t.PList.Moto.KlimatikNorma :
-                    t.KmId == KmId.Агрегат ? t.PList.Moto.AgregatNorma :
-                    t.KmId == KmId.Климатроник ? t.PList.Moto.KlimaNorma :
-                    t.KmId == KmId.Печка ? t.PList.Moto.PechkaNorma :
-                    0) * t.KmKm / 100.0))
+                TotalLitres = group.Sum(t => t.Litres)
             })
             .GroupBy(result => result.Otdel)
             .ToList();
@@ -106,7 +97,7 @@ public class ReportsController : Controller
         ViewData["CallingIndexView"] = ControllerContext.ActionDescriptor.ControllerName;
         ViewData["FormAction"] = ControllerContext.ActionDescriptor.ActionName;
 
-        var from = searchModel.From != null ? ViewService.ToNullableDateTime(searchModel.From) 
+        var from = searchModel.From != null ? ViewService.ToNullableDateTime(searchModel.From)
             : DateTime.Today.AddMonths(-1);
 
         var to = searchModel.To != null ? ViewService.ToNullableDateTime(searchModel.To)
@@ -125,7 +116,7 @@ public class ReportsController : Controller
 
         if (searchModel.SlujitelId != 0)
             query = query.Where(l => l.PList.SlujitelId == searchModel.SlujitelId);
-        
+
         if (!string.IsNullOrEmpty(searchModel.SlujitelName))
             query = query.Where(l => l.PList.Slujitel.Name.Contains(searchModel.SlujitelName));
 
@@ -135,5 +126,11 @@ public class ReportsController : Controller
             .Include(t => t.Otdel);
 
         return transaks;
+    }
+
+    public async Task<IActionResult> UpdateAllLitres(int Id)
+    {
+        _context.UpdateAllLitres(Id);
+        return RedirectToAction("Index", new SearchModel());
     }
 }

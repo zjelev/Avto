@@ -11,6 +11,9 @@ public class ReportModel
     [DisplayName("Автомобил")]
     public string Moto { get; set; }
 
+    [DisplayName("Рег. №")]
+    public string MotoNumber { get; set; }
+
     [DisplayName("Шофьор")]
     public string Slujitel { get; set; }
 

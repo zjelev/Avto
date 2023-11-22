@@ -7,6 +7,7 @@
 //using Avto.Data.Enums;
 using Avto.Data.Enums;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -92,6 +93,29 @@ public class ApplicationDbContext : IdentityDbContext
                     } * transak.KmKm) / 100;
                 }
             }
+    }
+
+    public void UpdateAllLitres(int kmId)
+    {
+        // select Id, OtdelId, KmId, PListId, KmKm, Litres from dbo.Transaks where KmId = 1 order by PListId desc
+        Database.ExecuteSqlRaw($@"
+UPDATE Transaks
+    SET Litres = COALESCE((CASE 
+        WHEN t.KmId = 1 THEN m.OsnovnaNorma
+        WHEN t.KmId = 2 THEN m.OkragNorma
+        WHEN t.KmId = 3 THEN m.RudnikNorma
+        WHEN t.KmId = 4 THEN m.StolicaNorma
+        WHEN t.KmId = 6 THEN m.MqstoNorma
+        WHEN t.KmId = 7 THEN m.KlimatikNorma
+        WHEN t.KmId = 8 THEN m.AgregatNorma
+        WHEN t.KmId = 14 THEN m.KlimaNorma
+        WHEN t.KmId = 15 THEN m.PechkaNorma
+        ELSE 0.0E0
+    END * KmKm) / 100.0, 0.0E0)
+	FROM Transaks t
+	JOIN Motos m ON t.MotoId = m.Id
+    WHERE t.KmId = @kmId
+    ", new SqlParameter("@kmId", kmId));
     }
 }
 

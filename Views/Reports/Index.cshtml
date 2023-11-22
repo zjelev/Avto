@@ -15,6 +15,7 @@
         <thead>
             <tr>
                 <th>№</th>
+                <th asp-display-name-for="@otdelGroup.FirstOrDefault().MotoNumber"></th>
                 <th asp-display-name-for="@otdelGroup.FirstOrDefault().Moto"></th>
                 <th asp-display-name-for="@otdelGroup.FirstOrDefault().TotalKm"></th>
                 <th asp-display-name-for="@otdelGroup.FirstOrDefault().TotalLitres"></th>
@@ -27,12 +28,14 @@
                 sumLitres += motoGroup.TotalLitres;
                 <tr>
                     <td>@(++count)</td>
+                    <td asp-display-for="@motoGroup.MotoNumber"></td>
                     <td asp-display-for="@motoGroup.Moto"></td>
                     <td asp-display-for="@motoGroup.TotalKm"></td>
                     <td>@Math.Round(motoGroup.TotalLitres, 2)</td>
                 </tr>
             }
             <tr>
+                <th></th>
                 <th></th>
                 <th>Общо</th>
                 <th>@sumKm</th>
