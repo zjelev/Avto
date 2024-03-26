@@ -33,6 +33,7 @@ public class ReportsController : Controller
                 TotalKm = group.Sum(t => (t.KmId == KmId.Основни || t.KmId == KmId.Областни || t.KmId == KmId.Рудник || t.KmId == KmId.София) ? (double)t.KmKm : 0),
                 TotalLitres = group.Sum(t => t.Litres)
             })
+            .OrderBy(result => result.MotoNumber)
             .GroupBy(result => result.Otdel)
             .ToList();
 

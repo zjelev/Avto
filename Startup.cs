@@ -1,46 +1,32 @@
-using Avto.Data;
-using Avto.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Extensions.Logging.EventLog;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace Avto;
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-
-builder.Services.AddAuthorization(options =>
-    options.FallbackPolicy = new AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser() //all users to be authenticated, except with [AllowAnonymous]
+internal class Startup
+{
+    private static void Main()
+    {
+        Host.CreateDefaultBuilder()
+        .ConfigureServices(services =>
+        {
+            services.AddHostedService<StartAsService>();
+            if (OperatingSystem.IsWindows())
+            {
+                services.Configure<EventLogSettings>(config =>
+                {
+                    if (OperatingSystem.IsWindows())
+                    {
+                        config.LogName = "Avto";
+                        config.SourceName = "Avto Source";
+                    }
+                });
+            }
+        })
+        .UseWindowsService()
         .Build()
-    );
+        .Run();
+    }
+}
 
-builder.Services.AddAutoMapper(typeof(Mapping));
-builder.Services.AddControllersWithViews();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-    app.UseMigrationsEndPoint();
-else
-    app.UseExceptionHandler("/Home/Error");
-
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=PLists}/{action=Index}/{id?}");
-
-app.MapRazorPages();
-
-app.Run();
+// sc create Avto binpath="d:\repo\avto\bin\release\net8.0\publish\Avto.exe"
+// sc start Avto
