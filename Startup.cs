@@ -28,5 +28,5 @@ internal class Startup
     }
 }
 
-// sc create Avto binpath="d:\repo\avto\bin\release\net8.0\publish\Avto.exe"
+// sc create Avto binpath="d:\Avto\Avto.exe"
 // sc start Avto

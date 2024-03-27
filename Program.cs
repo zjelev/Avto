@@ -17,7 +17,18 @@ public class Program
         builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-        builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+        builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+        {
+            options.SignIn.RequireConfirmedAccount = true;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequiredLength = 4;
+            options.Password.RequiredUniqueChars = 0;
+            options.Lockout.DefaultLockoutTimeSpan = new TimeSpan(0, 2, 0);
+            options.Lockout.MaxFailedAccessAttempts = 8;
+        })
+            .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
         builder.Services.AddAuthorization(options =>
@@ -43,9 +54,7 @@ public class Program
 
         app.UseAuthorization();
 
-        app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=PLists}/{action=Index}/{id?}");
+        app.MapControllerRoute(name: "default", pattern: "{controller=PLists}/{action=Index}/{id?}");
 
         app.MapRazorPages();
 
